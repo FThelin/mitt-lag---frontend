@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { Platform } from "react-native"
+import * as SecureStore from 'expo-secure-store';
 
 export const setLoggedIn = (state, action) => {
     state.isLoggedIn = action.payload
