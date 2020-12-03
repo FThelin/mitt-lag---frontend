@@ -1,23 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import { Platform } from 'react-native';
+import React from 'react';
+import {Provider} from "react-redux"
+import store from "./store"
+import Login from "./components/login/login"
+
+
 
 export default function App() {
-
   return (
-    <View style={styles.container}>
-      <Text>Mitt lag</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <Login />
+    </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
