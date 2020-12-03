@@ -35,16 +35,16 @@ const authSlice = createSlice({
     extraReducers: {
         [loginUser.fulfilled]: (state, action) => {          
           state.isLoggedIn = true
-          state.Loading = false
+          state.isLoading = false
           localStorage.setItem("token", action.payload)
         },
         [loginUser.pending]: (state) => { 
             state.isLoggedIn = false         
-            state.Loading = true            
+            state.isLoading = true            
         },
         [loginUser.rejected]: (state) => { 
             state.isLoggedIn = false         
-            state.Loading = false
+            state.isLoading = false
             state.showErrorMessage = true            
         },
       }
