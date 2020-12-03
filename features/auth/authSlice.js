@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { Platform } from "react-native"
 
 export const setLoggedIn = (state, action) => {
     state.isLoggedIn = action.payload
@@ -8,7 +9,7 @@ export const setLoggedIn = (state, action) => {
 export const loginUser = createAsyncThunk(
     'authSlice/loginUser',
     async ({email, password}) => {
-        const response = await fetch("http://localhost:5000/api/auth/login", {
+        const response = await fetch("https://mittlag.herokuapp.com/api/auth/login", {
             method: "POST",
             credentials: "include",
             headers: {
@@ -21,6 +22,14 @@ export const loginUser = createAsyncThunk(
             
             return data
 })
+
+export const saveJWT = async (token) => {
+    if (Platform.OS === 'web') {
+        localStorage.setItem('token', token);
+    } else {
+        await SecureStore.setItemAsync('jwt', token);
+    }
+}
 
 const authSlice = createSlice({
     name: "authSlice",
@@ -36,7 +45,7 @@ const authSlice = createSlice({
         [loginUser.fulfilled]: (state, action) => {          
           state.isLoggedIn = true
           state.isLoading = false
-          localStorage.setItem("token", action.payload)
+          saveJWT(action.payload)
         },
         [loginUser.pending]: (state) => { 
             state.isLoggedIn = false         
