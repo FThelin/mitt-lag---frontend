@@ -1,44 +1,51 @@
-import * as React from 'react';
-import { Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-// import { Icon } from 'react-native-elements'
-import Login from './login/login'
+import * as React from "react";
+import { BottomNavigation, Text } from "react-native-paper";
+import Login from "./login/login";
 
-function HomeScreen() {
+const MusicRoute = () => <Text>Music</Text>;
+
+const AlbumsRoute = () => <Text>Albums</Text>;
+
+const RecentsRoute = () => <Text>Recents</Text>;
+
+const Navigation = (props) => {
+  // const { colors } = props.theme;
+  const [index, setIndex] = React.useState(0);
+  const [routes] = React.useState([
+    {
+      key: "manageteam",
+      title: "Hantera lag",
+      icon: "account-group",
+    },
+    {
+      key: "games",
+      title: "Matcher",
+      icon: "emoticon-angry",
+    },
+    { key: "scoreboard", title: "Poängliga", icon: "format-list-numbered" },
+    { key: "leagues", title: "Mina ligor", icon: "medal" },
+  ]);
+
+  const renderScene = BottomNavigation.SceneMap({
+    manageteam: Login,
+    games: AlbumsRoute,
+    scoreboard: RecentsRoute,
+    leagues: MusicRoute,
+  });
+
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home!</Text>
-    </View>
+    <BottomNavigation
+      navigationState={{ index, routes }}
+      onIndexChange={setIndex}
+      renderScene={renderScene}
+      color="brown"
+      activeColor="#F1F1F1"
+      inactiveColor="#CECECE"
+      barStyle={{ backgroundColor: "#252037" }}
+    />
   );
-}
+};
 
-function SettingsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
+export default Navigation;
 
-const Tab = createBottomTabNavigator();
-
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Tab.Navigator
-      tabBarOptions={{
-        labelStyle: { fontSize: 12 },
-        tabStyle: { width: 100 },
-        style: { backgroundColor: 'grey' },
-        activeTintColor: 'tomato',
-        inactiveTintColor: 'gray',
-      }}
-      >
-        <Tab.Screen 
-     name="Login"  component={Login} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
-  );
-}
+// import Login from "./login/login";
