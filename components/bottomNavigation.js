@@ -1,6 +1,7 @@
 import * as React from "react";
 import { BottomNavigation, Text } from "react-native-paper";
 import Login from "./login/login";
+import LoginDetails from "./login/loginDetails";
 
 const MusicRoute = () => <Text>Music</Text>;
 
@@ -30,7 +31,7 @@ const Navigation = (props) => {
     manageteam: Login,
     games: AlbumsRoute,
     scoreboard: RecentsRoute,
-    leagues: MusicRoute,
+    leagues: LoginDetails,
   });
 
   return (
