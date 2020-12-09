@@ -18,11 +18,10 @@ export default function Header() {
 const styles = StyleSheet.create({
   header: {
     backgroundColor: "#252037",
-    flex: "flex",
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-end",
     justifyContent: "space-between",
-    height: "60px",
-    padding: "0.5rem",
+    height: 80,
+    padding: 8,
   },
 });

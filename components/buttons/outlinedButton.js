@@ -1,32 +1,29 @@
 import React from "react";
 import { Button } from "react-native-paper";
-import { StyleSheet, View, Text } from "react-native";
-import gradient from "../../assets/gradient.png";
+import { StyleSheet, Text } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function OutlinedButton(props) {
   return (
-    <View style={styles.container}>
+    <LinearGradient colors={["#EE8674", "#B35C79"]} style={styles.container}>
       <Button color="#DEDEDE" style={styles.button}>
         <Text style={{ fontSize: "12px", fontFamily: "Kodchasan_600SemiBold" }}>
           {props.buttonText}
         </Text>
       </Button>
-    </View>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundImage: `url(${gradient})`,
-    backgroundSize: "contain",
-    padding: "3px",
-    display: "flex",
+    padding: 3,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: "40px",
+    borderRadius: 20,
   },
   button: {
     backgroundColor: "#252037",
-    borderRadius: "40px",
+    borderRadius: 20,
   },
 });
