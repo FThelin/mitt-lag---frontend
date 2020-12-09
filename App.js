@@ -2,9 +2,26 @@ import React from "react";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import { Provider as StoreProvider } from "react-redux";
 import store from "./store";
+import {
+  useFonts,
+  Kodchasan_200ExtraLight,
+  Kodchasan_200ExtraLight_Italic,
+  Kodchasan_300Light,
+  Kodchasan_300Light_Italic,
+  Kodchasan_400Regular,
+  Kodchasan_400Regular_Italic,
+  Kodchasan_500Medium,
+  Kodchasan_500Medium_Italic,
+  Kodchasan_600SemiBold,
+  Kodchasan_600SemiBold_Italic,
+  Kodchasan_700Bold,
+  Kodchasan_700Bold_Italic,
+} from "@expo-google-fonts/kodchasan";
 
 // import Login from "./components/login/login"
+import Header from "./components/header/header";
 import BottomNavigation from "./components/bottomNavigation";
+import { AppLoading } from "expo";
 
 const theme = {
   ...DefaultTheme,
@@ -17,12 +34,32 @@ const theme = {
 };
 
 export default function App() {
-  return (
-    <PaperProvider theme={theme}>
-      <StoreProvider store={store}>
-        {/* <Login /> */}
-        <BottomNavigation />
-      </StoreProvider>
-    </PaperProvider>
-  );
+  let [fontsLoaded] = useFonts({
+    Kodchasan_200ExtraLight,
+    Kodchasan_200ExtraLight_Italic,
+    Kodchasan_300Light,
+    Kodchasan_300Light_Italic,
+    Kodchasan_400Regular,
+    Kodchasan_400Regular_Italic,
+    Kodchasan_500Medium,
+    Kodchasan_500Medium_Italic,
+    Kodchasan_600SemiBold,
+    Kodchasan_600SemiBold_Italic,
+    Kodchasan_700Bold,
+    Kodchasan_700Bold_Italic,
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  } else {
+    return (
+      <PaperProvider theme={theme}>
+        <StoreProvider store={store}>
+          <Header />
+          {/* <Login /> */}
+          <BottomNavigation />
+        </StoreProvider>
+      </PaperProvider>
+    );
+  }
 }
