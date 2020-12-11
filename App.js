@@ -18,10 +18,8 @@ import {
   Kodchasan_700Bold_Italic,
 } from "@expo-google-fonts/kodchasan";
 
-// import Login from "./components/login/login"
-import Header from "./components/header/header";
-import BottomNavigation from "./components/bottomNavigation";
 import { AppLoading } from "expo";
+import Landingpage from "./components/landingpage";
 
 const theme = {
   ...DefaultTheme,
@@ -55,9 +53,7 @@ export default function App() {
     return (
       <PaperProvider theme={theme}>
         <StoreProvider store={store}>
-          <Header />
-          {/* <Login /> */}
-          <BottomNavigation />
+          <Landingpage />
         </StoreProvider>
       </PaperProvider>
     );
