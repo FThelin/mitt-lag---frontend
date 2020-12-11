@@ -30,8 +30,8 @@ export default function Homepage() {
       <LightContainer>
         <View
           style={{
-            height: "90%",
-            width: "90%",
+            height: 300,
+            width: 300,
             justifyContent: "space-around",
           }}
         >

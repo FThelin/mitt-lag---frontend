@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "flex-end",
     justifyContent: "space-between",
-    height: 80,
+    height: 90,
     padding: 8,
   },
 });

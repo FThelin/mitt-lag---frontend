@@ -6,8 +6,13 @@ import { LinearGradient } from "expo-linear-gradient";
 export default function OutlinedButton(props) {
   return (
     <LinearGradient colors={["#EE8674", "#B35C79"]} style={styles.container}>
-      <Button color="#DEDEDE" style={styles.button}>
-        <Text style={{ fontSize: 12, fontFamily: "Kodchasan_600SemiBold" }}>
+      <Button compact={true} color="#DEDEDE" style={styles.button}>
+        <Text
+          style={{
+            fontSize: 12,
+            fontFamily: "Kodchasan_600SemiBold",
+          }}
+        >
           {props.buttonText}
         </Text>
       </Button>
