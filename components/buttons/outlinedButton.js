@@ -7,7 +7,7 @@ export default function OutlinedButton(props) {
   return (
     <LinearGradient colors={["#EE8674", "#B35C79"]} style={styles.container}>
       <Button color="#DEDEDE" style={styles.button}>
-        <Text style={{ fontSize: "12px", fontFamily: "Kodchasan_600SemiBold" }}>
+        <Text style={{ fontSize: 12, fontFamily: "Kodchasan_600SemiBold" }}>
           {props.buttonText}
         </Text>
       </Button>

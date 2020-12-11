@@ -18,7 +18,7 @@ export default function CircleIcon(props) {
       <Text
         style={{
           marginTop: 5,
-          fontSize: "14px",
+          fontSize: 14,
           fontFamily: "Kodchasan_600SemiBold",
           color: "#EDEDED",
         }}
