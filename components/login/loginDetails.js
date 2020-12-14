@@ -76,7 +76,8 @@ const styles = StyleSheet.create({
     color: "#F18873",
   },
   input: {
-    // backgroundColor: "#252037",
     height: 60,
+    textDecorationLine: "underline",
+    textDecorationColor: "white",
   },
 });
