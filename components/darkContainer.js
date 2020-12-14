@@ -4,7 +4,10 @@ import { View, StyleSheet, Image } from "react-native";
 export default function DarkContainer(props) {
   return (
     <View style={styles.container}>
-      <Image style={styles.tinyLogo} source={require("../assets/logo.png")} />
+      <Image
+        style={props.bigLogo ? styles.bigLogo : styles.tinyLogo}
+        source={require("../assets/logo.png")}
+      />
       {props.children}
     </View>
   );
@@ -20,5 +23,9 @@ const styles = StyleSheet.create({
   tinyLogo: {
     height: 80,
     width: 80,
+  },
+  bigLogo: {
+    height: 210,
+    width: 210,
   },
 });
