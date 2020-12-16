@@ -70,9 +70,7 @@ export default function LoginDetails({ navigation }) {
             <FilledButton
               buttonText="LOGGA IN"
               click={() => dispatch(loginUser(inputValues))}
-            >
-              LOGGA IN
-            </FilledButton>
+            ></FilledButton>
           </View>
         </View>
       </LightContainer>

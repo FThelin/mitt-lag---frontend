@@ -19,7 +19,10 @@ export default function Login({ navigation }) {
             buttonText="LOGGA IN"
             click={() => navigation.navigate("LoginDetails")}
           />
-          <OutlinedButton buttonText="SKAPA KONTO" />
+          <OutlinedButton
+            buttonText="SKAPA KONTO"
+            click={() => navigation.navigate("Register")}
+          />
         </View>
       </LightContainer>
     </>

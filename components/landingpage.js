@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import Login from "./login/login";
 import LoginDetails from "./login/loginDetails";
 import HomeScreen from "./HomeScreen";
+import Register from "./login/register";
 
 const Stack = createStackNavigator();
 
@@ -21,6 +22,7 @@ export default function Landingpage() {
           <>
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="LoginDetails" component={LoginDetails} />
+            <Stack.Screen name="Register" component={Register} />
           </>
         )}
       </Stack.Navigator>

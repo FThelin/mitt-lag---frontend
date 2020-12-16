@@ -1,24 +1,136 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { StyleSheet, Text, View } from "react-native";
-import { Button } from "react-native-paper";
+import DarkContainer from "../darkContainer";
+import LightContainer from "../lightContainer";
+import { TextInput, ActivityIndicator } from "react-native-paper";
+import OutlinedButton from "../buttons/outlinedButton";
+import { loginUser } from "../../features/auth/authSlice";
 
-export default function Register() {
-  //const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+export default function LoginDetails({ navigation }) {
+  const [inputValues, setInputValues] = React.useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+  const inputValue = (input, anchor) => {
+    setInputValues({ ...inputValues, [anchor]: input });
+  };
+
+  const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.auth.isLoading);
 
   return (
-    <View style={styles.container}>
-      <Button title="Test">REGISTRERA</Button>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <DarkContainer>
+        <Text style={styles.registerText}>Registrera dig...</Text>
+        {isLoading && <ActivityIndicator size="small" color="#ffffff" />}
+      </DarkContainer>
+      <LightContainer>
+        <View style={styles.container}>
+          <View>
+            <Text style={styles.text}>Förnamn</Text>
+            <TextInput
+              placeholder="Förnamn"
+              theme={{
+                colors: {
+                  placeholder: "grey",
+                  text: "white",
+                  primary: "white",
+                  background: "#252037",
+                },
+              }}
+              style={styles.input}
+              mode="outlined"
+              value={inputValues.firstName}
+              onChangeText={(e) => inputValue(e, "firstName")}
+            />
+          </View>
+          <View>
+            <Text style={styles.text}>Efternamn</Text>
+            <TextInput
+              placeholder="Efternamn"
+              theme={{
+                colors: {
+                  placeholder: "grey",
+                  text: "white",
+                  primary: "white",
+                  background: "#252037",
+                },
+              }}
+              style={styles.input}
+              mode="outlined"
+              value={inputValues.lastName}
+              onChangeText={(e) => inputValue(e, "lastName")}
+            />
+          </View>
+          <View>
+            <Text style={styles.text}>Email</Text>
+            <TextInput
+              placeholder="Email"
+              theme={{
+                colors: {
+                  placeholder: "grey",
+                  text: "white",
+                  primary: "white",
+                  background: "#252037",
+                },
+              }}
+              style={styles.input}
+              mode="outlined"
+              keyboardType="email-address"
+              value={inputValues.email}
+              onChangeText={(e) => inputValue(e, "email")}
+            />
+          </View>
+          <View>
+            <Text style={styles.text}>Lösenord</Text>
+            <TextInput
+              placeholder="Lösenord"
+              password={true}
+              theme={{
+                colors: {
+                  placeholder: "grey",
+                  text: "white",
+                  primary: "white",
+                  background: "#252037",
+                },
+              }}
+              style={styles.input}
+              secureTextEntry={true}
+              mode="outlined"
+              value={inputValues.password}
+              onChangeText={(e) => inputValue(e, "password")}
+            />
+          </View>
+          <View style={{ alignSelf: "center" }}>
+            <OutlinedButton
+              buttonText="SKAPA KONTO"
+              click={() => console.log(inputValues)}
+            ></OutlinedButton>
+          </View>
+        </View>
+      </LightContainer>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    width: "100%",
+    height: 400,
+    justifyContent: "space-between",
+  },
+  text: {
+    color: "#F18873",
+  },
+  input: {
+    height: 40,
+  },
+  registerText: {
+    color: "#CFCFCF",
+    fontSize: 18,
+    fontFamily: "Kodchasan_700Bold",
   },
 });
