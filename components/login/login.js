@@ -1,45 +1,40 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
-import { Button } from "react-native-paper";
-import { loginUser } from "../../features/auth/authSlice";
+import { StyleSheet, Text, View } from "react-native";
+import LightContainer from "../lightContainer";
+import DarkContainer from "../darkContainer";
+import FilledButton from "../buttons/filledButton";
+import OutlinedButton from "../buttons/outlinedButton";
 
-export default function Login() {
-  const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const isLoading = useSelector((state) => state.auth.isLoading);
+export default function Login({ navigation }) {
+  //const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   return (
-    <View style={styles.container}>
-      <Text>Logga in vettja...</Text>
-      <Button
-        onPress={() =>
-          dispatch(
-            loginUser({
-              email: "fredrikthelin82@gmail.com",
-              password: "123456",
-            })
-          )
-        }
-        title={isLoggedIn ? "LOGGA UT" : "LOGGA IN"}
-      >
-        LOGGA IN
-      </Button>
-      {isLoading && <ActivityIndicator size="small" color="#0000ff" />}
-      <Button onPress={() => console.log(isLoggedIn)} title="Test">
-        REGISTRERA
-      </Button>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <DarkContainer bigLogo="true"></DarkContainer>
+      <LightContainer>
+        <View style={styles.container}>
+          <Text style={styles.text}>Välkommen till SCORIFY!</Text>
+          <FilledButton
+            buttonText="LOGGA IN"
+            click={() => navigation.navigate("LoginDetails")}
+          />
+          <OutlinedButton buttonText="SKAPA KONTO" />
+        </View>
+      </LightContainer>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
+    height: 200,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
+  },
+  text: {
+    color: "#CFCFCF",
+    fontSize: 18,
+    fontFamily: "Kodchasan_700Bold",
   },
 });

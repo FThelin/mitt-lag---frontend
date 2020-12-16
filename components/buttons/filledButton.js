@@ -6,7 +6,12 @@ import { LinearGradient } from "expo-linear-gradient";
 export default function FilledButton(props) {
   return (
     <LinearGradient colors={["#EE8674", "#B35C79"]} style={styles.container}>
-      <Button compact={true} color="#DEDEDE" style={styles.button}>
+      <Button
+        compact={true}
+        color="#DEDEDE"
+        style={styles.button}
+        onPress={props.click}
+      >
         <Text
           style={{
             fontSize: 18,
