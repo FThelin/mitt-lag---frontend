@@ -1,23 +1,31 @@
 import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import { useSelector } from "react-redux";
-//import Login from "./login/login";
-import Header from "./header/header";
-import BottomNavigation from "./bottomNavigation";
+import Login from "./login/login";
+import LoginDetails from "./login/loginDetails";
+import HomeScreen from "./HomeScreen";
+import Register from "./login/register";
+
+const Stack = createStackNavigator();
 
 export default function Landingpage() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  // return isLoggedIn ? (
-  //   <>
-  //     <Header />
-  //     <BottomNavigation />
-  //   </>
-  // ) : (
-  //   <Login />
-  // );
   return (
-    <>
-      <Header />
-      <BottomNavigation />
-    </>
+    <NavigationContainer>
+      <Stack.Navigator headerMode="none">
+        {isLoggedIn ? (
+          <>
+            <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="LoginDetails" component={LoginDetails} />
+            <Stack.Screen name="Register" component={Register} />
+          </>
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }

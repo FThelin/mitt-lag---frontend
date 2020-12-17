@@ -22,7 +22,28 @@ export const loginUser = createAsyncThunk(
       }
     );
 
-    const data = response.json();
+    const data = await response.json();
+
+    return data;
+  }
+);
+
+export const registerUser = createAsyncThunk(
+  "authSlice/registerUser",
+  async ({ firstname, lastname, email, password }) => {
+    const response = await fetch(
+      "https://mittlag.herokuapp.com/api/users/register",
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ firstname, lastname, email, password }),
+      }
+    );
+
+    const data = await response.json();
 
     return data;
   }
@@ -70,6 +91,15 @@ const authSlice = createSlice({
       state.isLoggedIn = false;
       state.isLoading = false;
       state.showErrorMessage = true;
+    },
+    [registerUser.fulfilled]: (state, action) => {
+      state.isLoading = false;
+    },
+    [registerUser.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [registerUser.rejected]: (state) => {
+      state.isLoading = false;
     },
   },
 });
