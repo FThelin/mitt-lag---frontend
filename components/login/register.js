@@ -5,12 +5,12 @@ import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
 import { TextInput, ActivityIndicator } from "react-native-paper";
 import OutlinedButton from "../buttons/outlinedButton";
-import { loginUser } from "../../features/auth/authSlice";
+import { registerUser } from "../../features/auth/authSlice";
 
 export default function LoginDetails({ navigation }) {
   const [inputValues, setInputValues] = React.useState({
-    firstName: "",
-    lastName: "",
+    firstname: "",
+    lastname: "",
     email: "",
     password: "",
   });
@@ -20,6 +20,11 @@ export default function LoginDetails({ navigation }) {
 
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.auth.isLoading);
+
+  const register = () => {
+    dispatch(registerUser(inputValues));
+    navigation.navigate("Login");
+  };
 
   return (
     <>
@@ -43,8 +48,8 @@ export default function LoginDetails({ navigation }) {
               }}
               style={styles.input}
               mode="outlined"
-              value={inputValues.firstName}
-              onChangeText={(e) => inputValue(e, "firstName")}
+              value={inputValues.firstname}
+              onChangeText={(e) => inputValue(e, "firstname")}
             />
           </View>
           <View>
@@ -61,8 +66,8 @@ export default function LoginDetails({ navigation }) {
               }}
               style={styles.input}
               mode="outlined"
-              value={inputValues.lastName}
-              onChangeText={(e) => inputValue(e, "lastName")}
+              value={inputValues.lastname}
+              onChangeText={(e) => inputValue(e, "lastname")}
             />
           </View>
           <View>
@@ -107,7 +112,7 @@ export default function LoginDetails({ navigation }) {
           <View style={{ alignSelf: "center" }}>
             <OutlinedButton
               buttonText="SKAPA KONTO"
-              click={() => console.log(inputValues)}
+              click={() => register()}
             ></OutlinedButton>
           </View>
         </View>
