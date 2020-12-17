@@ -22,7 +22,7 @@ export const loginUser = createAsyncThunk(
       }
     );
 
-    const data = response.json();
+    const data = await response.json();
 
     return data;
   }
@@ -43,7 +43,7 @@ export const registerUser = createAsyncThunk(
       }
     );
 
-    const data = response.json();
+    const data = await response.json();
 
     return data;
   }
