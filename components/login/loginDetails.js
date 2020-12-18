@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { StyleSheet, Text, View } from "react-native";
 import DarkContainer from "../darkContainer";
@@ -9,6 +9,7 @@ import { loginUser } from "../../features/auth/authSlice";
 import ThrowMessage from "../throwMessage";
 
 export default function LoginDetails({ navigation }) {
+  //Input fields
   const [inputValues, setInputValues] = React.useState({
     email: "",
     password: "",
@@ -17,12 +18,14 @@ export default function LoginDetails({ navigation }) {
     setInputValues({ ...inputValues, [anchor]: input });
   };
 
+  //Redux
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.auth.isLoading);
   const showLoginErrorMessage = useSelector(
     (state) => state.auth.showLoginErrorMessage
   );
 
+  //Login
   const logIn = async () => {
     const response = await dispatch(loginUser(inputValues));
     const user = await response.payload;
@@ -43,7 +46,6 @@ export default function LoginDetails({ navigation }) {
           <View>
             <Text style={styles.text}>Email</Text>
             <TextInput
-              placeholder="Email"
               theme={{
                 colors: {
                   placeholder: "grey",
@@ -62,7 +64,6 @@ export default function LoginDetails({ navigation }) {
           <View>
             <Text style={styles.text}>Lösenord</Text>
             <TextInput
-              placeholder="Lösenord"
               password={true}
               theme={{
                 colors: {
@@ -79,7 +80,7 @@ export default function LoginDetails({ navigation }) {
               onChangeText={(e) => inputValue(e, "password")}
             />
           </View>
-          <View style={{ width: "40%", alignSelf: "center", marginTop: 20 }}>
+          <View style={{ width: "50%", alignSelf: "center", marginTop: 20 }}>
             <FilledButton
               buttonText="LOGGA IN"
               click={() => logIn()}
@@ -89,7 +90,7 @@ export default function LoginDetails({ navigation }) {
               color="#F18873"
               onPress={() => navigation.goBack()}
             >
-              TILLBAKA
+              <Text style={{ fontFamily: "Kodchasan_300Light" }}>TILLBAKA</Text>
             </Button>
           </View>
         </View>
@@ -109,6 +110,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#F18873",
+    fontFamily: "Kodchasan_300Light",
   },
   input: {
     height: 40,
