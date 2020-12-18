@@ -81,11 +81,13 @@ const authSlice = createSlice({
     [loginUser.fulfilled]: (state, action) => {
       state.isLoggedIn = true;
       state.isLoading = false;
+      state.showErrorMessage = false;
       saveJWT(action.payload);
     },
     [loginUser.pending]: (state) => {
       state.isLoggedIn = false;
       state.isLoading = true;
+      state.showErrorMessage = false;
     },
     [loginUser.rejected]: (state) => {
       state.isLoggedIn = false;
@@ -94,12 +96,15 @@ const authSlice = createSlice({
     },
     [registerUser.fulfilled]: (state, action) => {
       state.isLoading = false;
+      state.showErrorMessage = false;
     },
     [registerUser.pending]: (state) => {
       state.isLoading = true;
+      state.showErrorMessage = false;
     },
     [registerUser.rejected]: (state) => {
       state.isLoading = false;
+      state.showErrorMessage = true;
     },
   },
 });

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { StyleSheet, Text, View } from "react-native";
 import DarkContainer from "../darkContainer";
+import ThrowMessage from "../throwMessage";
 import LightContainer from "../lightContainer";
-import { TextInput, ActivityIndicator } from "react-native-paper";
+import { TextInput, ActivityIndicator, Button } from "react-native-paper";
 import OutlinedButton from "../buttons/outlinedButton";
 import { registerUser } from "../../features/auth/authSlice";
 
@@ -20,10 +21,14 @@ export default function LoginDetails({ navigation }) {
 
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.auth.isLoading);
+  const showErrorMessage = useSelector((state) => state.auth.showErrorMessage);
 
-  const register = () => {
-    dispatch(registerUser(inputValues));
-    navigation.navigate("Login");
+  const register = async () => {
+    const response = await dispatch(registerUser(inputValues));
+    const user = await response.payload;
+    if (user) {
+      navigation.navigate("Login");
+    }
   };
 
   return (
@@ -109,13 +114,25 @@ export default function LoginDetails({ navigation }) {
               onChangeText={(e) => inputValue(e, "password")}
             />
           </View>
-          <View style={{ alignSelf: "center" }}>
-            <OutlinedButton
-              buttonText="SKAPA KONTO"
-              click={() => register()}
-            ></OutlinedButton>
+          <View
+            style={{
+              alignItems: "center",
+              marginTop: 10,
+            }}
+          >
+            <OutlinedButton buttonText="SKAPA KONTO" click={() => register()} />
+            <Button
+              icon="keyboard-backspace"
+              color="#F18873"
+              onPress={() => navigation.goBack()}
+            >
+              TILLBAKA
+            </Button>
           </View>
         </View>
+        {showErrorMessage && (
+          <ThrowMessage message="Kan inte skapa användare..." />
+        )}
       </LightContainer>
     </>
   );
