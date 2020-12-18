@@ -73,7 +73,6 @@ export default function LoginDetails({ navigation }) {
               mode="outlined"
               value={inputValues.firstname}
               onChangeText={(e) => inputValue(e, "firstname")}
-              selectionColor="#purple"
             />
           </View>
           <View>
