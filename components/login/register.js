@@ -21,7 +21,9 @@ export default function LoginDetails({ navigation }) {
 
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.auth.isLoading);
-  const showErrorMessage = useSelector((state) => state.auth.showErrorMessage);
+  const showRegisterErrorMessage = useSelector(
+    (state) => state.auth.showRegisterErrorMessage
+  );
 
   const register = async () => {
     const response = await dispatch(registerUser(inputValues));
@@ -130,7 +132,7 @@ export default function LoginDetails({ navigation }) {
             </Button>
           </View>
         </View>
-        {showErrorMessage && (
+        {showRegisterErrorMessage && (
           <ThrowMessage message="Kan inte skapa användare..." />
         )}
       </LightContainer>

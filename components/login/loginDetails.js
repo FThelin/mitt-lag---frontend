@@ -19,7 +19,9 @@ export default function LoginDetails({ navigation }) {
 
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.auth.isLoading);
-  const showErrorMessage = useSelector((state) => state.auth.showErrorMessage);
+  const showLoginErrorMessage = useSelector(
+    (state) => state.auth.showLoginErrorMessage
+  );
 
   const logIn = async () => {
     const response = await dispatch(loginUser(inputValues));
@@ -91,7 +93,7 @@ export default function LoginDetails({ navigation }) {
             </Button>
           </View>
         </View>
-        {showErrorMessage && (
+        {showLoginErrorMessage && (
           <ThrowMessage message="Fel email eller lösenord" />
         )}
       </LightContainer>
