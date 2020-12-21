@@ -2,10 +2,9 @@ import React from "react";
 import { Text, View } from "react-native";
 import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
-import CircleIcon from "../buttons/circleIcon";
-import { useDispatch } from "react-redux";
+import CircleIcon from "../buttons/circleIcoimport";
+import { useDispatch, useSelector } from "react-redux";
 import { setNavigationIndex } from "../../features/navigaton/navigationSlice";
-import { useSelector } from "react-redux";
 
 export default function Homepage() {
   const dispatch = useDispatch();
@@ -74,6 +73,9 @@ export default function Homepage() {
               buttonText="Mina ligor"
               click={() => dispatch(setNavigationIndex(4))}
             />
+            <CircleIcon icon="medal" buttonText="Mina ligor" />
+            cleIcon icon="medal" buttonText="Mina ligor" /> rcleIcon
+            icon="medal" buttonText="Mina ligor" />
           </View>
         </View>
       </LightContainer>
