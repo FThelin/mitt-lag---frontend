@@ -5,6 +5,7 @@ import DarkContainer from "../darkContainer";
 import ThrowMessage from "../throwMessage";
 import LightContainer from "../lightContainer";
 import {
+  HelperText,
   TextInput,
   ActivityIndicator,
   Button,
@@ -25,6 +26,11 @@ export default function LoginDetails({ navigation }) {
   });
   const inputValue = (input, anchor) => {
     setInputValues({ ...inputValues, [anchor]: input });
+  };
+
+  // Error message
+  const hasError = () => {
+    return !inputValues.email.includes("@");
   };
 
   //Modal
@@ -109,6 +115,11 @@ export default function LoginDetails({ navigation }) {
               value={inputValues.email}
               onChangeText={(e) => inputValue(e, "email")}
             />
+            {inputValues.email && (
+              <HelperText type="error" visible={hasError()}>
+                Email bör innehålla @
+              </HelperText>
+            )}
           </View>
           <View>
             <Text style={styles.text}>Lösenord</Text>

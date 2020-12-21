@@ -8,6 +8,12 @@ import { setNavigationIndex } from "../../features/navigaton/navigationSlice";
 
 export default function Homepage() {
   const dispatch = useDispatch();
+
+import { useSelector } from "react-redux";
+
+export default function Homepage() {
+  const loggedInUser = useSelector((state) => state.auth.loggedInUser);
+
   return (
     <>
       <DarkContainer>
@@ -18,7 +24,7 @@ export default function Homepage() {
             fontFamily: "Kodchasan_500Medium",
           }}
         >
-          Inloggad som Fredrik Thelin
+          {`Inloggad som ${loggedInUser.firstname} ${loggedInUser.lastname}`}
         </Text>
         <Text
           style={{

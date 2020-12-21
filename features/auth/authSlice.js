@@ -2,8 +2,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Platform } from "react-native";
 import * as SecureStore from "expo-secure-store";
 
-export const setLoggedIn = (state, action) => {
-  isLoggedIn = action.payload;
+import jwt_decode from "jwt-decode";
+
+const checkLoggedInUser = (state, action) => {
+  const decoded = jwt_decode(action);
+  state.loggedInUser = decoded;
   return state;
 };
 
@@ -27,6 +30,23 @@ export const loginUser = createAsyncThunk(
     return data;
   }
 );
+
+export const logoutUser = createAsyncThunk("authSlice/logoutUser", async () => {
+  const response = await fetch(
+    "https://mittlag.herokuapp.com/api/auth/logout",
+    {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  const data = await response.json();
+
+  return data;
+});
 
 export const registerUser = createAsyncThunk(
   "authSlice/registerUser",
@@ -67,6 +87,14 @@ export const getJWT = async () => {
   }
 };
 
+export const deleteJwt = async () => {
+  if (Platform.OS === "web") {
+    localStorage.clear();
+  } else {
+    await SecureStore.deleteItemAsync("jwt");
+  }
+};
+
 const authSlice = createSlice({
   name: "authSlice",
   initialState: {
@@ -74,9 +102,10 @@ const authSlice = createSlice({
     isLoading: false,
     showLoginErrorMessage: false,
     showRegisterErrorMessage: false,
+    loggedInUser: {},
   },
   reducers: {
-    setLoggedIn,
+    checkLoggedInUser,
   },
   extraReducers: {
     [loginUser.fulfilled]: (state, action) => {
@@ -84,6 +113,7 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.showLoginErrorMessage = false;
       saveJWT(action.payload);
+      checkLoggedInUser(state, action.payload);
     },
     [loginUser.pending]: (state) => {
       state.isLoggedIn = false;
@@ -106,6 +136,17 @@ const authSlice = createSlice({
     [registerUser.rejected]: (state) => {
       state.isLoading = false;
       state.showRegisterErrorMessage = true;
+    },
+    [logoutUser.fulfilled]: (state) => {
+      state.isLoggedIn = false;
+      state.isLoading = false;
+      deleteJwt();
+    },
+    [logoutUser.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [logoutUser.rejected]: (state) => {
+      state.isLoading = false;
     },
   },
 });
