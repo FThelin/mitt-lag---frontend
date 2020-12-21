@@ -28,6 +28,23 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+export const logoutUser = createAsyncThunk("authSlice/logoutUser", async () => {
+  const response = await fetch(
+    "https://mittlag.herokuapp.com/api/auth/logout",
+    {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  const data = await response.json();
+
+  return data;
+});
+
 export const registerUser = createAsyncThunk(
   "authSlice/registerUser",
   async ({ firstname, lastname, email, password }) => {
@@ -64,6 +81,14 @@ export const getJWT = async () => {
   } else {
     const jwt = await SecureStore.getItemAsync("jwt");
     return jwt;
+  }
+};
+
+export const deleteJwt = async () => {
+  if (Platform.OS === "web") {
+    localStorage.clear();
+  } else {
+    await SecureStore.deleteItemAsync("jwt");
   }
 };
 
@@ -106,6 +131,17 @@ const authSlice = createSlice({
     [registerUser.rejected]: (state) => {
       state.isLoading = false;
       state.showRegisterErrorMessage = true;
+    },
+    [logoutUser.fulfilled]: (state) => {
+      state.isLoggedIn = false;
+      state.isLoading = false;
+      deleteJwt();
+    },
+    [logoutUser.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [logoutUser.rejected]: (state) => {
+      state.isLoading = false;
     },
   },
 });
