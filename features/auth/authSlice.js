@@ -98,7 +98,7 @@ export const deleteJwt = async () => {
 const authSlice = createSlice({
   name: "authSlice",
   initialState: {
-    isLoggedIn: true,
+    isLoggedIn: false,
     isLoading: false,
     showLoginErrorMessage: false,
     showRegisterErrorMessage: false,
@@ -109,7 +109,7 @@ const authSlice = createSlice({
   },
   extraReducers: {
     [loginUser.fulfilled]: (state, action) => {
-      state.isLoggedIn = false;
+      state.isLoggedIn = true;
       state.isLoading = false;
       state.showLoginErrorMessage = false;
       saveJWT(action.payload);
