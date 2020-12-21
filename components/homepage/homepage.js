@@ -3,8 +3,11 @@ import { Text, View } from "react-native";
 import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
 import CircleIcon from "../buttons/circleIcon";
+import { useDispatch } from "react-redux";
+import { setNavigationIndex } from "../../features/navigaton/navigationSlice";
 
 export default function Homepage() {
+  const dispatch = useDispatch();
   return (
     <>
       <DarkContainer>
@@ -41,8 +44,16 @@ export default function Homepage() {
               justifyContent: "space-around",
             }}
           >
-            <CircleIcon icon="account-group" buttonText="Hantera lag" />
-            <CircleIcon icon="emoticon-angry" buttonText="Matcher" />
+            <CircleIcon
+              icon="account-group"
+              buttonText="Hantera lag"
+              click={() => dispatch(setNavigationIndex(1))}
+            />
+            <CircleIcon
+              icon="emoticon-angry"
+              buttonText="Matcher"
+              click={() => dispatch(setNavigationIndex(2))}
+            />
           </View>
           <View
             style={{
@@ -50,8 +61,16 @@ export default function Homepage() {
               justifyContent: "space-around",
             }}
           >
-            <CircleIcon icon="format-list-numbered" buttonText="Poängliga" />
-            <CircleIcon icon="medal" buttonText="Mina ligor" />
+            <CircleIcon
+              icon="format-list-numbered"
+              buttonText="Poängliga"
+              click={() => dispatch(setNavigationIndex(3))}
+            />
+            <CircleIcon
+              icon="medal"
+              buttonText="Mina ligor"
+              click={() => dispatch(setNavigationIndex(4))}
+            />
           </View>
         </View>
       </LightContainer>

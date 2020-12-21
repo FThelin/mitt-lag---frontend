@@ -1,31 +1,33 @@
 import React from "react";
 import { Button } from "react-native-paper";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function CircleIcon(props) {
   return (
-    <View style={styles.container}>
-      <LinearGradient
-        colors={["#EE8674", "#B35C79"]}
-        style={styles.linearGradient}
-      >
-        <Button color="#DEDEDE" style={styles.button}>
-          <Icon name={props.icon} size={58} color="#EDEDED" />
-        </Button>
-      </LinearGradient>
-      <Text
-        style={{
-          marginTop: 5,
-          fontSize: 14,
-          fontFamily: "Kodchasan_600SemiBold",
-          color: "#EDEDED",
-        }}
-      >
-        {props.buttonText}
-      </Text>
-    </View>
+    <TouchableOpacity style={{ padding: "0.6rem" }} onPress={props.click}>
+      <View style={styles.container}>
+        <LinearGradient
+          colors={["#EE8674", "#B35C79"]}
+          style={styles.linearGradient}
+        >
+          <View color="#DEDEDE" style={styles.button}>
+            <Icon name={props.icon} size={58} color="#EDEDED" />
+          </View>
+        </LinearGradient>
+        <Text
+          style={{
+            marginTop: 5,
+            fontSize: 14,
+            fontFamily: "Kodchasan_600SemiBold",
+            color: "#EDEDED",
+          }}
+        >
+          {props.buttonText}
+        </Text>
+      </View>
+    </TouchableOpacity>
   );
 }
 

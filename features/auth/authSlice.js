@@ -70,7 +70,7 @@ export const getJWT = async () => {
 const authSlice = createSlice({
   name: "authSlice",
   initialState: {
-    isLoggedIn: false,
+    isLoggedIn: true,
     isLoading: false,
     showLoginErrorMessage: false,
     showRegisterErrorMessage: false,
