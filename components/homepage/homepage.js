@@ -73,9 +73,6 @@ export default function Homepage() {
               buttonText="Mina ligor"
               click={() => dispatch(setNavigationIndex(4))}
             />
-            <CircleIcon icon="medal" buttonText="Mina ligor" />
-            cleIcon icon="medal" buttonText="Mina ligor" /> rcleIcon
-            icon="medal" buttonText="Mina ligor" />
           </View>
         </View>
       </LightContainer>
