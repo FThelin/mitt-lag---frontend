@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View } from "react-native";
 import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
-import CircleIcon from "../buttons/circleIcoimport";
+import CircleIcon from "../buttons/circleIcon";
 import { useDispatch, useSelector } from "react-redux";
 import { setNavigationIndex } from "../../features/navigaton/navigationSlice";
 
