@@ -109,7 +109,7 @@ const authSlice = createSlice({
   },
   extraReducers: {
     [loginUser.fulfilled]: (state, action) => {
-      state.isLoggedIn = true;
+      state.isLoggedIn = false;
       state.isLoading = false;
       state.showLoginErrorMessage = false;
       saveJWT(action.payload);

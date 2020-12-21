@@ -5,13 +5,10 @@ import LightContainer from "../lightContainer";
 import CircleIcon from "../buttons/circleIcon";
 import { useDispatch } from "react-redux";
 import { setNavigationIndex } from "../../features/navigaton/navigationSlice";
-
-export default function Homepage() {
-  const dispatch = useDispatch();
-
 import { useSelector } from "react-redux";
 
 export default function Homepage() {
+  const dispatch = useDispatch();
   const loggedInUser = useSelector((state) => state.auth.loggedInUser);
 
   return (
