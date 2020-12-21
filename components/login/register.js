@@ -1,14 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { StyleSheet, Text, View } from "react-native";
 import DarkContainer from "../darkContainer";
+import ThrowMessage from "../throwMessage";
 import LightContainer from "../lightContainer";
-import { TextInput, ActivityIndicator } from "react-native-paper";
+import {
+  TextInput,
+  ActivityIndicator,
+  Button,
+  Modal,
+  Portal,
+} from "react-native-paper";
 import OutlinedButton from "../buttons/outlinedButton";
 import { registerUser } from "../../features/auth/authSlice";
+import FilledButton from "../buttons/filledButton";
 
 export default function LoginDetails({ navigation }) {
-  const [inputValues, setInputValues] = React.useState({
+  //Input fields
+  const [inputValues, setInputValues] = useState({
     firstname: "",
     lastname: "",
     email: "",
@@ -18,12 +27,27 @@ export default function LoginDetails({ navigation }) {
     setInputValues({ ...inputValues, [anchor]: input });
   };
 
+  //Modal
+  const [visible, setVisible] = React.useState(false);
+  const showModal = () => setVisible(true);
+  const hideModal = () => {
+    navigation.navigate("Login");
+  };
+
+  //Redux
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.auth.isLoading);
+  const showRegisterErrorMessage = useSelector(
+    (state) => state.auth.showRegisterErrorMessage
+  );
 
-  const register = () => {
-    dispatch(registerUser(inputValues));
-    navigation.navigate("Login");
+  //Register
+  const register = async () => {
+    const response = await dispatch(registerUser(inputValues));
+    const user = await response.payload;
+    if (user) {
+      showModal();
+    }
   };
 
   return (
@@ -37,7 +61,6 @@ export default function LoginDetails({ navigation }) {
           <View>
             <Text style={styles.text}>Förnamn</Text>
             <TextInput
-              placeholder="Förnamn"
               theme={{
                 colors: {
                   placeholder: "grey",
@@ -55,7 +78,6 @@ export default function LoginDetails({ navigation }) {
           <View>
             <Text style={styles.text}>Efternamn</Text>
             <TextInput
-              placeholder="Efternamn"
               theme={{
                 colors: {
                   placeholder: "grey",
@@ -73,7 +95,6 @@ export default function LoginDetails({ navigation }) {
           <View>
             <Text style={styles.text}>Email</Text>
             <TextInput
-              placeholder="Email"
               theme={{
                 colors: {
                   placeholder: "grey",
@@ -92,7 +113,6 @@ export default function LoginDetails({ navigation }) {
           <View>
             <Text style={styles.text}>Lösenord</Text>
             <TextInput
-              placeholder="Lösenord"
               password={true}
               theme={{
                 colors: {
@@ -109,13 +129,40 @@ export default function LoginDetails({ navigation }) {
               onChangeText={(e) => inputValue(e, "password")}
             />
           </View>
-          <View style={{ alignSelf: "center" }}>
-            <OutlinedButton
-              buttonText="SKAPA KONTO"
-              click={() => register()}
-            ></OutlinedButton>
+          <View
+            style={{
+              alignItems: "center",
+              marginTop: 10,
+            }}
+          >
+            <OutlinedButton buttonText="SKAPA KONTO" click={() => register()} />
+            <Button
+              icon="keyboard-backspace"
+              color="#F18873"
+              onPress={() => navigation.goBack()}
+            >
+              <Text style={{ fontFamily: "Kodchasan_300Light" }}>TILLBAKA</Text>
+            </Button>
           </View>
         </View>
+        {showRegisterErrorMessage && (
+          <ThrowMessage message="Kan inte skapa användare..." />
+        )}
+        <Portal>
+          <Modal
+            visible={visible}
+            onDismiss={hideModal}
+            contentContainerStyle={styles.modalStyle}
+          >
+            <Text style={{ fontFamily: "Kodchasan_600SemiBold" }}>
+              Användare skapad. Nu kan du logga in!
+            </Text>
+            <FilledButton
+              buttonText="SWEET!"
+              click={() => navigation.navigate("Login")}
+            />
+          </Modal>
+        </Portal>
       </LightContainer>
     </>
   );
@@ -129,6 +176,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#F18873",
+    fontFamily: "Kodchasan_300Light",
   },
   input: {
     height: 40,
@@ -137,5 +185,14 @@ const styles = StyleSheet.create({
     color: "#CFCFCF",
     fontSize: 18,
     fontFamily: "Kodchasan_700Bold",
+  },
+  modalStyle: {
+    backgroundColor: "#CECECE",
+    width: "80%",
+    height: 100,
+    alignItems: "center",
+    justifyContent: "space-around",
+    borderRadius: 5,
+    alignSelf: "center",
   },
 });
