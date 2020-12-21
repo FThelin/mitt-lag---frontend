@@ -2,8 +2,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Platform } from "react-native";
 import * as SecureStore from "expo-secure-store";
 
-export const setLoggedIn = (state, action) => {
-  isLoggedIn = action.payload;
+import jwt_decode from "jwt-decode";
+
+const checkLoggedInUser = (state, action) => {
+  const decoded = jwt_decode(action);
+  state.loggedInUser = decoded;
   return state;
 };
 
@@ -99,9 +102,10 @@ const authSlice = createSlice({
     isLoading: false,
     showLoginErrorMessage: false,
     showRegisterErrorMessage: false,
+    loggedInUser: {},
   },
   reducers: {
-    setLoggedIn,
+    checkLoggedInUser,
   },
   extraReducers: {
     [loginUser.fulfilled]: (state, action) => {
@@ -109,6 +113,7 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.showLoginErrorMessage = false;
       saveJWT(action.payload);
+      checkLoggedInUser(state, action.payload);
     },
     [loginUser.pending]: (state) => {
       state.isLoggedIn = false;

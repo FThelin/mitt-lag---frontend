@@ -29,7 +29,6 @@ export default function LoginDetails({ navigation }) {
   const logIn = async () => {
     const response = await dispatch(loginUser(inputValues));
     const user = await response.payload;
-    console.log(user);
     if (user) {
       navigation.navigate("HomeScreen");
     }

@@ -3,8 +3,11 @@ import { Text, View } from "react-native";
 import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
 import CircleIcon from "../buttons/circleIcon";
+import { useSelector } from "react-redux";
 
 export default function Homepage() {
+  const loggedInUser = useSelector((state) => state.auth.loggedInUser);
+
   return (
     <>
       <DarkContainer>
@@ -15,7 +18,7 @@ export default function Homepage() {
             fontFamily: "Kodchasan_500Medium",
           }}
         >
-          Inloggad som Fredrik Thelin
+          {`Inloggad som ${loggedInUser.firstname} ${loggedInUser.lastname}`}
         </Text>
         <Text
           style={{
