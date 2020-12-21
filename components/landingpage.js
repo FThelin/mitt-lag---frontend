@@ -6,6 +6,8 @@ import Login from "./login/login";
 import LoginDetails from "./login/loginDetails";
 import HomeScreen from "./HomeScreen";
 import Register from "./login/register";
+import ManageTeam from "./manageteam/ManageTeam";
+import Homepage from "./homepage/homepage";
 
 const Stack = createStackNavigator();
 
@@ -17,6 +19,8 @@ export default function Landingpage() {
         {isLoggedIn ? (
           <>
             <Stack.Screen name="HomeScreen" component={HomeScreen} />
+            <Stack.Screen name="HomePage" component={Homepage} />
+            <Stack.Screen name="ManageTeam" component={ManageTeam} />
           </>
         ) : (
           <>

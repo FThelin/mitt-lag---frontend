@@ -1,6 +1,8 @@
 import * as React from "react";
 import { BottomNavigation, Text } from "react-native-paper";
 import Homepage from "./homepage/homepage";
+import { useSelector, useDispatch } from "react-redux";
+import { setNavigationIndex } from "../features/navigaton/navigationSlice";
 
 const MusicRoute = () => <Text>Music</Text>;
 
@@ -11,8 +13,10 @@ const RecentsRoute = () => <Text>Recents</Text>;
 const TestRoute = () => <Text>Test</Text>;
 
 const Navigation = (props) => {
-  // const { colors } = props.theme;
-  const [index, setIndex] = React.useState(0);
+  const dispatch = useDispatch();
+  const navigationIndex = useSelector(
+    (state) => state.navigation.navigationIndex
+  );
   const [routes] = React.useState([
     {
       key: "homepage",
@@ -43,10 +47,9 @@ const Navigation = (props) => {
 
   return (
     <BottomNavigation
-      navigationState={{ index, routes }}
-      onIndexChange={setIndex}
+      navigationState={{ index: navigationIndex, routes }}
+      onIndexChange={(e) => dispatch(setNavigationIndex(e))}
       renderScene={renderScene}
-      color="brown"
       activeColor="#F1F1F1"
       inactiveColor="#CECECE"
       barStyle={{ backgroundColor: "#3A3354" }}
