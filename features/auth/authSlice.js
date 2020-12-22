@@ -98,7 +98,7 @@ export const deleteJwt = async () => {
 const authSlice = createSlice({
   name: "authSlice",
   initialState: {
-    isLoggedIn: true,
+    isLoggedIn: false,
     isLoading: false,
     showLoginErrorMessage: false,
     showRegisterErrorMessage: false,

@@ -3,15 +3,11 @@ import { Text, View } from "react-native";
 import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
 import CircleIcon from "../buttons/circleIcon";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setNavigationIndex } from "../../features/navigaton/navigationSlice";
 
 export default function Homepage() {
   const dispatch = useDispatch();
-
-import { useSelector } from "react-redux";
-
-export default function Homepage() {
   const loggedInUser = useSelector((state) => state.auth.loggedInUser);
 
   return (
