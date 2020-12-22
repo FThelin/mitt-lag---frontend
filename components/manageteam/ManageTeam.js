@@ -1,22 +1,17 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, View, Button } from "react-native";
 import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
-import CircleIcon from "../buttons/circleIcon";
 
-export default function ManageTeam() {
+export default function ManageTeam({ navigation }) {
   return (
     <>
-      <DarkContainer></DarkContainer>
-      <LightContainer>
-        <View
-          style={{
-            height: 300,
-            width: 300,
-            justifyContent: "space-around",
-          }}
-        ></View>
-      </LightContainer>
+      <DarkContainer>
+        <Text style={{ color: "white" }}>
+          Manage team screen when you are in a team
+        </Text>
+      </DarkContainer>
+      <LightContainer></LightContainer>
     </>
   );
 }

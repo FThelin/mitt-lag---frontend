@@ -7,7 +7,9 @@ import LoginDetails from "./login/loginDetails";
 import HomeScreen from "./HomeScreen";
 import Register from "./login/register";
 import ManageTeam from "./manageteam/ManageTeam";
+import RegisterTeam from "./manageteam/registerTeam";
 import Homepage from "./homepage/homepage";
+import BottomNavigation from "./bottomNavigation";
 
 const Stack = createStackNavigator();
 
@@ -21,6 +23,7 @@ export default function Landingpage() {
             <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen name="HomePage" component={Homepage} />
             <Stack.Screen name="ManageTeam" component={ManageTeam} />
+            <Stack.Screen name="RegisterTeam" component={RegisterTeam} />
           </>
         ) : (
           <>

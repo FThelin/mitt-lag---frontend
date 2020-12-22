@@ -3,9 +3,8 @@ import { BottomNavigation, Text } from "react-native-paper";
 import Homepage from "./homepage/homepage";
 import { useSelector, useDispatch } from "react-redux";
 import { setNavigationIndex } from "../features/navigaton/navigationSlice";
-import ManageTeam from "./manageteam/ManageTeam";
-
-const MusicRoute = () => <Text>Music</Text>;
+import ManageTeamNavigation from "./manageteam/ManageTeamNavigation";
+import RegisterTeam from "./manageteam/registerTeam";
 
 const AlbumsRoute = () => <Text>Albums</Text>;
 
@@ -40,10 +39,10 @@ const Navigation = (props) => {
 
   const renderScene = BottomNavigation.SceneMap({
     homepage: Homepage,
-    manageteam: ManageTeam,
+    manageteam: ManageTeamNavigation,
     games: AlbumsRoute,
     scoreboard: RecentsRoute,
-    leagues: MusicRoute,
+    leagues: RegisterTeam,
   });
 
   return (
