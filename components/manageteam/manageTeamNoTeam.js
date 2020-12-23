@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     width: "70%",
     alignItems: "center",
     justifyContent: "space-between",
-    height: "100%",
+    flex: 1,
   },
   childContainer: {
     alignItems: "center",

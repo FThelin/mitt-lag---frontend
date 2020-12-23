@@ -77,16 +77,6 @@ export const saveJWT = async (token) => {
   }
 };
 
-export const getJWT = async () => {
-  if (Platform.OS === "web") {
-    const token = localStorage.getItem("token");
-    return token;
-  } else {
-    const jwt = await SecureStore.getItemAsync("jwt");
-    return jwt;
-  }
-};
-
 export const deleteJwt = async () => {
   if (Platform.OS === "web") {
     localStorage.clear();

@@ -117,7 +117,7 @@ export default function LoginDetails({ navigation }) {
             />
             {inputValues.email && (
               <HelperText type="error" visible={hasError()}>
-                Email bör innehålla @
+                <Text>Email bör innehålla @</Text>
               </HelperText>
             )}
           </View>
