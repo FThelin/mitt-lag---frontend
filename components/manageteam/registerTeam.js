@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
-import { TextInput } from "react-native-paper";
+import { TextInput, ActivityIndicator } from "react-native-paper";
 import OutlinedButton from "../buttons/outlinedButton";
 import BackButton from "../buttons/backButton";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createTeam } from "../../features/team/teamSlice";
+import ThrowMessage from "../throwMessage";
 
 export default function RegisterTeam({ navigation }) {
   const [inputValues, setInputValues] = useState({
@@ -20,6 +21,20 @@ export default function RegisterTeam({ navigation }) {
   };
 
   const dispatch = useDispatch();
+  const showCreateTeamErrorMessage = useSelector(
+    (state) => state.team.showCreateTeamErrorMessage
+  );
+  const success = useSelector((state) => state.team.success);
+  const isLoading = useSelector((state) => state.team.isLoading);
+
+  //Create Team
+  const newTeam = async () => {
+    const response = await dispatch(createTeam(inputValues));
+    const team = await response.payload;
+    if (team) {
+      navigation.navigate("HomeScreen");
+    }
+  };
 
   return (
     <>
@@ -87,12 +102,21 @@ export default function RegisterTeam({ navigation }) {
           </Text>
           <View style={styles.button}>
             <OutlinedButton
-              buttonText="SKAPA LAG"
-              click={() => dispatch(createTeam(inputValues))}
+              buttonText={
+                !isLoading ? (
+                  <Text>SKAPA LAG</Text>
+                ) : (
+                  <ActivityIndicator size="small" color="#ffffff" />
+                )
+              }
+              click={() => newTeam()}
             />
           </View>
           <BackButton click={() => navigation.goBack()} />
         </View>
+        {showCreateTeamErrorMessage && (
+          <ThrowMessage message="Alla fält måste va ifyllda" />
+        )}
       </LightContainer>
     </>
   );
