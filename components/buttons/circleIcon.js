@@ -6,7 +6,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function CircleIcon(props) {
   return (
-    <TouchableOpacity style={{ padding: "0.6rem" }} onPress={props.click}>
+    <TouchableOpacity style={{ padding: 10 }} onPress={props.click}>
       <View style={styles.container}>
         <LinearGradient
           colors={["#EE8674", "#B35C79"]}
