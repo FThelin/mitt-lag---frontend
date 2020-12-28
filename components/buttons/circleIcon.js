@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "react-native-paper";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";

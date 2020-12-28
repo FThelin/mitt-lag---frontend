@@ -15,7 +15,6 @@ export default function Header() {
   const logOut = async () => {
     const response = await dispatch(logoutUser());
     const user = await response.payload;
-    console.log(user);
   };
 
   return (
