@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import { Button, ActivityIndicator } from "react-native-paper";
 import Icon from "react-native-vector-icons/FontAwesome";
 import OutlinedButton from "../buttons/outlinedButton";
@@ -15,7 +15,6 @@ export default function Header() {
   const logOut = async () => {
     const response = await dispatch(logoutUser());
     const user = await response.payload;
-    console.log(user);
   };
 
   return (
@@ -23,8 +22,16 @@ export default function Header() {
       <Button compact={true}>
         <Icon name="bars" size={25} color="#CECECE" />
       </Button>
-      <OutlinedButton buttonText="Logga ut" click={() => logOut()} />
-      {isLoading && <ActivityIndicator size="small" color="#ffffff" />}
+      <OutlinedButton
+        buttonText={
+          !isLoading ? (
+            <Text>LOGGA UT</Text>
+          ) : (
+            <ActivityIndicator size="small" color="#ffffff" />
+          )
+        }
+        click={() => logOut()}
+      />
     </View>
   );
 }

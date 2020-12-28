@@ -1,7 +1,4 @@
 import React from "react";
-import { Text, View, Button } from "react-native";
-import DarkContainer from "../darkContainer";
-import LightContainer from "../lightContainer";
 import { createStackNavigator } from "@react-navigation/stack";
 import RegisterTeam from "./registerTeam";
 import ManageTeam from "./ManageTeam";

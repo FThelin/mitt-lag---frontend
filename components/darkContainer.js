@@ -15,7 +15,7 @@ export default function DarkContainer(props) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    padding: 10,
     backgroundColor: "#1D182E",
     alignItems: "center",
     justifyContent: "center",

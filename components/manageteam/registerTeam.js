@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
-import { TextInput } from "react-native-paper";
-
+import { TextInput, ActivityIndicator } from "react-native-paper";
 import OutlinedButton from "../buttons/outlinedButton";
+import BackButton from "../buttons/backButton";
+import { useDispatch, useSelector } from "react-redux";
+import { createTeam } from "../../features/team/teamSlice";
+import ThrowMessage from "../throwMessage";
 
-export default function RegisterTeam() {
-  const [inputValues, setInputValues] = React.useState({
-    teamName: "",
+export default function RegisterTeam({ navigation }) {
+  const [inputValues, setInputValues] = useState({
+    name: "",
     city: "",
     sport: "",
   });
@@ -18,12 +20,28 @@ export default function RegisterTeam() {
     setInputValues({ ...inputValues, [anchor]: input });
   };
 
+  const dispatch = useDispatch();
+  const showCreateTeamErrorMessage = useSelector(
+    (state) => state.team.showCreateTeamErrorMessage
+  );
+  const success = useSelector((state) => state.team.success);
+  const isLoading = useSelector((state) => state.team.isLoading);
+
+  //Create Team
+  const newTeam = async () => {
+    const response = await dispatch(createTeam(inputValues));
+    const team = await response.payload;
+    if (team) {
+      navigation.navigate("HomeScreen");
+    }
+  };
+
   return (
     <>
       <DarkContainer>
         <Text
           style={{
-            fontSize: 18,
+            fontSize: 14,
             color: "#CECECE",
             fontFamily: "Kodchasan_500Medium",
           }}
@@ -45,8 +63,8 @@ export default function RegisterTeam() {
             }}
             style={styles.input}
             mode="outlined"
-            value={inputValues.teamName}
-            onChangeText={(e) => inputValue(e, "teamName")}
+            value={inputValues.name}
+            onChangeText={(e) => inputValue(e, "name")}
           />
           <Text style={styles.text}>Stad</Text>
           <TextInput
@@ -63,7 +81,7 @@ export default function RegisterTeam() {
             value={inputValues.city}
             onChangeText={(e) => inputValue(e, "city")}
           />
-          <Text style={styles.text}>Välj lag</Text>
+          <Text style={styles.text}>Sport</Text>
           <TextInput
             theme={{
               colors: {
@@ -79,13 +97,26 @@ export default function RegisterTeam() {
             onChangeText={(e) => inputValue(e, "sport")}
           />
           <Text style={styles.helperText}>
-            När du skapar ett lag blir du automatiskt lagledare, och kan hantera
-            personer och matchresultat.
+            När du skapar ett lag blir du lagledare, och kan hantera spelare och
+            matchresultat.
           </Text>
           <View style={styles.button}>
-            <OutlinedButton buttonText="SKAPA LAG" />
+            <OutlinedButton
+              buttonText={
+                !isLoading ? (
+                  <Text>SKAPA LAG</Text>
+                ) : (
+                  <ActivityIndicator size="small" color="#ffffff" />
+                )
+              }
+              click={() => newTeam()}
+            />
           </View>
+          <BackButton click={() => navigation.goBack()} />
         </View>
+        {showCreateTeamErrorMessage && (
+          <ThrowMessage message="Alla fält måste va ifyllda" />
+        )}
       </LightContainer>
     </>
   );
@@ -116,5 +147,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: "Kodchasan_700Bold",
   },
-  button: { alignSelf: "center" },
+  button: { alignSelf: "center", marginTop: 10 },
 });

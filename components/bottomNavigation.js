@@ -52,7 +52,9 @@ const Navigation = (props) => {
       renderScene={renderScene}
       activeColor="#F1F1F1"
       inactiveColor="#CECECE"
-      barStyle={{ backgroundColor: "#3A3354" }}
+      barStyle={{
+        backgroundColor: "#3A3354",
+      }}
     />
   );
 };

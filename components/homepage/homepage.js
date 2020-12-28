@@ -29,50 +29,52 @@ export default function Homepage() {
             fontFamily: "Kodchasan_500Medium",
           }}
         >
-          (Lagledare / Hasses Sega gubbar)
+          Du är inte medlem i något lag ännu.
         </Text>
       </DarkContainer>
       <LightContainer>
-        <View
-          style={{
-            height: 300,
-            width: 300,
-            justifyContent: "space-around",
-          }}
-        >
+        <View style={{ justifyContent: "center", flex: 1 }}>
           <View
             style={{
-              flexDirection: "row",
+              height: 300,
+              width: 300,
               justifyContent: "space-around",
             }}
           >
-            <CircleIcon
-              icon="account-group"
-              buttonText="Hantera lag"
-              click={() => dispatch(setNavigationIndex(1))}
-            />
-            <CircleIcon
-              icon="emoticon-angry"
-              buttonText="Matcher"
-              click={() => dispatch(setNavigationIndex(2))}
-            />
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-around",
-            }}
-          >
-            <CircleIcon
-              icon="format-list-numbered"
-              buttonText="Poängliga"
-              click={() => dispatch(setNavigationIndex(3))}
-            />
-            <CircleIcon
-              icon="medal"
-              buttonText="Mina ligor"
-              click={() => dispatch(setNavigationIndex(4))}
-            />
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-around",
+              }}
+            >
+              <CircleIcon
+                icon="account-group"
+                buttonText="Hantera lag"
+                click={() => dispatch(setNavigationIndex(1))}
+              />
+              <CircleIcon
+                icon="emoticon-angry"
+                buttonText="Matcher"
+                click={() => dispatch(setNavigationIndex(2))}
+              />
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-around",
+              }}
+            >
+              <CircleIcon
+                icon="format-list-numbered"
+                buttonText="Poängliga"
+                click={() => dispatch(setNavigationIndex(3))}
+              />
+              <CircleIcon
+                icon="medal"
+                buttonText="Mina ligor"
+                click={() => dispatch(setNavigationIndex(4))}
+              />
+            </View>
           </View>
         </View>
       </LightContainer>
