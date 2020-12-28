@@ -209,7 +209,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 7,
     borderRadius: 3,
-    boxShadow: "2px 2px 4px #070707",
     marginBottom: 5,
   },
   divider: {
