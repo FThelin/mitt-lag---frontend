@@ -27,7 +27,7 @@ export default function ManageTeamNoTeam({ navigation }) {
             <Text style={styles.iconText}>NYTT LAG</Text>
           </View>
           <View style={styles.childContainer}>
-            <Button onPress={() => navigation.navigate("RegisterTeam")}>
+            <Button onPress={() => navigation.navigate("FindTeam")}>
               <Icon name="arrow-decision" size={65} color="#F18873" />
             </Button>
             <Text style={styles.iconText}>GÅ MED</Text>

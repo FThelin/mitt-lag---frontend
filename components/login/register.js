@@ -115,11 +115,11 @@ export default function LoginDetails({ navigation }) {
               value={inputValues.email}
               onChangeText={(e) => inputValue(e, "email")}
             />
-            {/* {inputValues.email && (
+            {!!inputValues.email && (
               <HelperText type="error" visible={hasError()}>
                 Email bör innehålla @
               </HelperText>
-            )} */}
+            )}
           </View>
           <View>
             <Text style={styles.text}>Lösenord</Text>

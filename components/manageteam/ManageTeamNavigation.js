@@ -2,6 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import RegisterTeam from "./registerTeam";
 import ManageTeam from "./ManageTeam";
+import SearchTeam from "./searchTeam";
 import ManageTeamNoTeam from "./manageTeamNoTeam";
 import { useSelector } from "react-redux";
 
@@ -19,6 +20,7 @@ export default function ManageTeamNavigation() {
         <>
           <Stack.Screen name="ManageTeamNoTeam" component={ManageTeamNoTeam} />
           <Stack.Screen name="RegisterTeam" component={RegisterTeam} />
+          <Stack.Screen name="FindTeam" component={SearchTeam} />
         </>
       )}
     </Stack.Navigator>
