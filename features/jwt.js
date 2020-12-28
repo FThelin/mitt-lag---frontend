@@ -1,4 +1,5 @@
 import { Platform } from "react-native";
+import * as SecureStore from "expo-secure-store";
 
 async function getJWT() {
   if (Platform.OS === "web") {

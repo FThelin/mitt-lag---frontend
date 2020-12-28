@@ -12,7 +12,7 @@ export default function ManageTeamNavigation() {
   const loggedInUser = useSelector((state) => state.auth.loggedInUser);
   return (
     <Stack.Navigator headerMode="none">
-      {loggedInUser.team.length > 0 ? (
+      {loggedInUser.team && loggedInUser.team.length > 0 ? (
         <>
           <Stack.Screen name="ManageTeam" component={ManageTeam} />
         </>

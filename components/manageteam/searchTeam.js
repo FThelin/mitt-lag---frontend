@@ -67,6 +67,7 @@ export default function searchTeam({ navigation }) {
       navigation.navigate("HomeScreen");
     }
   };
+
   return (
     <>
       <DarkContainer>
