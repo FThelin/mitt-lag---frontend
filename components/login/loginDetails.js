@@ -3,16 +3,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { StyleSheet, Text, View } from "react-native";
 import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
-import { TextInput, ActivityIndicator, Button } from "react-native-paper";
+import { TextInput, ActivityIndicator } from "react-native-paper";
 import FilledButton from "../buttons/filledButton";
+import BackButton from "../buttons/backButton";
 import { loginUser } from "../../features/auth/authSlice";
 import ThrowMessage from "../throwMessage";
 
 export default function LoginDetails({ navigation }) {
   //Input fields
   const [inputValues, setInputValues] = React.useState({
-    email: "",
-    password: "",
+    email: "have@team.se",
+    password: "123456",
   });
   const inputValue = (input, anchor) => {
     setInputValues({ ...inputValues, [anchor]: input });
@@ -84,13 +85,7 @@ export default function LoginDetails({ navigation }) {
               buttonText="LOGGA IN"
               click={() => logIn()}
             ></FilledButton>
-            <Button
-              icon="keyboard-backspace"
-              color="#F18873"
-              onPress={() => navigation.goBack()}
-            >
-              <Text style={{ fontFamily: "Kodchasan_300Light" }}>TILLBAKA</Text>
-            </Button>
+            <BackButton click={() => navigation.goBack()}></BackButton>
           </View>
         </View>
         {showLoginErrorMessage && (

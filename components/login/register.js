@@ -8,13 +8,13 @@ import {
   HelperText,
   TextInput,
   ActivityIndicator,
-  Button,
   Modal,
   Portal,
 } from "react-native-paper";
 import OutlinedButton from "../buttons/outlinedButton";
-import { registerUser } from "../../features/auth/authSlice";
 import FilledButton from "../buttons/filledButton";
+import BackButton from "../buttons/backButton";
+import { registerUser } from "../../features/auth/authSlice";
 
 export default function LoginDetails({ navigation }) {
   //Input fields
@@ -147,13 +147,7 @@ export default function LoginDetails({ navigation }) {
             }}
           >
             <OutlinedButton buttonText="SKAPA KONTO" click={() => register()} />
-            <Button
-              icon="keyboard-backspace"
-              color="#F18873"
-              onPress={() => navigation.goBack()}
-            >
-              <Text style={{ fontFamily: "Kodchasan_300Light" }}>TILLBAKA</Text>
-            </Button>
+            <BackButton click={() => navigation.goBack()}> </BackButton>
           </View>
         </View>
         {showRegisterErrorMessage && (

@@ -43,6 +43,29 @@ export const findTeam = createAsyncThunk(
   }
 );
 
+export const deletePlayerFromTeam = createAsyncThunk(
+  "teamSlice/deletePlayerFromTeam",
+  async ({ teamId, userId }) => {
+    const token = await getAuthHeader();
+    const response = await fetch(
+      `https://mittlag.herokuapp.com/api/teams/deletePlayer`,
+      {
+        method: "DELETE",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          ...token,
+        },
+        body: JSON.stringify({ teamId, userId }),
+      }
+    );
+
+    const data = await response.json();
+
+    return data;
+  }
+);
+
 export const createRequest = createAsyncThunk(
   "teamSlice/createRequest",
   async ({ teamId, player, message }) => {
@@ -108,6 +131,15 @@ const teamSlice = createSlice({
       state.isLoading = true;
     },
     [createRequest.rejected]: (state) => {
+      state.isLoading = false;
+    },
+    [deletePlayerFromTeam.fulfilled]: (state, action) => {
+      state.isLoading = false;
+    },
+    [deletePlayerFromTeam.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [deletePlayerFromTeam.rejected]: (state) => {
       state.isLoading = false;
     },
   },

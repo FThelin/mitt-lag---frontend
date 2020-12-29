@@ -50,6 +50,13 @@ export default function searchTeam({ navigation }) {
     setInputValues({ ...inputValues, [anchor]: input });
   };
 
+  //Replace blank space in search query
+  const replaceSpace = () => {
+    const replaced = inputValues.query.replace(/\s/g, "&");
+    console.log(replaced);
+    return replaced;
+  };
+
   //Send request
   const sendRequest = async () => {
     const response = await dispatch(
@@ -93,7 +100,7 @@ export default function searchTeam({ navigation }) {
         </View>
         <OutlinedButton
           buttonText="Sök"
-          click={() => dispatch(findTeam(inputValues.query))}
+          click={() => dispatch(findTeam(replaceSpace()))}
         />
         <BackButton click={() => navigation.goBack()} />
         <View style={styles.resultContainer}>
