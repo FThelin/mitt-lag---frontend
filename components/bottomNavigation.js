@@ -5,12 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { setNavigationIndex } from "../features/navigaton/navigationSlice";
 import ManageTeamNavigation from "./manageteam/ManageTeamNavigation";
 import RegisterTeam from "./manageteam/registerTeam";
-
-const AlbumsRoute = () => <Text>Albums</Text>;
-
-const RecentsRoute = () => <Text>Recents</Text>;
-
-const TestRoute = () => <Text>Test</Text>;
+import Scoreboard from "./scoreboard/scoreboard";
+import Games from "./games/games";
 
 const Navigation = (props) => {
   const dispatch = useDispatch();
@@ -40,8 +36,8 @@ const Navigation = (props) => {
   const renderScene = BottomNavigation.SceneMap({
     homepage: Homepage,
     manageteam: ManageTeamNavigation,
-    games: AlbumsRoute,
-    scoreboard: RecentsRoute,
+    games: Games,
+    scoreboard: Scoreboard,
     leagues: RegisterTeam,
   });
 
