@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, Button, StyleSheet } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import { Surface } from "react-native-paper";
 import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
@@ -10,12 +10,12 @@ import { deletePlayerFromTeam } from "../../features/team/teamSlice";
 
 export default function ManageTeam({ navigation }) {
   const dispatch = useDispatch();
-  const loggedInUser = useSelector((state) => state.auth.loggedInUser);
+  const activeTeam = useSelector((state) => state.team.activeTeam);
 
   return (
     <>
       <DarkContainer>
-        <Text style={styles.headingText}>{loggedInUser.activeTeam.name}</Text>
+        <Text style={styles.headingText}>{activeTeam.name}</Text>
         <Text style={{ color: "white" }}>Växla lag</Text>
       </DarkContainer>
       <LightContainer>
@@ -24,7 +24,7 @@ export default function ManageTeam({ navigation }) {
             <Text style={styles.orangeTextLeader}>
               <Icon size={14} name="star" color="#EDE387"></Icon> Lagledare
             </Text>
-            {loggedInUser.activeTeam.leaders.map((leader) => (
+            {activeTeam.leaders.map((leader) => (
               <View style={styles.leaderText} key={leader._id}>
                 <Text style={styles.dataText}>
                   {`${leader.firstname} ${leader.lastname}`}
@@ -38,7 +38,7 @@ export default function ManageTeam({ navigation }) {
             <Text style={styles.orangeTextPlayer}>
               <Icon size={14} name="staro" color="#EDE387"></Icon> Spelare
             </Text>
-            {loggedInUser.activeTeam.players.map((player) => (
+            {activeTeam.players.map((player) => (
               <View style={styles.playerText} key={player._id}>
                 <Text style={styles.dataText}>
                   {`${player.firstname} ${player.lastname} `}
@@ -51,7 +51,7 @@ export default function ManageTeam({ navigation }) {
                     onPress={() =>
                       dispatch(
                         deletePlayerFromTeam({
-                          teamId: loggedInUser.activeTeam._id,
+                          teamId: activeTeam._id,
                           userId: player._id,
                         })
                       )
@@ -66,7 +66,7 @@ export default function ManageTeam({ navigation }) {
             <FilledButton buttonText="Förfrågningar" />
             <Surface style={styles.surface}>
               <Text style={styles.surfaceText}>
-                {loggedInUser.activeTeam.requests.length}
+                {activeTeam.requests.length}
               </Text>
             </Surface>
           </View>
