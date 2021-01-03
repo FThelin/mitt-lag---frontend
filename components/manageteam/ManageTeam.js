@@ -13,66 +13,68 @@ export default function ManageTeam({ navigation }) {
   const activeTeam = useSelector((state) => state.team.activeTeam);
 
   return (
-    <>
-      <DarkContainer>
-        <Text style={styles.headingText}>{activeTeam.name}</Text>
-        <Text style={{ color: "white" }}>Växla lag</Text>
-      </DarkContainer>
-      <LightContainer>
-        <View style={styles.mainContainer}>
-          <View style={styles.textContainer}>
-            <Text style={styles.orangeTextLeader}>
-              <Icon size={14} name="star" color="#EDE387"></Icon> Lagledare
-            </Text>
-            {activeTeam.leaders.map((leader) => (
-              <View style={styles.leaderText} key={leader._id}>
-                <Text style={styles.dataText}>
-                  {`${leader.firstname} ${leader.lastname}`}
-                </Text>
-                <View style={styles.iconText}>
-                  <Icon size={18} name="star" color="#EDE387"></Icon>
-                  <Icon size={18} name="delete" color="grey"></Icon>
-                </View>
-              </View>
-            ))}
-            <Text style={styles.orangeTextPlayer}>
-              <Icon size={14} name="staro" color="#EDE387"></Icon> Spelare
-            </Text>
-            {activeTeam.players.map((player) => (
-              <View style={styles.playerText} key={player._id}>
-                <Text style={styles.dataText}>
-                  {`${player.firstname} ${player.lastname} `}
-                </Text>
-                <View style={styles.iconText}>
-                  <Icon
-                    size={18}
-                    name="staro"
-                    color="#EDE387"
-                    onPress={() =>
-                      dispatch(
-                        deletePlayerFromTeam({
-                          teamId: activeTeam._id,
-                          userId: player._id,
-                        })
-                      )
-                    }
-                  ></Icon>
-                  <Icon size={18} name="delete" color="grey"></Icon>
-                </View>
-              </View>
-            ))}
-          </View>
-          <View style={styles.buttonContainer}>
-            <FilledButton buttonText="Förfrågningar" />
-            <Surface style={styles.surface}>
-              <Text style={styles.surfaceText}>
-                {activeTeam.requests.length}
+    activeTeam && (
+      <>
+        <DarkContainer>
+          <Text style={styles.headingText}>{activeTeam.name}</Text>
+          <Text style={{ color: "white" }}>Växla lag</Text>
+        </DarkContainer>
+        <LightContainer>
+          <View style={styles.mainContainer}>
+            <View style={styles.textContainer}>
+              <Text style={styles.orangeTextLeader}>
+                <Icon size={14} name="star" color="#EDE387"></Icon> Lagledare
               </Text>
-            </Surface>
+              {activeTeam.leaders.map((leader) => (
+                <View style={styles.leaderText} key={leader._id}>
+                  <Text style={styles.dataText}>
+                    {`${leader.firstname} ${leader.lastname}`}
+                  </Text>
+                  <View style={styles.iconText}>
+                    <Icon size={18} name="star" color="#EDE387"></Icon>
+                    <Icon size={18} name="delete" color="grey"></Icon>
+                  </View>
+                </View>
+              ))}
+              <Text style={styles.orangeTextPlayer}>
+                <Icon size={14} name="staro" color="#EDE387"></Icon> Spelare
+              </Text>
+              {activeTeam.players.map((player) => (
+                <View style={styles.playerText} key={player._id}>
+                  <Text style={styles.dataText}>
+                    {`${player.firstname} ${player.lastname} `}
+                  </Text>
+                  <View style={styles.iconText}>
+                    <Icon
+                      size={18}
+                      name="staro"
+                      color="#EDE387"
+                      onPress={() =>
+                        dispatch(
+                          deletePlayerFromTeam({
+                            teamId: activeTeam._id,
+                            userId: player._id,
+                          })
+                        )
+                      }
+                    ></Icon>
+                    <Icon size={18} name="delete" color="grey"></Icon>
+                  </View>
+                </View>
+              ))}
+            </View>
+            <View style={styles.buttonContainer}>
+              <FilledButton buttonText="Förfrågningar" />
+              <Surface style={styles.surface}>
+                <Text style={styles.surfaceText}>
+                  {activeTeam.requests.length}
+                </Text>
+              </Surface>
+            </View>
           </View>
-        </View>
-      </LightContainer>
-    </>
+        </LightContainer>
+      </>
+    )
   );
 }
 

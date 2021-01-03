@@ -115,7 +115,7 @@ const teamSlice = createSlice({
     showCreateTeamErrorMessage: false,
     success: false,
     searchResults: [],
-    activeTeam: {},
+    activeTeam: null,
   },
   reducers: {},
   extraReducers: {

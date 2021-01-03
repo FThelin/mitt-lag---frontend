@@ -6,7 +6,7 @@ import { TextInput, ActivityIndicator } from "react-native-paper";
 import OutlinedButton from "../buttons/outlinedButton";
 import BackButton from "../buttons/backButton";
 import { useDispatch, useSelector } from "react-redux";
-import { createTeam } from "../../features/team/teamSlice";
+import { createTeam, getTeam } from "../../features/team/teamSlice";
 import ThrowMessage from "../throwMessage";
 
 export default function RegisterTeam({ navigation }) {
@@ -32,7 +32,8 @@ export default function RegisterTeam({ navigation }) {
     const response = await dispatch(createTeam(inputValues));
     const team = await response.payload;
     if (team) {
-      navigation.navigate("HomeScreen");
+      await dispatch(getTeam(team._id));
+      navigation.navigate("ManageTeam");
     }
   };
 

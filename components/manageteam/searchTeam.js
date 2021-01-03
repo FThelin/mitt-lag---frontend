@@ -53,7 +53,6 @@ export default function searchTeam({ navigation }) {
   //Replace blank space in search query
   const replaceSpace = () => {
     const replaced = inputValues.query.replace(/\s/g, "&");
-    console.log(replaced);
     return replaced;
   };
 
