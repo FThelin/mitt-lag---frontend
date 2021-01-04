@@ -41,12 +41,10 @@ export default function ManageTeam({ navigation }) {
                   <Text style={styles.dataText}>
                     {`${leader.firstname} ${leader.lastname}`}
                   </Text>
-                  {isLeader() && (
-                    <View style={styles.iconText}>
-                      <Icon size={18} name="star" color="#EDE387"></Icon>
-                      <Icon size={18} name="delete" color="grey"></Icon>
-                    </View>
-                  )}
+                  <View style={styles.iconText}>
+                    <Icon size={18} name="star" color="#EDE387"></Icon>
+                    <Icon size={18} name="delete" color="grey"></Icon>
+                  </View>
                 </View>
               ))}
               <Text style={styles.orangeTextPlayer}>
@@ -57,24 +55,22 @@ export default function ManageTeam({ navigation }) {
                   <Text style={styles.dataText}>
                     {`${player.firstname} ${player.lastname} `}
                   </Text>
-                  {isLeader() && (
-                    <View style={styles.iconText}>
-                      <Icon
-                        size={18}
-                        name="staro"
-                        color="#EDE387"
-                        onPress={() =>
-                          dispatch(
-                            deletePlayerFromTeam({
-                              teamId: activeTeam._id,
-                              userId: player._id,
-                            })
-                          )
-                        }
-                      ></Icon>
-                      <Icon size={18} name="delete" color="grey"></Icon>
-                    </View>
-                  )}
+                  <View style={styles.iconText}>
+                    <Icon
+                      size={18}
+                      name="staro"
+                      color="#EDE387"
+                      onPress={() =>
+                        dispatch(
+                          deletePlayerFromTeam({
+                            teamId: activeTeam._id,
+                            userId: player._id,
+                          })
+                        )
+                      }
+                    ></Icon>
+                    <Icon size={18} name="delete" color="grey"></Icon>
+                  </View>
                 </View>
               ))}
             </View>
