@@ -14,13 +14,13 @@ export default function ManageTeam({ navigation }) {
   const loggedInUser = useSelector((state) => state.auth.loggedInUser);
 
   const isLeader = () => {
-    let test = false;
+    let leader = false;
     for (const leader of activeTeam.leaders) {
       if (leader._id == loggedInUser.id) {
         test = true;
       }
     }
-    return test;
+    return leader;
   };
 
   return (
