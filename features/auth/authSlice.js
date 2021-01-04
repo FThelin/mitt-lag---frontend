@@ -62,8 +62,11 @@ export const registerUser = createAsyncThunk(
         body: JSON.stringify({ firstname, lastname, email, password }),
       }
     );
-
     const data = await response.json();
+
+    if (response.status === 400) {
+      return rejectWithValue(data);
+    }
 
     return data;
   }
