@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Login from "./login/login";
 import LoginDetails from "./login/loginDetails";
 import HomeScreen from "./HomeScreen";
@@ -9,12 +9,21 @@ import Register from "./login/register";
 import ManageTeam from "./manageteam/ManageTeam";
 import RegisterTeam from "./manageteam/registerTeam";
 import Homepage from "./homepage/homepage";
-import BottomNavigation from "./bottomNavigation";
+import { getTeam } from "../features/team/teamSlice";
 
 const Stack = createStackNavigator();
 
 export default function Landingpage() {
+  const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const loggedInUser = useSelector((state) => state.auth.loggedInUser);
+
+  useEffect(() => {
+    if (loggedInUser.hasOwnProperty("activeTeam")) {
+      dispatch(getTeam(loggedInUser.activeTeam));
+    }
+  }, [loggedInUser]);
+
   return (
     <NavigationContainer>
       <Stack.Navigator headerMode="none">
