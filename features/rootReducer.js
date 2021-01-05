@@ -4,7 +4,7 @@ import navigationSlice from "./navigaton/navigationSlice";
 import teamSlice from "./team/teamSlice";
 
 const rootReducer = combineReducers({
-  auth: authSlice.reducer,
+  auth: authSlice,
   navigation: navigationSlice.reducer,
   team: teamSlice.reducer,
 });

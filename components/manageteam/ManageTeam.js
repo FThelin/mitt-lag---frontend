@@ -12,16 +12,7 @@ export default function ManageTeam({ navigation }) {
   const dispatch = useDispatch();
   const activeTeam = useSelector((state) => state.team.activeTeam);
   const loggedInUser = useSelector((state) => state.auth.loggedInUser);
-
-  const isLeader = () => {
-    let leader = false;
-    for (const leader of activeTeam.leaders) {
-      if (leader._id == loggedInUser.id) {
-        test = true;
-      }
-    }
-    return leader;
-  };
+  const isLeader = useSelector((state) => state.auth.isLeader);
 
   return (
     activeTeam && (
@@ -41,7 +32,7 @@ export default function ManageTeam({ navigation }) {
                   <Text style={styles.dataText}>
                     {`${leader.firstname} ${leader.lastname}`}
                   </Text>
-                  {isLeader() && (
+                  {isLeader && (
                     <View style={styles.iconText}>
                       <Icon size={18} name="star" color="#EDE387"></Icon>
                       <Icon size={18} name="delete" color="grey"></Icon>
@@ -57,7 +48,7 @@ export default function ManageTeam({ navigation }) {
                   <Text style={styles.dataText}>
                     {`${player.firstname} ${player.lastname} `}
                   </Text>
-                  {isLeader() && (
+                  {isLeader && (
                     <View style={styles.iconText}>
                       <Icon
                         size={18}
@@ -78,7 +69,7 @@ export default function ManageTeam({ navigation }) {
                 </View>
               ))}
             </View>
-            {isLeader() && (
+            {isLeader && (
               <View style={styles.buttonContainer}>
                 <FilledButton buttonText="Förfrågningar" />
                 <Surface style={styles.surface}>
