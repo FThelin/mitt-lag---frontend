@@ -39,17 +39,7 @@ export default function RegisterTeam({ navigation }) {
 
   return (
     <>
-      <DarkContainer>
-        <Text
-          style={{
-            fontSize: 14,
-            color: "#CECECE",
-            fontFamily: "Kodchasan_500Medium",
-          }}
-        >
-          Registrera lag...
-        </Text>
-      </DarkContainer>
+      <DarkContainer text="Registrera lag"></DarkContainer>
       <LightContainer>
         <View style={styles.container}>
           <Text style={styles.text}>Lagnamn</Text>

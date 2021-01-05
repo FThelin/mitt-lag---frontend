@@ -76,9 +76,7 @@ export default function searchTeam({ navigation }) {
 
   return (
     <>
-      <DarkContainer>
-        <Text style={styles.headLineText}>Hitta lag</Text>
-      </DarkContainer>
+      <DarkContainer text="Hitta lag"></DarkContainer>
       <LightContainer>
         <View style={{ width: "100%" }}>
           <Text style={styles.text}>Sökord</Text>
@@ -187,12 +185,6 @@ export default function searchTeam({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  headLineText: {
-    color: "#CFCFCF",
-    fontSize: 14,
-    fontFamily: "Kodchasan_700Bold",
-    textAlign: "center",
-  },
   text: {
     color: "#F18873",
     fontFamily: "Kodchasan_300Light",

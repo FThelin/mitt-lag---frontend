@@ -4,6 +4,7 @@ import RegisterTeam from "./registerTeam";
 import ManageTeam from "./ManageTeam";
 import SearchTeam from "./searchTeam";
 import ManageTeamNoTeam from "./manageTeamNoTeam";
+import HandleRequests from "./handleRequests";
 import { useSelector } from "react-redux";
 
 const Stack = createStackNavigator();
@@ -15,6 +16,7 @@ export default function ManageTeamNavigation() {
       {loggedInUser.team && loggedInUser.team.length > 0 ? (
         <>
           <Stack.Screen name="ManageTeam" component={ManageTeam} />
+          <Stack.Screen name="HandleRequests" component={HandleRequests} />
         </>
       ) : (
         <>

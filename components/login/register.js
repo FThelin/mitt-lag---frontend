@@ -58,8 +58,7 @@ export default function LoginDetails({ navigation }) {
 
   return (
     <>
-      <DarkContainer>
-        <Text style={styles.registerText}>Registrera dig...</Text>
+      <DarkContainer text="Registrera dig">
         {isLoading && <ActivityIndicator size="small" color="#ffffff" />}
       </DarkContainer>
       <LightContainer>
@@ -185,11 +184,6 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-  },
-  registerText: {
-    color: "#CFCFCF",
-    fontSize: 18,
-    fontFamily: "Kodchasan_700Bold",
   },
   modalStyle: {
     backgroundColor: "#CECECE",

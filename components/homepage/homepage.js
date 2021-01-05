@@ -9,19 +9,14 @@ import { setNavigationIndex } from "../../features/navigaton/navigationSlice";
 export default function Homepage() {
   const dispatch = useDispatch();
   const loggedInUser = useSelector((state) => state.auth.loggedInUser);
+  const isLeader = useSelector((state) => state.auth.isLeader);
+  const activeTeam = useSelector((state) => state.team.activeTeam);
 
   return (
     <>
-      <DarkContainer>
-        <Text
-          style={{
-            fontSize: 18,
-            color: "#CECECE",
-            fontFamily: "Kodchasan_500Medium",
-          }}
-        >
-          {`Inloggad som ${loggedInUser.firstname} ${loggedInUser.lastname}`}
-        </Text>
+      <DarkContainer
+        text={`Inloggad som ${loggedInUser.firstname} ${loggedInUser.lastname}`}
+      >
         <Text
           style={{
             fontSize: 14,
@@ -29,7 +24,9 @@ export default function Homepage() {
             fontFamily: "Kodchasan_500Medium",
           }}
         >
-          Du är inte medlem i något lag ännu.
+          {activeTeam
+            ? `${activeTeam.name} / ${isLeader ? "Lagledare" : "Spelare"}`
+            : "Du är inte medlem i något lag ännu."}
         </Text>
       </DarkContainer>
       <LightContainer>

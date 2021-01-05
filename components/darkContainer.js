@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image, Text } from "react-native";
 
 export default function DarkContainer(props) {
   return (
@@ -8,6 +8,7 @@ export default function DarkContainer(props) {
         style={props.bigLogo ? styles.bigLogo : styles.tinyLogo}
         source={require("../assets/logo.png")}
       />
+      <Text style={styles.text}>{props.text}</Text>
       {props.children}
     </View>
   );
@@ -27,5 +28,10 @@ const styles = StyleSheet.create({
   bigLogo: {
     height: 210,
     width: 210,
+  },
+  text: {
+    color: "#CFCFCF",
+    fontSize: 18,
+    fontFamily: "Kodchasan_700Bold",
   },
 });

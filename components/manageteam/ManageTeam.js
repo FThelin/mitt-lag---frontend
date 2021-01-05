@@ -11,14 +11,12 @@ import { deletePlayerFromTeam } from "../../features/team/teamSlice";
 export default function ManageTeam({ navigation }) {
   const dispatch = useDispatch();
   const activeTeam = useSelector((state) => state.team.activeTeam);
-  const loggedInUser = useSelector((state) => state.auth.loggedInUser);
   const isLeader = useSelector((state) => state.auth.isLeader);
 
   return (
     activeTeam && (
       <>
-        <DarkContainer>
-          <Text style={styles.headingText}>{activeTeam.name}</Text>
+        <DarkContainer text={activeTeam.name}>
           <Text style={{ color: "white" }}>Växla lag</Text>
         </DarkContainer>
         <LightContainer>
@@ -71,7 +69,10 @@ export default function ManageTeam({ navigation }) {
             </View>
             {isLeader && (
               <View style={styles.buttonContainer}>
-                <FilledButton buttonText="Förfrågningar" />
+                <FilledButton
+                  buttonText="Förfrågningar"
+                  click={() => navigation.navigate("HandleRequests")}
+                />
                 <Surface style={styles.surface}>
                   <Text style={styles.surfaceText}>
                     {activeTeam.requests.length}
