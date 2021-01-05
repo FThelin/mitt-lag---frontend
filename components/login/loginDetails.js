@@ -12,7 +12,7 @@ import ThrowMessage from "../throwMessage";
 export default function LoginDetails({ navigation }) {
   //Input fields
   const [inputValues, setInputValues] = React.useState({
-    email: "have@team.se",
+    email: "f@t.se",
     password: "123456",
   });
   const inputValue = (input, anchor) => {

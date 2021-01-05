@@ -93,12 +93,16 @@ const authSlice = createSlice({
   initialState: {
     isLoggedIn: false,
     isLoading: false,
+    isLeader: false,
     showLoginErrorMessage: false,
     showRegisterErrorMessage: false,
     loggedInUser: {},
   },
   reducers: {
     checkLoggedInUser,
+    setLeader: (state, action) => {
+      state.isLeader = action.payload;
+    },
   },
   extraReducers: {
     [loginUser.fulfilled]: (state, action) => {
@@ -144,4 +148,5 @@ const authSlice = createSlice({
   },
 });
 
-export default authSlice;
+export default authSlice.reducer;
+export const { setLeader } = authSlice.actions;
