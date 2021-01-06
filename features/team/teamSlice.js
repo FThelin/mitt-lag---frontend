@@ -57,8 +57,6 @@ export const getTeam = createAsyncThunk("teamSlice/getTeam", async (id) => {
     }
   );
 
-  console.log("inne i async");
-
   const data = await response.json();
 
   return data;
@@ -133,6 +131,26 @@ export const acceptRequest = createAsyncThunk(
   }
 );
 
+export const deleteRequest = createAsyncThunk(
+  "teamSlice/deletePlayerFromTeam",
+  async ({ teamId, reqId }) => {
+    const token = await getAuthHeader();
+    const response = await fetch(`https://mittlag.herokuapp.com/api/requests`, {
+      method: "DELETE",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        ...token,
+      },
+      body: JSON.stringify({ teamId, reqId }),
+    });
+
+    const data = await response.json();
+
+    return data;
+  }
+);
+
 const teamSlice = createSlice({
   name: "teamSlice",
   initialState: {
@@ -191,7 +209,6 @@ const teamSlice = createSlice({
     [getTeam.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.activeTeam = action.payload;
-      console.log("inne i extra");
     },
     [getTeam.pending]: (state) => {
       state.isLoading = true;
@@ -208,6 +225,17 @@ const teamSlice = createSlice({
       state.setActiveTeam = false;
     },
     [acceptRequest.rejected]: (state) => {
+      state.isLoading = false;
+    },
+    [deleteRequest.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.setActiveTeam = true;
+    },
+    [deleteRequest.pending]: (state) => {
+      state.isLoading = true;
+      state.setActiveTeam = false;
+    },
+    [deleteRequest.rejected]: (state) => {
       state.isLoading = false;
     },
   },

@@ -5,10 +5,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { Text, View, StyleSheet } from "react-native";
 import { Button } from "react-native-paper";
 import BackButton from "../buttons/backButton";
-import { acceptRequest } from "../../features/team/teamSlice";
+import { acceptRequest, deleteRequest } from "../../features/team/teamSlice";
 
 export default function HandleRequests({ navigation }) {
   const activeTeam = useSelector((state) => state.team.activeTeam);
+  const isLoading = useSelector((state) => state.team.isLoading);
   const dispatch = useDispatch();
 
   const trimDate = (date) => {
@@ -33,6 +34,7 @@ export default function HandleRequests({ navigation }) {
                 mode={"contained"}
                 icon="check"
                 style={styles.yesButton}
+                loading={isLoading}
                 onPress={() =>
                   dispatch(
                     acceptRequest({
@@ -48,6 +50,15 @@ export default function HandleRequests({ navigation }) {
                 mode={"contained"}
                 icon="block-helper"
                 style={styles.noButton}
+                loading={isLoading}
+                onPress={() =>
+                  dispatch(
+                    deleteRequest({
+                      reqId: request._id,
+                      teamId: activeTeam._id,
+                    })
+                  )
+                }
               >
                 <Text style={styles.noButtonText}>AVBÖJ</Text>
               </Button>
