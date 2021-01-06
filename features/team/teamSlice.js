@@ -108,6 +108,49 @@ export const createRequest = createAsyncThunk(
   }
 );
 
+export const acceptRequest = createAsyncThunk(
+  "teamSlice/acceptRequest",
+  async ({ requestId, teamId }) => {
+    const token = await getAuthHeader();
+    const response = await fetch(
+      `https://mittlag.herokuapp.com/api/teams/acceptRequest/`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          ...token,
+        },
+        body: JSON.stringify({ requestId, teamId }),
+      }
+    );
+
+    const data = await response.json();
+
+    return data;
+  }
+);
+
+export const deleteRequest = createAsyncThunk(
+  "teamSlice/deletePlayerFromTeam",
+  async ({ teamId, reqId }) => {
+    const token = await getAuthHeader();
+    const response = await fetch(`https://mittlag.herokuapp.com/api/requests`, {
+      method: "DELETE",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        ...token,
+      },
+      body: JSON.stringify({ teamId, reqId }),
+    });
+
+    const data = await response.json();
+
+    return data;
+  }
+);
+
 const teamSlice = createSlice({
   name: "teamSlice",
   initialState: {
@@ -116,6 +159,7 @@ const teamSlice = createSlice({
     success: false,
     searchResults: [],
     activeTeam: null,
+    setActiveTeam: true,
   },
   reducers: {},
   extraReducers: {
@@ -170,6 +214,28 @@ const teamSlice = createSlice({
       state.isLoading = true;
     },
     [getTeam.rejected]: (state) => {
+      state.isLoading = false;
+    },
+    [acceptRequest.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.setActiveTeam = true;
+    },
+    [acceptRequest.pending]: (state) => {
+      state.isLoading = true;
+      state.setActiveTeam = false;
+    },
+    [acceptRequest.rejected]: (state) => {
+      state.isLoading = false;
+    },
+    [deleteRequest.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.setActiveTeam = true;
+    },
+    [deleteRequest.pending]: (state) => {
+      state.isLoading = true;
+      state.setActiveTeam = false;
+    },
+    [deleteRequest.rejected]: (state) => {
       state.isLoading = false;
     },
   },

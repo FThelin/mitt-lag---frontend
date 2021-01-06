@@ -1,13 +1,16 @@
 import React from "react";
 import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Text, View, StyleSheet } from "react-native";
 import { Button } from "react-native-paper";
 import BackButton from "../buttons/backButton";
+import { acceptRequest, deleteRequest } from "../../features/team/teamSlice";
 
 export default function HandleRequests({ navigation }) {
   const activeTeam = useSelector((state) => state.team.activeTeam);
+  const isLoading = useSelector((state) => state.team.isLoading);
+  const dispatch = useDispatch();
 
   const trimDate = (date) => {
     return date.slice(0, 10);
@@ -27,13 +30,35 @@ export default function HandleRequests({ navigation }) {
             <Text style={styles.messageHead}>Meddelande:</Text>
             <Text style={styles.message}>{request.message}</Text>
             <View style={styles.buttonContainer}>
-              <Button mode={"contained"} icon="check" style={styles.yesButton}>
+              <Button
+                mode={"contained"}
+                icon="check"
+                style={styles.yesButton}
+                loading={isLoading}
+                onPress={() =>
+                  dispatch(
+                    acceptRequest({
+                      requestId: request._id,
+                      teamId: activeTeam._id,
+                    })
+                  )
+                }
+              >
                 <Text style={styles.yesButtonText}>GODKÄNN</Text>
               </Button>
               <Button
                 mode={"contained"}
                 icon="block-helper"
                 style={styles.noButton}
+                loading={isLoading}
+                onPress={() =>
+                  dispatch(
+                    deleteRequest({
+                      reqId: request._id,
+                      teamId: activeTeam._id,
+                    })
+                  )
+                }
               >
                 <Text style={styles.noButtonText}>AVBÖJ</Text>
               </Button>
