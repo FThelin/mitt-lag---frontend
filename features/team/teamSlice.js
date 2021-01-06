@@ -57,6 +57,8 @@ export const getTeam = createAsyncThunk("teamSlice/getTeam", async (id) => {
     }
   );
 
+  console.log("inne i async");
+
   const data = await response.json();
 
   return data;
@@ -139,6 +141,7 @@ const teamSlice = createSlice({
     success: false,
     searchResults: [],
     activeTeam: null,
+    setActiveTeam: true,
   },
   reducers: {},
   extraReducers: {
@@ -188,6 +191,7 @@ const teamSlice = createSlice({
     [getTeam.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.activeTeam = action.payload;
+      console.log("inne i extra");
     },
     [getTeam.pending]: (state) => {
       state.isLoading = true;
@@ -197,10 +201,11 @@ const teamSlice = createSlice({
     },
     [acceptRequest.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.activeTeam = action.payload.data;
+      state.setActiveTeam = true;
     },
     [acceptRequest.pending]: (state) => {
       state.isLoading = true;
+      state.setActiveTeam = false;
     },
     [acceptRequest.rejected]: (state) => {
       state.isLoading = false;

@@ -18,13 +18,14 @@ export default function Landingpage() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const loggedInUser = useSelector((state) => state.auth.loggedInUser);
+  const setActiveTeam = useSelector((state) => state.team.setActiveTeam);
   const activeTeam = useSelector((state) => state.team.activeTeam);
 
   useEffect(() => {
     if (loggedInUser.hasOwnProperty("activeTeam")) {
       dispatch(getTeam(loggedInUser.activeTeam));
     }
-  }, [loggedInUser]);
+  }, [loggedInUser, setActiveTeam]);
 
   useEffect(() => {
     if (activeTeam) {

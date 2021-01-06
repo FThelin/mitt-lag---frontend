@@ -19,6 +19,7 @@ export default function ManageTeam({ navigation }) {
         <DarkContainer text={activeTeam.name}>
           <Text style={{ color: "white" }}>Växla lag</Text>
         </DarkContainer>
+        {console.log(activeTeam)}
         <LightContainer>
           <View style={styles.mainContainer}>
             <View style={styles.textContainer}>

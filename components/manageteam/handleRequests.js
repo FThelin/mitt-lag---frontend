@@ -11,21 +11,20 @@ export default function HandleRequests({ navigation }) {
   const activeTeam = useSelector((state) => state.team.activeTeam);
   const dispatch = useDispatch();
 
-  // const trimDate = (date) => {
-  //   return date.slice(0, 10);
-  // };
+  const trimDate = (date) => {
+    return date.slice(0, 10);
+  };
 
   return (
     <>
       <DarkContainer text="Hantera förfrågningar"></DarkContainer>
       <LightContainer>
         <BackButton click={() => navigation.goBack()} />
-        {console.log(activeTeam)}
         {activeTeam.requests.map((request) => (
           <View style={styles.card} key={request._id}>
             <View style={styles.topContainer}>
               <Text style={styles.name}>{request.player}</Text>
-              <Text style={styles.date}>{request.createdAt}</Text>
+              <Text style={styles.date}>{trimDate(request.createdAt)}</Text>
             </View>
             <Text style={styles.messageHead}>Meddelande:</Text>
             <Text style={styles.message}>{request.message}</Text>
