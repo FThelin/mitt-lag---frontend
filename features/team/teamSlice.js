@@ -108,6 +108,29 @@ export const createRequest = createAsyncThunk(
   }
 );
 
+export const acceptRequest = createAsyncThunk(
+  "teamSlice/acceptRequest",
+  async ({ requestId, teamId }) => {
+    const token = await getAuthHeader();
+    const response = await fetch(
+      `https://mittlag.herokuapp.com/api/teams/acceptRequest/`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          ...token,
+        },
+        body: JSON.stringify({ requestId, teamId }),
+      }
+    );
+
+    const data = await response.json();
+
+    return data;
+  }
+);
+
 const teamSlice = createSlice({
   name: "teamSlice",
   initialState: {
@@ -170,6 +193,16 @@ const teamSlice = createSlice({
       state.isLoading = true;
     },
     [getTeam.rejected]: (state) => {
+      state.isLoading = false;
+    },
+    [acceptRequest.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.activeTeam = action.payload.data;
+    },
+    [acceptRequest.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [acceptRequest.rejected]: (state) => {
       state.isLoading = false;
     },
   },

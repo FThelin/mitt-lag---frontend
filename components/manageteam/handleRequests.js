@@ -1,33 +1,48 @@
 import React from "react";
 import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Text, View, StyleSheet } from "react-native";
 import { Button } from "react-native-paper";
 import BackButton from "../buttons/backButton";
+import { acceptRequest } from "../../features/team/teamSlice";
 
 export default function HandleRequests({ navigation }) {
   const activeTeam = useSelector((state) => state.team.activeTeam);
+  const dispatch = useDispatch();
 
-  const trimDate = (date) => {
-    return date.slice(0, 10);
-  };
+  // const trimDate = (date) => {
+  //   return date.slice(0, 10);
+  // };
 
   return (
     <>
       <DarkContainer text="Hantera förfrågningar"></DarkContainer>
       <LightContainer>
         <BackButton click={() => navigation.goBack()} />
+        {console.log(activeTeam)}
         {activeTeam.requests.map((request) => (
           <View style={styles.card} key={request._id}>
             <View style={styles.topContainer}>
               <Text style={styles.name}>{request.player}</Text>
-              <Text style={styles.date}>{trimDate(request.createdAt)}</Text>
+              <Text style={styles.date}>{request.createdAt}</Text>
             </View>
             <Text style={styles.messageHead}>Meddelande:</Text>
             <Text style={styles.message}>{request.message}</Text>
             <View style={styles.buttonContainer}>
-              <Button mode={"contained"} icon="check" style={styles.yesButton}>
+              <Button
+                mode={"contained"}
+                icon="check"
+                style={styles.yesButton}
+                onPress={() =>
+                  dispatch(
+                    acceptRequest({
+                      requestId: request._id,
+                      teamId: activeTeam._id,
+                    })
+                  )
+                }
+              >
                 <Text style={styles.yesButtonText}>GODKÄNN</Text>
               </Button>
               <Button
