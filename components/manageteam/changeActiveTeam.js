@@ -2,59 +2,57 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Button } from "react-native-paper";
 import { useSelector, useDispatch } from "react-redux";
-import { getTeam, changeTeamRole } from "../../features/team/teamSlice";
+import { changeActiveTeam, getUserTeams } from "../../features/team/teamSlice";
 import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
 import BackButton from "../buttons/backButton";
 
 export default function ChangeActiveTeam({ navigation }) {
-  const [teamArr, setTeamArr] = useState([]);
+  const [teamArr, setTeamArr] = React.useState([]);
 
   const loggedInUser = useSelector((state) => state.auth.loggedInUser);
-  const activeTeam = useSelector((state) => state.team.activeTeam);
+  const setActiveTeam = useSelector((state) => state.team.setActiveTeam);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const test = async () => {
-      for (const teamId of loggedInUser.team) {
-        const res = await dispatch(getTeam(teamId));
-        const team = await res.payload;
-        setTeamArr((teamArr) => [...teamArr, team]);
-      }
-    };
-    test();
+    getUserTeamsFunction();
   }, []);
+
+  const getUserTeamsFunction = async () => {
+    const res = await dispatch(getUserTeams(loggedInUser.id));
+    const team = await res.payload;
+    setTeamArr((teamArr) => [...teamArr, team]);
+  };
 
   return (
     <>
-      <DarkContainer>
-        <Text
-          style={{
-            fontSize: 14,
-            color: "#CECECE",
-            fontFamily: "Kodchasan_500Medium",
-          }}
-        >
-          Välj lag
-        </Text>
-      </DarkContainer>
+      <DarkContainer text="Välj lag"></DarkContainer>
+
       <LightContainer>
-        {teamArr.map((team) => (
-          <View key={team._id} style={styles.map}>
-            <View style={styles.textView}>
-              <Text style={styles.text}>{team.name}</Text>
-              <Text style={styles.secondText}>{team.sport}</Text>
-              <Button
-                onPress={() =>
-                  dispatch(changeTeamRole(team._id, loggedInUser.id))
-                }
-              >
-                BYT TILL
-              </Button>
+        {console.log("HÄR", teamArr[0])}
+        {!!teamArr[0] != [] &&
+          teamArr[0].map((team) => (
+            <View key={team._id} style={styles.map}>
+              {console.log("team._id", team._id)}
+              <View style={styles.textView}>
+                <Text style={styles.text}>{team.name}</Text>
+                <Text style={styles.secondText}>{team.sport}</Text>
+                <Button
+                  onPress={() =>
+                    dispatch(
+                      changeActiveTeam({
+                        teamId: team._id,
+                        userId: loggedInUser.id,
+                      })
+                    )
+                  }
+                >
+                  BYT TILL
+                </Button>
+              </View>
             </View>
-          </View>
-        ))}
+          ))}
         <View>
           <BackButton click={() => navigation.goBack()}></BackButton>
         </View>

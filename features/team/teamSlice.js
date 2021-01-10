@@ -62,6 +62,28 @@ export const getTeam = createAsyncThunk("teamSlice/getTeam", async (id) => {
   return data;
 });
 
+export const getUserTeams = createAsyncThunk(
+  "teamSlice/getUserTeams",
+  async (id) => {
+    const token = await getAuthHeader();
+    const response = await fetch(
+      `https://mittlag.herokuapp.com/api/users/userTeams/${id}`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          ...token,
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    return data;
+  }
+);
+
 export const deletePlayerFromTeam = createAsyncThunk(
   "teamSlice/deletePlayerFromTeam",
   async ({ teamId, userId }) => {
@@ -296,6 +318,16 @@ const teamSlice = createSlice({
       state.isLoading = true;
     },
     [getTeam.rejected]: (state) => {
+      state.isLoading = false;
+    },
+    [getUserTeams.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      // state.activeTeam = action.payload;
+    },
+    [getUserTeams.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getUserTeams.rejected]: (state) => {
       state.isLoading = false;
     },
     [acceptRequest.fulfilled]: (state, action) => {
