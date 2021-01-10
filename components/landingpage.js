@@ -23,16 +23,21 @@ export default function Landingpage() {
 
   useEffect(() => {
     if (loggedInUser.hasOwnProperty("activeTeam")) {
-      dispatch(getTeam(loggedInUser.activeTeam));
+      if (setActiveTeam) {
+        dispatch(getTeam(loggedInUser.activeTeam));
+      }
     }
   }, [loggedInUser, setActiveTeam]);
 
   useEffect(() => {
     if (activeTeam) {
       for (const leader of activeTeam.leaders) {
+        console.log(leader._id, loggedInUser.id);
         if (leader._id === loggedInUser.id) {
           dispatch(setLeader(true));
+          return;
         }
+        dispatch(setLeader(false));
       }
     }
   }, [activeTeam]);

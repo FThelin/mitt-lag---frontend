@@ -6,6 +6,7 @@ import { changeActiveTeam, getUserTeams } from "../../features/team/teamSlice";
 import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
 import BackButton from "../buttons/backButton";
+import { updateLoggedInUserActiveTeam } from "../../features/auth/authSlice";
 
 export default function ChangeActiveTeam({ navigation }) {
   const [teamArr, setTeamArr] = React.useState([]);
@@ -21,31 +22,28 @@ export default function ChangeActiveTeam({ navigation }) {
 
   const getUserTeamsFunction = async () => {
     const res = await dispatch(getUserTeams(loggedInUser.id));
-    const team = await res.payload;
-    setTeamArr((teamArr) => [...teamArr, team]);
+    setTeamArr(res.payload);
+  };
+
+  const changeTeam = async (data) => {
+    await dispatch(changeActiveTeam(data));
+    await dispatch(updateLoggedInUserActiveTeam(data.teamId));
+    navigation.goBack();
   };
 
   return (
     <>
       <DarkContainer text="Välj lag"></DarkContainer>
-
       <LightContainer>
-        {console.log("HÄR", teamArr[0])}
-        {!!teamArr[0] != [] &&
-          teamArr[0].map((team) => (
+        {!!teamArr != [] &&
+          teamArr.map((team) => (
             <View key={team._id} style={styles.map}>
-              {console.log("team._id", team._id)}
               <View style={styles.textView}>
                 <Text style={styles.text}>{team.name}</Text>
                 <Text style={styles.secondText}>{team.sport}</Text>
                 <Button
                   onPress={() =>
-                    dispatch(
-                      changeActiveTeam({
-                        teamId: team._id,
-                        userId: loggedInUser.id,
-                      })
-                    )
+                    changeTeam({ teamId: team._id, userId: loggedInUser.id })
                   }
                 >
                   BYT TILL

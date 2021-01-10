@@ -103,6 +103,12 @@ const authSlice = createSlice({
     setLeader: (state, action) => {
       state.isLeader = action.payload;
     },
+    updateLoggedInUserActiveTeam: (state, action) => {
+      state.loggedInUser = {
+        ...state.loggedInUser,
+        activeTeam: action.payload,
+      };
+    },
   },
   extraReducers: {
     [loginUser.fulfilled]: (state, action) => {
@@ -149,4 +155,4 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
-export const { setLeader } = authSlice.actions;
+export const { setLeader, updateLoggedInUserActiveTeam } = authSlice.actions;
