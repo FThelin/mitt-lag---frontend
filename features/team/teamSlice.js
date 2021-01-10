@@ -62,12 +62,57 @@ export const getTeam = createAsyncThunk("teamSlice/getTeam", async (id) => {
   return data;
 });
 
+export const getUserTeams = createAsyncThunk(
+  "teamSlice/getUserTeams",
+  async (id) => {
+    const token = await getAuthHeader();
+    const response = await fetch(
+      `https://mittlag.herokuapp.com/api/users/userTeams/${id}`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          ...token,
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    return data;
+  }
+);
+
 export const deletePlayerFromTeam = createAsyncThunk(
   "teamSlice/deletePlayerFromTeam",
   async ({ teamId, userId }) => {
     const token = await getAuthHeader();
     const response = await fetch(
       `https://mittlag.herokuapp.com/api/teams/deletePlayer`,
+      {
+        method: "DELETE",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          ...token,
+        },
+        body: JSON.stringify({ teamId, userId }),
+      }
+    );
+
+    const data = await response.json();
+
+    return data;
+  }
+);
+
+export const deleteLeaderFromTeam = createAsyncThunk(
+  "teamSlice/deletePlayerFromTeam",
+  async ({ teamId, userId }) => {
+    const token = await getAuthHeader();
+    const response = await fetch(
+      `https://mittlag.herokuapp.com/api/teams/deleteLeader`,
       {
         method: "DELETE",
         credentials: "include",
@@ -132,7 +177,7 @@ export const acceptRequest = createAsyncThunk(
 );
 
 export const deleteRequest = createAsyncThunk(
-  "teamSlice/deletePlayerFromTeam",
+  "teamSlice/deleteRequest",
   async ({ teamId, reqId }) => {
     const token = await getAuthHeader();
     const response = await fetch(`https://mittlag.herokuapp.com/api/requests`, {
@@ -144,6 +189,52 @@ export const deleteRequest = createAsyncThunk(
       },
       body: JSON.stringify({ teamId, reqId }),
     });
+
+    const data = await response.json();
+
+    return data;
+  }
+);
+
+export const changeTeamRole = createAsyncThunk(
+  "teamSlice/changeTeamRole",
+  async ({ teamId, userId }) => {
+    const token = await getAuthHeader();
+    const response = await fetch(
+      `https://mittlag.herokuapp.com/api/teams/teamRole/`,
+      {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          ...token,
+        },
+        body: JSON.stringify({ teamId, userId }),
+      }
+    );
+
+    const data = await response.json();
+
+    return data;
+  }
+);
+
+export const changeActiveTeam = createAsyncThunk(
+  "teamSlice/changeActiveTeam",
+  async ({ teamId, userId }) => {
+    const token = await getAuthHeader();
+    const response = await fetch(
+      `https://mittlag.herokuapp.com/api/teams/changeTeam/`,
+      {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          ...token,
+        },
+        body: JSON.stringify({ teamId, userId }),
+      }
+    );
 
     const data = await response.json();
 
@@ -199,11 +290,24 @@ const teamSlice = createSlice({
     },
     [deletePlayerFromTeam.fulfilled]: (state, action) => {
       state.isLoading = false;
+      state.setActiveTeam = true;
     },
     [deletePlayerFromTeam.pending]: (state) => {
       state.isLoading = true;
+      state.setActiveTeam = false;
     },
     [deletePlayerFromTeam.rejected]: (state) => {
+      state.isLoading = false;
+    },
+    [deleteLeaderFromTeam.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.setActiveTeam = true;
+    },
+    [deleteLeaderFromTeam.pending]: (state) => {
+      state.isLoading = true;
+      state.setActiveTeam = false;
+    },
+    [deleteLeaderFromTeam.rejected]: (state) => {
       state.isLoading = false;
     },
     [getTeam.fulfilled]: (state, action) => {
@@ -214,6 +318,16 @@ const teamSlice = createSlice({
       state.isLoading = true;
     },
     [getTeam.rejected]: (state) => {
+      state.isLoading = false;
+    },
+    [getUserTeams.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      // state.activeTeam = action.payload;
+    },
+    [getUserTeams.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getUserTeams.rejected]: (state) => {
       state.isLoading = false;
     },
     [acceptRequest.fulfilled]: (state, action) => {
@@ -236,6 +350,28 @@ const teamSlice = createSlice({
       state.setActiveTeam = false;
     },
     [deleteRequest.rejected]: (state) => {
+      state.isLoading = false;
+    },
+    [changeTeamRole.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.setActiveTeam = true;
+    },
+    [changeTeamRole.pending]: (state) => {
+      state.isLoading = true;
+      state.setActiveTeam = false;
+    },
+    [changeTeamRole.rejected]: (state) => {
+      state.isLoading = false;
+    },
+    [changeActiveTeam.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.setActiveTeam = true;
+    },
+    [changeActiveTeam.pending]: (state) => {
+      state.isLoading = true;
+      state.setActiveTeam = false;
+    },
+    [changeActiveTeam.rejected]: (state) => {
       state.isLoading = false;
     },
   },

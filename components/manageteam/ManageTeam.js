@@ -1,23 +1,33 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
-import { Surface } from "react-native-paper";
+import { Surface, Button } from "react-native-paper";
 import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
 import { useSelector, useDispatch } from "react-redux";
 import FilledButton from "../buttons/filledButton";
 import Icon from "react-native-vector-icons/AntDesign";
-import { deletePlayerFromTeam } from "../../features/team/teamSlice";
+import {
+  deletePlayerFromTeam,
+  deleteLeaderFromTeam,
+  changeTeamRole,
+} from "../../features/team/teamSlice";
 
 export default function ManageTeam({ navigation }) {
   const dispatch = useDispatch();
   const activeTeam = useSelector((state) => state.team.activeTeam);
   const isLeader = useSelector((state) => state.auth.isLeader);
+  const loggedInUser = useSelector((state) => state.auth.loggedInUser);
 
   return (
     activeTeam && (
       <>
         <DarkContainer text={activeTeam.name}>
-          <Text style={{ color: "white" }}>Växla lag</Text>
+          <Button
+            onPress={() => navigation.navigate("ChangeActiveTeam")}
+            style={{ color: "white" }}
+          >
+            Växla lag
+          </Button>
         </DarkContainer>
         <LightContainer>
           <View style={styles.mainContainer}>
@@ -32,8 +42,36 @@ export default function ManageTeam({ navigation }) {
                   </Text>
                   {isLeader && (
                     <View style={styles.iconText}>
-                      <Icon size={18} name="star" color="#EDE387"></Icon>
-                      <Icon size={18} name="delete" color="grey"></Icon>
+                      {leader._id == loggedInUser.id ? null : (
+                        <Icon
+                          size={18}
+                          name="star"
+                          color="#EDE387"
+                          onPress={() =>
+                            dispatch(
+                              changeTeamRole({
+                                teamId: activeTeam._id,
+                                userId: leader._id,
+                              })
+                            )
+                          }
+                        ></Icon>
+                      )}
+                      {leader._id == loggedInUser.id ? null : (
+                        <Icon
+                          size={18}
+                          name="delete"
+                          color="grey"
+                          onPress={() =>
+                            dispatch(
+                              deleteLeaderFromTeam({
+                                teamId: activeTeam._id,
+                                userId: leader._id,
+                              })
+                            )
+                          }
+                        ></Icon>
+                      )}
                     </View>
                   )}
                 </View>
@@ -54,6 +92,19 @@ export default function ManageTeam({ navigation }) {
                         color="#EDE387"
                         onPress={() =>
                           dispatch(
+                            changeTeamRole({
+                              teamId: activeTeam._id,
+                              userId: player._id,
+                            })
+                          )
+                        }
+                      ></Icon>
+                      <Icon
+                        size={18}
+                        name="delete"
+                        color="grey"
+                        onPress={() =>
+                          dispatch(
                             deletePlayerFromTeam({
                               teamId: activeTeam._id,
                               userId: player._id,
@@ -61,7 +112,6 @@ export default function ManageTeam({ navigation }) {
                           )
                         }
                       ></Icon>
-                      <Icon size={18} name="delete" color="grey"></Icon>
                     </View>
                   )}
                 </View>

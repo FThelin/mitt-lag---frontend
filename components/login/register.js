@@ -100,6 +100,7 @@ export default function LoginDetails({ navigation }) {
           <View>
             <Text style={styles.text}>Email</Text>
             <TextInput
+              autoCapitalize="none"
               theme={{
                 colors: {
                   placeholder: "grey",
