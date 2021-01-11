@@ -11,6 +11,7 @@ import {
   deleteLeaderFromTeam,
   changeTeamRole,
 } from "../../features/team/teamSlice";
+import LinkButton from "../buttons/linkButton";
 
 export default function ManageTeam({ navigation }) {
   const dispatch = useDispatch();
@@ -22,12 +23,11 @@ export default function ManageTeam({ navigation }) {
     activeTeam && (
       <>
         <DarkContainer text={activeTeam.name}>
-          <Button
-            onPress={() => navigation.navigate("ChangeActiveTeam")}
-            style={{ color: "white" }}
-          >
-            Växla lag
-          </Button>
+          <LinkButton
+            text="VÄXLA LAG"
+            click={() => navigation.navigate("ChangeActiveTeam")}
+            icon="swap-horizontal"
+          />
         </DarkContainer>
         <LightContainer>
           <View style={styles.mainContainer}>
