@@ -6,6 +6,7 @@ import LightContainer from "../lightContainer";
 import { useSelector, useDispatch } from "react-redux";
 import FilledButton from "../buttons/filledButton";
 import Icon from "react-native-vector-icons/AntDesign";
+import IconMC from "react-native-vector-icons/MaterialCommunityIcons";
 import {
   deletePlayerFromTeam,
   deleteLeaderFromTeam,
@@ -30,6 +31,24 @@ export default function ManageTeam({ navigation }) {
           />
         </DarkContainer>
         <LightContainer>
+          <View style={styles.topMainContainer}>
+            <View>
+              <Button onPress={() => navigation.navigate("RegisterTeam")}>
+                <IconMC
+                  name="account-multiple-plus-outline"
+                  size={28}
+                  color="#F18873"
+                />
+              </Button>
+              <Text style={styles.topText}>NYTT LAG</Text>
+            </View>
+            <View>
+              <Button onPress={() => navigation.navigate("FindTeam")}>
+                <IconMC name="arrow-decision" size={28} color="#F18873" />
+              </Button>
+              <Text style={styles.topText}>GÅ MED</Text>
+            </View>
+          </View>
           <View style={styles.mainContainer}>
             <View style={styles.textContainer}>
               <Text style={styles.orangeTextLeader}>
@@ -138,6 +157,19 @@ export default function ManageTeam({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  topText: {
+    fontFamily: "Kodchasan_700Bold",
+    color: "#CFCFCF",
+    fontSize: 12,
+  },
+  topMainContainer: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    marginBottom: 12,
+  },
   headingText: {
     color: "#DEDEDE",
     fontFamily: "Kodchasan_700Bold",
