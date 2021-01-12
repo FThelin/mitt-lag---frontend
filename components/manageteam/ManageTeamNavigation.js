@@ -19,6 +19,8 @@ export default function ManageTeamNavigation() {
           <Stack.Screen name="ManageTeam" component={ManageTeam} />
           <Stack.Screen name="HandleRequests" component={HandleRequests} />
           <Stack.Screen name="ChangeActiveTeam" component={ChangeActiveTeam} />
+          <Stack.Screen name="FindTeam" component={SearchTeam} />
+          <Stack.Screen name="RegisterTeam" component={RegisterTeam} />
         </>
       ) : (
         <>
