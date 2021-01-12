@@ -32,7 +32,6 @@ export default function Landingpage() {
   useEffect(() => {
     if (activeTeam) {
       for (const leader of activeTeam.leaders) {
-        console.log(leader._id, loggedInUser.id);
         if (leader._id === loggedInUser.id) {
           dispatch(setLeader(true));
           return;
