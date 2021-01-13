@@ -3,12 +3,21 @@ import { StyleSheet, View, Text } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
-import { FAB, Portal, Provider, Button, Menu } from "react-native-paper";
+import {
+  FAB,
+  Portal,
+  Provider,
+  Button,
+  Dialog,
+  RadioButton,
+} from "react-native-paper";
 import { getGames } from "../../features/game/gameSlice";
 
 export default function Games() {
   const [seasons, setSeasons] = useState([]);
   const [defaultSeason, setDefaultSeason] = useState("");
+  const [seasonGames, setSeasonGames] = useState([]);
+
   //Redux
   const isLeader = useSelector((state) => state.auth.isLeader);
   const activeTeam = useSelector((state) => state.team.activeTeam);
@@ -21,12 +30,13 @@ export default function Games() {
   const onStateChange = ({ open }) => setState({ open });
   const { open } = state;
 
-  //Menu
+  //Dialog
   const [visible, setVisible] = useState(false);
+  const showDialog = () => setVisible(true);
+  const hideDialog = () => setVisible(false);
 
-  const openMenu = () => setVisible(true);
-
-  const closeMenu = () => setVisible(false);
+  //RadioButtons
+  const [seasonValue, setSeasonValue] = useState("first");
 
   useEffect(() => {
     fetchAllGames();
@@ -65,26 +75,42 @@ export default function Games() {
       }
     }
   };
+
+  const getSeasonGames = () => {
+    const sg = games.filter((game) => game.season === defaultSeason);
+    setSeasonGames(sg);
+  };
+
   return (
     <>
-      <DarkContainer text="Matcher">
-        <Menu
-          visible={visible}
-          onDismiss={closeMenu}
-          anchor={<Button onPress={openMenu}>Show menu</Button>}
-        ></Menu>
-      </DarkContainer>
+      <DarkContainer text="Matcher"></DarkContainer>
       <LightContainer>
-        {console.log(defaultSeason)}
-        <View style={{ backgroundColor: "yellow", height: 200, width: 300 }}>
-          {visible &&
-            seasons.map((season, index) => (
-              <View key={index}>
-                <Text>{season}</Text>
-              </View>
-            ))}
+        <View>
+          <Button onPress={showDialog}>{defaultSeason}</Button>
+          <Portal>
+            <Dialog visible={visible} onDismiss={hideDialog}>
+              <Dialog.Title>Välj säsong</Dialog.Title>
+              <Dialog.Content>
+                <RadioButton.Group
+                  onValueChange={(newValue) => setSeasonValue(newValue)}
+                  value={seasonValue}
+                >
+                  {seasons.map((season, index) => (
+                    <View key={index}>
+                      <Text>{season}</Text>
+                      <RadioButton value={season} />
+                    </View>
+                  ))}
+                </RadioButton.Group>
+              </Dialog.Content>
+              <Dialog.Actions>
+                <Button onPress={hideDialog}>Välj</Button>
+              </Dialog.Actions>
+            </Dialog>
+          </Portal>
         </View>
-        {/* <Provider>
+
+        <Provider>
           <Portal>
             <FAB.Group
               open={open}
@@ -131,7 +157,7 @@ export default function Games() {
               }}
             />
           </Portal>
-        </Provider> */}
+        </Provider>
       </LightContainer>
     </>
   );
