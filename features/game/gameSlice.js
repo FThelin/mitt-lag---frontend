@@ -23,33 +23,11 @@ export const getGames = createAsyncThunk(
   }
 );
 
-export const getSeasonGames = createAsyncThunk(
-  "teamSlice/getSeasonGames",
-  async (teamId, season) => {
-    const token = await getAuthHeader();
-    const response = await fetch(
-      `https://mittlag.herokuapp.com/api/game/${teamId}/${season}`,
-      {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          ...token,
-        },
-      }
-    );
-
-    const data = await response.json();
-
-    return data;
-  }
-);
-
 export const createGame = createAsyncThunk(
   "gameSlice/createGame",
   async ({ teamId, homeGame, opponent, date, season }) => {
     const token = await getAuthHeader();
-    const response = await fetch("https://mittlag.herokuapp.com/api/teams", {
+    const response = await fetch("https://mittlag.herokuapp.com/api/game", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -82,16 +60,6 @@ const gameSlice = createSlice({
       state.isLoading = true;
     },
     [getGames.rejected]: (state) => {
-      state.isLoading = false;
-    },
-    [getSeasonGames.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.games = action.payload;
-    },
-    [getSeasonGames.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [getSeasonGames.rejected]: (state) => {
       state.isLoading = false;
     },
     [createGame.fulfilled]: (state, action) => {

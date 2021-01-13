@@ -7,7 +7,7 @@ export default function LightContainer(props) {
     <View style={styles.container}>
       <ScrollView
         style={styles.scroll}
-        contentContainerStyle={{ alignItems: "center", flex: 1 }}
+        contentContainerStyle={{ alignItems: "center" }}
       >
         {props.children}
       </ScrollView>

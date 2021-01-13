@@ -6,7 +6,7 @@ import { setNavigationIndex } from "../features/navigaton/navigationSlice";
 import ManageTeamNavigation from "./manageteam/ManageTeamNavigation";
 import RegisterTeam from "./manageteam/registerTeam";
 import Scoreboard from "./scoreboard/scoreboard";
-import Games from "./games/games";
+import GamesNavigation from "./games/gamesNavigation";
 
 const Navigation = (props) => {
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ const Navigation = (props) => {
   const renderScene = BottomNavigation.SceneMap({
     homepage: Homepage,
     manageteam: ManageTeamNavigation,
-    games: Games,
+    games: GamesNavigation,
     scoreboard: Scoreboard,
     leagues: RegisterTeam,
   });

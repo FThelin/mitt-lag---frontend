@@ -48,8 +48,6 @@ export default function Landingpage() {
           <>
             <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen name="HomePage" component={Homepage} />
-            <Stack.Screen name="ManageTeam" component={ManageTeam} />
-            <Stack.Screen name="RegisterTeam" component={RegisterTeam} />
           </>
         ) : (
           <>
