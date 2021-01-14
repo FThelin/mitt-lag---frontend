@@ -9,10 +9,10 @@ import {
   Dialog,
   RadioButton,
   Divider,
-  List,
 } from "react-native-paper";
 import { getGames, deleteGame } from "../../features/game/gameSlice";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import PlayerResult from "./playerResult";
 
 export default function Games({ navigation }) {
   const [seasons, setSeasons] = useState([]);
@@ -204,14 +204,7 @@ export default function Games({ navigation }) {
               </Text>
             </View>
             <Divider style={styles.dividerBottom} />
-            <List.Accordion
-              style={styles.accordion}
-              titleStyle={{ color: "#1D182E", fontFamily: "Kodchasan_700Bold" }}
-              title="Spelarresultat"
-            >
-              <List.Item title="First item" />
-              <List.Item title="Second item" />
-            </List.Accordion>
+            <PlayerResult />
           </View>
         ))}
       </LightContainer>
@@ -290,11 +283,6 @@ const styles = StyleSheet.create({
   dialogText: {
     color: "#1D182E",
     fontFamily: "Kodchasan_700Bold",
-  },
-  accordion: {
-    backgroundColor: "#CFCFCF",
-    textAlign: "center",
-    padding: 0,
   },
   editIcons: {
     flexDirection: "row",

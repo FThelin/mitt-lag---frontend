@@ -33,7 +33,7 @@ export default function RegisterTeam({ navigation }) {
     const team = await response.payload;
     if (team) {
       await dispatch(getTeam(team._id));
-      navigation.navigate("ManageTeam");
+      navigation.navigate("HomeScreen");
     }
   };
 
