@@ -11,7 +11,7 @@ import {
   Divider,
   List,
 } from "react-native-paper";
-import { getGames } from "../../features/game/gameSlice";
+import { getGames, deleteGame } from "../../features/game/gameSlice";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function Games({ navigation }) {
@@ -172,13 +172,17 @@ export default function Games({ navigation }) {
                       });
                     }}
                   />
-                  {/* <Icon
+                  <Icon
                     style={styles.editIconRight}
                     name="trash-can"
                     size={20}
                     color="#1D182E"
-                    onPress={() => navigation.navigate("CreateGame")}
-                  /> */}
+                    onPress={() =>
+                      dispatch(
+                        deleteGame({ teamId: activeTeam._id, gameId: game._id })
+                      )
+                    }
+                  />
                 </View>
               )}
             </View>
