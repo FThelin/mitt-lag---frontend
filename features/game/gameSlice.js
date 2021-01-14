@@ -25,7 +25,15 @@ export const getGames = createAsyncThunk(
 
 export const createGame = createAsyncThunk(
   "gameSlice/createGame",
-  async ({ teamId, homeGame, opponent, date, season }) => {
+  async ({
+    teamId,
+    homeGame,
+    goals,
+    opponentGoals,
+    opponent,
+    date,
+    season,
+  }) => {
     const token = await getAuthHeader();
     const response = await fetch("https://mittlag.herokuapp.com/api/game", {
       method: "POST",
@@ -34,8 +42,55 @@ export const createGame = createAsyncThunk(
         "Content-Type": "application/json",
         ...token,
       },
-      body: JSON.stringify({ teamId, homeGame, opponent, date, season }),
+      body: JSON.stringify({
+        teamId,
+        homeGame,
+        goals,
+        opponentGoals,
+        opponent,
+        date,
+        season,
+      }),
     });
+
+    const data = await response.json();
+
+    return data;
+  }
+);
+
+export const updateGame = createAsyncThunk(
+  "gameSlice/updateGame",
+  async ({
+    gameId,
+    homeGame,
+    goals,
+    opponentGoals,
+    opponent,
+    date,
+    season,
+  }) => {
+    const token = await getAuthHeader();
+    const response = await fetch(
+      "https://mittlag.herokuapp.com/api/game/updateGame",
+      {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          ...token,
+        },
+        body: JSON.stringify({
+          gameId,
+          homeGame,
+          goals,
+          opponentGoals,
+          opponent,
+          date,
+          season,
+        }),
+      }
+    );
 
     const data = await response.json();
 
@@ -71,6 +126,17 @@ const gameSlice = createSlice({
       state.updateGames = false;
     },
     [createGame.rejected]: (state) => {
+      state.isLoading = false;
+    },
+    [updateGame.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.updateGames = true;
+    },
+    [updateGame.pending]: (state) => {
+      state.isLoading = true;
+      state.updateGames = false;
+    },
+    [updateGame.rejected]: (state) => {
       state.isLoading = false;
     },
   },

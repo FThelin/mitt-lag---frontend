@@ -12,7 +12,6 @@ import {
   List,
 } from "react-native-paper";
 import { getGames } from "../../features/game/gameSlice";
-import MyComponent from "./fabGroup";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function Games({ navigation }) {
@@ -25,11 +24,6 @@ export default function Games({ navigation }) {
   const games = useSelector((state) => state.game.games);
   const updateGames = useSelector((state) => state.game.updateGames);
   const dispatch = useDispatch();
-
-  //FAB
-  const [state, setState] = useState({ open: false });
-  const onStateChange = ({ open }) => setState({ open });
-  const { open } = state;
 
   //Dialog
   const [visible, setVisible] = useState(false);
@@ -69,7 +63,7 @@ export default function Games({ navigation }) {
     setDefaultSeasonFunction(filteredArr);
   };
 
-  const setDefaultSeasonFunction = (filteredArr) => {
+  const setDefaultSeasonFunction = async (filteredArr) => {
     if (filteredArr.length != 0) {
       let currentSeason = 0;
 
@@ -145,13 +139,48 @@ export default function Games({ navigation }) {
             name="plus-circle-outline"
             size={40}
             color="#F18873"
-            onPress={() => navigation.navigate("CreateGame")}
+            onPress={() => {
+              navigation.navigate("CreateGame", {
+                edit: false,
+              });
+            }}
           />
         )}
         {seasonGames.map((game) => (
           <View key={game._id} style={styles.matchContainer}>
             <View style={styles.dateContainer}>
               <Text style={styles.dateText}>{game.date}</Text>
+              {isLeader && (
+                <View style={styles.editIcons}>
+                  <Icon
+                    style={styles.editIconLeft}
+                    name="pen"
+                    size={20}
+                    color="#1D182E"
+                    onPress={() => {
+                      navigation.navigate("CreateGame", {
+                        edit: true,
+                        gameId: game._id,
+                        team: activeTeam.name,
+                        opponent: game.opponent,
+                        goals: game.goals,
+                        opponentGoals: game.opponentGoals,
+                        date: game.date,
+                        seasonStart: parseInt(game.season.slice(0, 4)),
+                        seasonEnd: parseInt(game.season.slice(5, 9)),
+                        homeGame: game.homeGame,
+                      });
+                    }}
+                  />
+                  {/* <Icon
+                    style={styles.editIconRight}
+                    name="trash-can"
+                    size={20}
+                    color="#1D182E"
+                    onPress={() => navigation.navigate("CreateGame")}
+                  /> */}
+                </View>
+              )}
             </View>
             <View style={styles.teamContainer}>
               <Text style={styles.teamText}>
@@ -206,6 +235,9 @@ const styles = StyleSheet.create({
     elevation: 24,
   },
   dateContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     backgroundColor: "#F18873",
@@ -259,5 +291,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#CFCFCF",
     textAlign: "center",
     padding: 0,
+  },
+  editIcons: {
+    flexDirection: "row",
+  },
+  editIconLeft: {
+    paddingRight: 12,
+  },
+  editIconRight: {
+    paddingRight: 6,
   },
 });
