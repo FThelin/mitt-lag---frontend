@@ -30,10 +30,6 @@ export default function Games({ navigation }) {
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
 
-  //Accordion
-  const [expanded, setExpanded] = React.useState(true);
-  const handlePress = () => setExpanded(!expanded);
-
   //RadioButtons
   const [seasonValue, setSeasonValue] = useState("");
 

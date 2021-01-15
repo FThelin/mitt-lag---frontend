@@ -1,5 +1,5 @@
 import React from "react";
-import { List } from "react-native-paper";
+import { List, Button } from "react-native-paper";
 import { View, Text, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -11,11 +11,12 @@ export default function PlayerResult() {
       title="Spelarresultat"
     >
       {/* <List.Item title="First item" /> */}
-
-      <View style={styles.controls}>
-        <Icon name="plus-circle-outline" size={20} color="#787878" />
-        <Text style={styles.controlText}>Lägg till...</Text>
-      </View>
+      <Button onPress={() => console.log("hej")}>
+        <View style={styles.controls}>
+          <Icon name="plus-circle-outline" size={20} color="#787878" />
+          <Text style={styles.controlText}>Lägg till...</Text>
+        </View>
+      </Button>
     </List.Accordion>
   );
 }
