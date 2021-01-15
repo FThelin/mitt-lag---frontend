@@ -148,6 +148,7 @@ export default function CreateGame({ navigation, route }) {
         <View style={styles.myTeamContainer}>
           <Text style={styles.myTeamText}>{activeTeam.name}</Text>
           <TextInput
+            keyboardType="numeric"
             theme={{
               colors: {
                 placeholder: "grey",
@@ -158,7 +159,7 @@ export default function CreateGame({ navigation, route }) {
             }}
             style={styles.goalInput}
             mode="outlined"
-            value={inputValues.goals}
+            value={inputValues.goals.toString()}
             onChangeText={(e) => inputValue(e, "goals")}
           />
         </View>
@@ -179,6 +180,7 @@ export default function CreateGame({ navigation, route }) {
             onChangeText={(e) => inputValue(e, "opponent")}
           />
           <TextInput
+            keyboardType="numeric"
             theme={{
               colors: {
                 placeholder: "grey",
@@ -189,13 +191,14 @@ export default function CreateGame({ navigation, route }) {
             }}
             style={styles.goalInput}
             mode="outlined"
-            value={inputValues.opponentGoals}
+            value={inputValues.opponentGoals.toString()}
             onChangeText={(e) => inputValue(e, "opponentGoals")}
           />
         </View>
         <View style={styles.container}>
           <Text style={styles.text}>Datum</Text>
           <TextInput
+            keyboardType="numeric"
             theme={{
               colors: {
                 placeholder: "grey",
@@ -223,7 +226,7 @@ export default function CreateGame({ navigation, route }) {
               }}
               style={styles.inputSeason}
               mode="outlined"
-              value={inputValues.seasonStart}
+              value={inputValues.seasonStart.toString()}
               onChangeText={(e) => inputValue(e, "seasonStart")}
             />
             <TextInput
@@ -238,7 +241,7 @@ export default function CreateGame({ navigation, route }) {
               }}
               style={styles.inputSeason}
               mode="outlined"
-              value={inputValues.seasonEnd}
+              value={inputValues.seasonEnd.toString()}
               onChangeText={(e) => inputValue(e, "seasonEnd")}
             />
             <View style={styles.iconContainer}>

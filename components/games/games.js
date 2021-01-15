@@ -200,7 +200,11 @@ export default function Games({ navigation }) {
               </Text>
             </View>
             <Divider style={styles.dividerBottom} />
-            <PlayerResult />
+            <PlayerResult
+              gameId={{ gameId: game._id }}
+              gameDate={game.date}
+              opponent={game.opponent}
+            />
           </View>
         ))}
       </LightContainer>
