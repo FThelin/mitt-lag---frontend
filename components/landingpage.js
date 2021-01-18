@@ -6,8 +6,6 @@ import Login from "./login/login";
 import LoginDetails from "./login/loginDetails";
 import HomeScreen from "./HomeScreen";
 import Register from "./login/register";
-import ManageTeam from "./manageteam/ManageTeam";
-import RegisterTeam from "./manageteam/registerTeam";
 import Homepage from "./homepage/homepage";
 import { getTeam } from "../features/team/teamSlice";
 import { setLeader } from "../features/auth/authSlice";
