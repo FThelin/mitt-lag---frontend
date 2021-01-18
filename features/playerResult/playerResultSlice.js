@@ -23,6 +23,28 @@ export const getPlayerResults = createAsyncThunk(
   }
 );
 
+export const getPlayerResultsTeam = createAsyncThunk(
+  "playerResultSlice/getPlayerResultsTeam",
+  async (teamId) => {
+    const token = await getAuthHeader();
+    const response = await fetch(
+      `https://mittlag.herokuapp.com/api/playerResult/team/${teamId}`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          ...token,
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    return data;
+  }
+);
+
 export const addPlayerResult = createAsyncThunk(
   "playerResultSlice/addPlayerResult",
   async ({ gameId, userId, goals, assists, penalties }) => {
@@ -78,6 +100,7 @@ const playerResultSlice = createSlice({
   name: "playerResultSlice",
   initialState: {
     isLoading: false,
+    games: [],
     updatePlayerResults: false,
   },
   reducers: {},
@@ -89,6 +112,16 @@ const playerResultSlice = createSlice({
       state.isLoading = true;
     },
     [getPlayerResults.rejected]: (state) => {
+      state.isLoading = false;
+    },
+    [getPlayerResultsTeam.fulfilled]: (state, action) => {
+      state.games = action.payload;
+      state.isLoading = false;
+    },
+    [getPlayerResultsTeam.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getPlayerResultsTeam.rejected]: (state) => {
       state.isLoading = false;
     },
     [addPlayerResult.fulfilled]: (state, action) => {
