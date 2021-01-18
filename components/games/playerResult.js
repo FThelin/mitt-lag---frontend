@@ -5,10 +5,12 @@ import { List, Button, ActivityIndicator, DataTable } from "react-native-paper";
 import { View, Text, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import AddPlayerResult from "./addPlayerResult";
+import { deletePlayerResult } from "../../features/playerResult/playerResultSlice";
 
 export default function PlayerResult(props) {
   const { gameId, opponent, gameDate } = props;
   const [playerResults, setPlayerResults] = useState([]);
+  const [playerResultId, setPlayerResultId] = useState("");
   const [inEditMode, setInEditMode] = useState(false);
 
   //Dialog
@@ -20,6 +22,9 @@ export default function PlayerResult(props) {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.playerResult.isLoading);
   const loggedInUser = useSelector((state) => state.auth.loggedInUser);
+  const updatePlayerResults = useSelector(
+    (state) => state.playerResult.updatePlayerResults
+  );
 
   //Fetch player results
   const fetchResults = async () => {
@@ -29,6 +34,10 @@ export default function PlayerResult(props) {
     }
   };
 
+  useEffect(() => {
+    fetchResults();
+  }, [updatePlayerResults]);
+
   //In Add or Edit mode
   useEffect(() => {
     const player = playerResults.find(
@@ -37,14 +46,11 @@ export default function PlayerResult(props) {
 
     if (player) {
       setInEditMode(true);
+      setPlayerResultId(player._id);
     } else {
       setInEditMode(false);
     }
   }, [playerResults]);
-
-  const createItems = () => {
-    return items;
-  };
 
   return (
     <>
@@ -52,7 +58,6 @@ export default function PlayerResult(props) {
         style={styles.accordion}
         titleStyle={{ color: "#1D182E", fontFamily: "Kodchasan_700Bold" }}
         title="Spelarresultat"
-        onPress={() => fetchResults()}
       >
         <DataTable>
           <DataTable.Header>
@@ -97,10 +102,19 @@ export default function PlayerResult(props) {
             </View>
           </Button>
         ) : (
-          <Button onPress={() => console.log("edit mode")}>
+          <Button
+            onPress={() =>
+              dispatch(
+                deletePlayerResult({
+                  playerResultId: playerResultId,
+                  gameId: gameId.gameId,
+                })
+              )
+            }
+          >
             <View style={styles.controls}>
-              <Icon name="pen" size={20} color="#787878" />
-              <Text style={styles.controlText}>Redigera</Text>
+              <Icon name="trash-can" size={20} color="#787878" />
+              <Text style={styles.controlTextDelete}>Ta bort</Text>
             </View>
           </Button>
         )}
@@ -131,6 +145,12 @@ const styles = StyleSheet.create({
   },
   controlText: {
     color: "#787878",
+    fontSize: 14,
+    fontFamily: "Kodchasan_700Bold",
+    marginLeft: 5,
+  },
+  controlTextDelete: {
+    color: "red",
     fontSize: 14,
     fontFamily: "Kodchasan_700Bold",
     marginLeft: 5,
