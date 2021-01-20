@@ -29,8 +29,11 @@ export default function LoginDetails({ navigation }) {
   };
 
   // Error message
-  const hasError = () => {
+  const hasErrorEmail = () => {
     return !inputValues.email.includes("@");
+  };
+  const hasErrorPassword = () => {
+    return inputValues.password.length < 6;
   };
 
   //Modal
@@ -43,15 +46,13 @@ export default function LoginDetails({ navigation }) {
   //Redux
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.auth.isLoading);
-  const showRegisterErrorMessage = useSelector(
-    (state) => state.auth.showRegisterErrorMessage
-  );
+  const errorMessage = useSelector((state) => state.auth.errorMessage);
 
   //Register
   const register = async () => {
     const response = await dispatch(registerUser(inputValues));
-    const user = await response.payload;
-    if (user) {
+    const data = await response.payload;
+    if (data._id) {
       showModal();
     }
   };
@@ -116,7 +117,7 @@ export default function LoginDetails({ navigation }) {
               onChangeText={(e) => inputValue(e, "email")}
             />
             {!!inputValues.email && (
-              <HelperText type="error" visible={hasError()}>
+              <HelperText type="error" visible={hasErrorEmail()}>
                 Email bör innehålla @
               </HelperText>
             )}
@@ -139,6 +140,11 @@ export default function LoginDetails({ navigation }) {
               value={inputValues.password}
               onChangeText={(e) => inputValue(e, "password")}
             />
+            {!!inputValues.password && (
+              <HelperText type="error" visible={hasErrorPassword()}>
+                Minst 6 tecken
+              </HelperText>
+            )}
           </View>
           <View
             style={{
@@ -150,9 +156,6 @@ export default function LoginDetails({ navigation }) {
             <BackButton click={() => navigation.goBack()}> </BackButton>
           </View>
         </View>
-        {showRegisterErrorMessage && (
-          <ThrowMessage message="Kan inte skapa användare..." />
-        )}
         <Portal>
           <Modal
             visible={visible}
@@ -168,6 +171,7 @@ export default function LoginDetails({ navigation }) {
             />
           </Modal>
         </Portal>
+        {!!errorMessage && <ThrowMessage message={errorMessage} />}
       </LightContainer>
     </>
   );
