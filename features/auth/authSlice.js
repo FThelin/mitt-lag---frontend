@@ -50,7 +50,7 @@ export const logoutUser = createAsyncThunk("authSlice/logoutUser", async () => {
 
 export const registerUser = createAsyncThunk(
   "authSlice/registerUser",
-  async ({ firstname, lastname, email, password }) => {
+  async ({ firstname, lastname, email, password }, { rejectWithValue }) => {
     const response = await fetch(
       "https://mittlag.herokuapp.com/api/users/register",
       {
@@ -94,8 +94,7 @@ const authSlice = createSlice({
     isLoggedIn: false,
     isLoading: false,
     isLeader: false,
-    showLoginErrorMessage: false,
-    showRegisterErrorMessage: false,
+    errorMessage: "",
     loggedInUser: {},
   },
   reducers: {
@@ -130,15 +129,15 @@ const authSlice = createSlice({
     },
     [registerUser.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.showRegisterErrorMessage = false;
+      state.errorMessage = "";
     },
     [registerUser.pending]: (state) => {
       state.isLoading = true;
-      state.showRegisterErrorMessage = false;
+      state.errorMessage = "";
     },
-    [registerUser.rejected]: (state) => {
+    [registerUser.rejected]: (state, action) => {
       state.isLoading = false;
-      state.showRegisterErrorMessage = true;
+      state.errorMessage = action.payload;
     },
     [logoutUser.fulfilled]: (state) => {
       state.isLoggedIn = false;

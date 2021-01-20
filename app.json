@@ -27,7 +27,7 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icon.png"
     },
     "description": "Project made by Fredrik Thelin and Simon Beijer at Medieinstitutet. Made as master thesis in front-end education."
   }
