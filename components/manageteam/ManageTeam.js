@@ -30,7 +30,7 @@ export default function ManageTeam({ navigation }) {
             icon="swap-horizontal"
           />
         </DarkContainer>
-        <LightContainer>
+        <LightContainer extraStyle={{ justifyContent: "center", flex: 1 }}>
           <View style={styles.topMainContainer}>
             <View>
               <Button onPress={() => navigation.navigate("RegisterTeam")}>
