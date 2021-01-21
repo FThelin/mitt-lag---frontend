@@ -12,7 +12,7 @@ export default function Login({ navigation }) {
   return (
     <>
       <DarkContainer bigLogo="true"></DarkContainer>
-      <LightContainer>
+      <LightContainer extraStyle={{ justifyContent: "center", flex: 1 }}>
         <View style={styles.container}>
           <Text style={styles.text}>Välkommen till SCORIFY!</Text>
           <FilledButton

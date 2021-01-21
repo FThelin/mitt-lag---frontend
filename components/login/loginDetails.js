@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { StyleSheet, Text, View } from "react-native";
 import DarkContainer from "../darkContainer";
@@ -19,18 +19,20 @@ export default function LoginDetails({ navigation }) {
     setInputValues({ ...inputValues, [anchor]: input });
   };
 
+  //Login error message
+  const [errorMsg, setErrorMsg] = useState("");
+
   //Redux
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.auth.isLoading);
-  const showLoginErrorMessage = useSelector(
-    (state) => state.auth.showLoginErrorMessage
-  );
+  const errorMessage = useSelector((state) => state.auth.errorMessage);
 
   //Login
   const logIn = async () => {
     const response = await dispatch(loginUser(inputValues));
     const user = await response.payload;
-    if (user) {
+    setErrorMsg(user);
+    if (user != "Användare eller lösenord matchar inte") {
       navigation.navigate("HomeScreen");
     }
   };
@@ -89,9 +91,7 @@ export default function LoginDetails({ navigation }) {
             <BackButton click={() => navigation.goBack()}></BackButton>
           </View>
         </View>
-        {showLoginErrorMessage && (
-          <ThrowMessage message="Fel email eller lösenord" />
-        )}
+        {!!errorMessage && <ThrowMessage message={errorMsg} />}
       </LightContainer>
     </>
   );

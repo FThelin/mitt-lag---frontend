@@ -29,8 +29,13 @@ export default function Homepage() {
             : "Du är inte medlem i något lag ännu."}
         </Text>
       </DarkContainer>
-      <LightContainer>
-        <View style={{ justifyContent: "center", flex: 1 }}>
+      <LightContainer extraStyle={{ justifyContent: "center", flex: 1 }}>
+        <View
+          style={{
+            justifyContent: "center",
+            flex: 1,
+          }}
+        >
           <View
             style={{
               height: 300,

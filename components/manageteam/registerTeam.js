@@ -42,53 +42,55 @@ export default function RegisterTeam({ navigation }) {
   return (
     <>
       <DarkContainer text="Registrera lag"></DarkContainer>
-      <LightContainer>
+      <LightContainer extraStyle={{ justifyContent: "center", flex: 1 }}>
         <View style={styles.container}>
-          <Text style={styles.text}>Lagnamn</Text>
-          <TextInput
-            theme={{
-              colors: {
-                placeholder: "grey",
-                text: "white",
-                primary: "white",
-                background: "#252037",
-              },
-            }}
-            style={styles.input}
-            mode="outlined"
-            value={inputValues.name}
-            onChangeText={(e) => inputValue(e, "name")}
-          />
-          <Text style={styles.text}>Stad</Text>
-          <TextInput
-            theme={{
-              colors: {
-                placeholder: "grey",
-                text: "white",
-                primary: "white",
-                background: "#252037",
-              },
-            }}
-            style={styles.input}
-            mode="outlined"
-            value={inputValues.city}
-            onChangeText={(e) => inputValue(e, "city")}
-          />
-          <Text style={styles.text}>Sport</Text>
-          <TextInput
-            theme={{
-              colors: {
-                placeholder: "grey",
-                text: "white",
-                primary: "white",
-                background: "#252037",
-              },
-            }}
-            style={styles.input}
-            mode="outlined"
-            value={inputValues.sport}
-            onChangeText={(e) => inputValue(e, "sport")}
-          />
+          <View>
+            <Text style={styles.text}>Lagnamn</Text>
+            <TextInput
+              theme={{
+                colors: {
+                  placeholder: "grey",
+                  text: "white",
+                  primary: "white",
+                  background: "#252037",
+                },
+              }}
+              style={styles.input}
+              mode="outlined"
+              value={inputValues.name}
+              onChangeText={(e) => inputValue(e, "name")}
+            />
+            <Text style={styles.text}>Stad</Text>
+            <TextInput
+              theme={{
+                colors: {
+                  placeholder: "grey",
+                  text: "white",
+                  primary: "white",
+                  background: "#252037",
+                },
+              }}
+              style={styles.input}
+              mode="outlined"
+              value={inputValues.city}
+              onChangeText={(e) => inputValue(e, "city")}
+            />
+            <Text style={styles.text}>Sport</Text>
+            <TextInput
+              theme={{
+                colors: {
+                  placeholder: "grey",
+                  text: "white",
+                  primary: "white",
+                  background: "#252037",
+                },
+              }}
+              style={styles.input}
+              mode="outlined"
+              value={inputValues.sport}
+              onChangeText={(e) => inputValue(e, "sport")}
+            />
+          </View>
           <Text style={styles.helperText}>
             När du skapar ett lag blir du lagledare, och kan hantera spelare och
             matchresultat.
@@ -118,7 +120,8 @@ export default function RegisterTeam({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: 220,
+    flex: 1,
+    justifyContent: "space-evenly",
   },
   text: {
     color: "#F18873",

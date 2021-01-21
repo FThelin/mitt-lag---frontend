@@ -12,7 +12,7 @@ const checkLoggedInUser = (state, action) => {
 
 export const loginUser = createAsyncThunk(
   "authSlice/loginUser",
-  async ({ email, password }) => {
+  async ({ email, password }, { rejectWithValue }) => {
     const response = await fetch(
       "https://mittlag.herokuapp.com/api/auth/login",
       {
@@ -26,6 +26,9 @@ export const loginUser = createAsyncThunk(
     );
 
     const data = await response.json();
+    if (response.status === 400) {
+      return rejectWithValue(data);
+    }
 
     return data;
   }
@@ -113,19 +116,19 @@ const authSlice = createSlice({
     [loginUser.fulfilled]: (state, action) => {
       state.isLoggedIn = true;
       state.isLoading = false;
-      state.showLoginErrorMessage = false;
+      state.errorMessage = "";
       saveJWT(action.payload);
       checkLoggedInUser(state, action.payload);
     },
     [loginUser.pending]: (state) => {
       state.isLoggedIn = false;
       state.isLoading = true;
-      state.showLoginErrorMessage = false;
+      state.errorMessage = "";
     },
-    [loginUser.rejected]: (state) => {
+    [loginUser.rejected]: (state, action) => {
       state.isLoggedIn = false;
       state.isLoading = false;
-      state.showLoginErrorMessage = true;
+      state.errorMessage = action.payload;
     },
     [registerUser.fulfilled]: (state, action) => {
       state.isLoading = false;
