@@ -13,14 +13,26 @@ import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
 
 export default function Scoreboard() {
+  // Array with seasons to show in dialog
   const [seasons, setSeasons] = useState([]);
-  const [seasonGames, setSeasonGames] = useState([]);
+  // Results for all games for a specific season
   const [seasonResults, setSeasonResults] = useState([]);
+  // Sorted and trimmed result list
   const [scores, setScores] = useState([]);
 
+  //RadioButton value for picked season
+  const [seasonValue, setSeasonValue] = useState("");
+
   //Redux
+  const loggedInUser = useSelector((state) => state.auth.loggedInUser);
+  const navigationIndex = useSelector(
+    (state) => state.navigation.navigationIndex
+  );
   const activeTeam = useSelector((state) => state.team.activeTeam);
   const games = useSelector((state) => state.playerResult.games);
+  const updatePlayerResults = useSelector(
+    (state) => state.playerResult.updatePlayerResults
+  );
   const dispatch = useDispatch();
 
   //Dialog
@@ -28,25 +40,27 @@ export default function Scoreboard() {
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
 
-  //RadioButtons
-  const [seasonValue, setSeasonValue] = useState("");
-
   useEffect(() => {
-    setSeasonValue("");
-    fetchAllGames();
-  }, [activeTeam]);
+    if (navigationIndex === 3) {
+      fetchAllGames();
+    }
+  }, [updatePlayerResults, activeTeam, navigationIndex]);
 
   useEffect(() => {
     getSeasonGames();
   }, [games, seasonValue, activeTeam]);
 
+  // Get all games for the active team
   const fetchAllGames = async () => {
-    const res = await dispatch(getPlayerResultsTeam(activeTeam._id));
-    if (res) {
-      await getSeasons(res.payload);
+    if (activeTeam) {
+      const res = await dispatch(getPlayerResultsTeam(activeTeam._id));
+      if (res) {
+        await getSeasons(res.payload);
+      }
     }
   };
 
+  //Get all unique seasons
   const getSeasons = async (allGames) => {
     let seasonArr = [];
     for (const s of allGames) {
@@ -57,6 +71,7 @@ export default function Scoreboard() {
     setDefaultSeasonFunction(filteredArr);
   };
 
+  // Set a default season (the latest one)
   const setDefaultSeasonFunction = async (filteredArr) => {
     if (filteredArr.length != 0) {
       let currentSeason = 0;
@@ -75,9 +90,10 @@ export default function Scoreboard() {
     }
   };
 
+  // Find all games for selected season
   const getSeasonGames = () => {
     const sg = games.filter((game) => game.season === seasonValue);
-    setSeasonGames(sg);
+    //setSeasonGames(sg);
     calculateResults(sg);
   };
 
@@ -214,9 +230,19 @@ export default function Scoreboard() {
             </DataTable.Header>
             {scores.map((result, index) => (
               <DataTable.Row key={result.Player}>
+                {console.log("1", result.Player)}
+                {console.log("2", loggedInUser)}
                 <View style={styles.leftContainer}>
                   <DataTable.Cell style={styles.tableData2}>
-                    <Text>{index + 1 + ". " + result.name}</Text>
+                    <Text
+                      style={
+                        result.Player === loggedInUser.id
+                          ? { fontFamily: "Kodchasan_700Bold" }
+                          : null
+                      }
+                    >
+                      {index + 1 + ". " + result.name}
+                    </Text>
                   </DataTable.Cell>
                 </View>
                 <View style={styles.rightContainer}>
