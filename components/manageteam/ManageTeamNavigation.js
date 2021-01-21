@@ -15,7 +15,7 @@ export default function ManageTeamNavigation() {
   const loggedInUser = useSelector((state) => state.auth.loggedInUser);
   return (
     <NavigationContainer independent={true}>
-      <Stack.Navigator headerMode="none" independent={true}>
+      <Stack.Navigator headerMode="none">
         {loggedInUser.team && loggedInUser.team.length > 0 ? (
           <>
             <Stack.Screen name="ManageTeam" component={ManageTeam} />
@@ -35,6 +35,11 @@ export default function ManageTeamNavigation() {
             />
             <Stack.Screen name="RegisterTeam" component={RegisterTeam} />
             <Stack.Screen name="FindTeam" component={SearchTeam} />
+            <Stack.Screen name="ManageTeam" component={ManageTeam} />
+            <Stack.Screen
+              name="ChangeActiveTeam"
+              component={ChangeActiveTeam}
+            />
           </>
         )}
       </Stack.Navigator>

@@ -74,7 +74,6 @@ export default function PlayerResult(props) {
               <Text style={styles.playerHeader}>Utv/Min</Text>
             </DataTable.Title>
           </DataTable.Header>
-          {console.log(playerResults)}
           {playerResults.map((result) => (
             <DataTable.Row key={result._id}>
               <DataTable.Cell>

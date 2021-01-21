@@ -70,7 +70,6 @@ export default function searchTeam({ navigation }) {
     if (request) {
       hideModal();
       dispatch(setNavigationIndex(0));
-      navigation.navigate("HomeScreen");
     }
   };
 
