@@ -40,7 +40,7 @@ export default function Landingpage() {
   }, [activeTeam]);
 
   return (
-    <NavigationContainer>
+    <NavigationContainer independent={true}>
       <Stack.Navigator headerMode="none">
         {isLoggedIn ? (
           <>
