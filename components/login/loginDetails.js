@@ -31,9 +31,10 @@ export default function LoginDetails({ navigation }) {
   const logIn = async () => {
     const response = await dispatch(loginUser(inputValues));
     const user = await response.payload;
-    setErrorMsg(user);
     if (user != "Användare eller lösenord matchar inte") {
       navigation.navigate("HomeScreen");
+    } else {
+      setErrorMsg(user);
     }
   };
 
