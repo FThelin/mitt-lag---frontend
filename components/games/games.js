@@ -43,9 +43,11 @@ export default function Games({ navigation }) {
   }, [games, seasonValue, activeTeam]);
 
   const fetchAllGames = async () => {
-    const res = await dispatch(getGames(activeTeam._id));
-    if (res) {
-      await getSeasons(res.payload);
+    if (activeTeam) {
+      const res = await dispatch(getGames(activeTeam._id));
+      if (res) {
+        await getSeasons(res.payload);
+      }
     }
   };
 

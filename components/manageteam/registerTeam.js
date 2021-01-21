@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
+import { setNavigationIndex } from "../../features/navigaton/navigationSlice";
 import { TextInput, ActivityIndicator } from "react-native-paper";
 import OutlinedButton from "../buttons/outlinedButton";
 import BackButton from "../buttons/backButton";
@@ -33,7 +34,8 @@ export default function RegisterTeam({ navigation }) {
     const team = await response.payload;
     if (team) {
       await dispatch(getTeam(team._id));
-      navigation.navigate("HomeScreen");
+      //dispatch(setNavigationIndex(0));
+      navigation.navigate("ManageTeam");
     }
   };
 

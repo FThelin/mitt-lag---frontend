@@ -125,9 +125,11 @@ const playerResultSlice = createSlice({
       state.isLoading = false;
     },
     [addPlayerResult.fulfilled]: (state, action) => {
+      state.updatePlayerResults = true;
       state.isLoading = false;
     },
     [addPlayerResult.pending]: (state) => {
+      state.updatePlayerResults = false;
       state.isLoading = true;
     },
     [addPlayerResult.rejected]: (state) => {
