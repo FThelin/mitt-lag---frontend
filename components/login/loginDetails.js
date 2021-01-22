@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { StyleSheet, Text, View, Button, Alert } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
 import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
 import { TextInput, ActivityIndicator } from "react-native-paper";

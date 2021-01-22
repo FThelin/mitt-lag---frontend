@@ -16,8 +16,12 @@ export default function AddPlayerResult(props) {
     gameId,
   } = props;
 
+  const [player, setPlayer] = useState("");
+
   //Redux
   const loggedInUser = useSelector((state) => state.auth.loggedInUser);
+  const isLeader = useSelector((state) => state.auth.isLeader);
+  const activeTeam = useSelector((state) => state.team.activeTeam);
   const dispatch = useDispatch();
 
   const [resultData, setResultData] = useState({
@@ -41,6 +45,20 @@ export default function AddPlayerResult(props) {
     return items;
   };
 
+  const playerList = () => {
+    let items = [];
+    let members = activeTeam.leaders.concat(activeTeam.players);
+
+    for (let i = 0; i < members.length; i++) {
+      let temp = {
+        label: `${members[i].firstname} ${members[i].lastname}`,
+        value: members[i]._id,
+      };
+      items.push(temp);
+    }
+    return items;
+  };
+
   //Add player result
   const createPlayerResult = async (data) => {
     const res = await dispatch(addPlayerResult(data));
@@ -58,9 +76,23 @@ export default function AddPlayerResult(props) {
         </Dialog.Title>
         <View style={styles.gameData}>
           <Text style={styles.date}>{gameDate}</Text>
-          <Text
-            style={styles.name}
-          >{`${loggedInUser.firstname} ${loggedInUser.lastname}`}</Text>
+
+          {isLeader ? (
+            <View>
+              <Text style={styles.dialogText}>Spelare</Text>
+              <RNPickerSelect
+                placeholder={{}}
+                onValueChange={(value) =>
+                  setResultData({ ...resultData, userId: value })
+                }
+                items={playerList()}
+              />
+            </View>
+          ) : (
+            <Text
+              style={styles.name}
+            >{`${loggedInUser.firstname} ${loggedInUser.lastname}`}</Text>
+          )}
         </View>
 
         <Dialog.Content>
@@ -117,6 +149,7 @@ export default function AddPlayerResult(props) {
 const styles = StyleSheet.create({
   dialog: {
     backgroundColor: "#FBFBFB",
+    padding: 20,
   },
   dialogTitle: {
     color: "#F18873",
