@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Button, Alert } from "react-native";
 import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
 import { TextInput, ActivityIndicator } from "react-native-paper";
@@ -9,11 +9,17 @@ import BackButton from "../buttons/backButton";
 import { loginUser } from "../../features/auth/authSlice";
 import ThrowMessage from "../throwMessage";
 
-export default function LoginDetails({ navigation }) {
+export default function LoginDetails({ navigation, route }) {
+  useEffect(() => {
+    if (route.params) {
+      setInputValues({ email: route.params.email });
+    }
+  }, []);
+
   //Input fields
   const [inputValues, setInputValues] = React.useState({
-    email: "f@t.se",
-    password: "123456",
+    email: "",
+    password: "",
   });
   const inputValue = (input, anchor) => {
     setInputValues({ ...inputValues, [anchor]: input });

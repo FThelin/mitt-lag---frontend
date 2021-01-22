@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Alert } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
@@ -82,6 +82,20 @@ export default function Games({ navigation }) {
   const getSeasonGames = () => {
     const sg = games.filter((game) => game.season === seasonValue);
     setSeasonGames(sg);
+  };
+
+  const okTeamDelete = (game) => {
+    Alert.alert("Ta bort match", "Vill du ta bort matchen", [
+      {
+        text: "Avbryt",
+      },
+      {
+        text: "OK",
+        onPress: () => {
+          dispatch(deleteGame({ teamId: activeTeam._id, gameId: game._id }));
+        },
+      },
+    ]);
   };
 
   return (
@@ -175,11 +189,7 @@ export default function Games({ navigation }) {
                     name="trash-can"
                     size={20}
                     color="#1D182E"
-                    onPress={() =>
-                      dispatch(
-                        deleteGame({ teamId: activeTeam._id, gameId: game._id })
-                      )
-                    }
+                    onPress={() => okTeamDelete(game)}
                   />
                 </View>
               )}
