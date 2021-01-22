@@ -8,6 +8,7 @@ import BackButton from "../buttons/backButton";
 import { useDispatch, useSelector } from "react-redux";
 import { createGame, updateGame } from "../../features/game/gameSlice";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import ThrowMessage from "../throwMessage";
 
 export default function CreateGame({ navigation, route }) {
   //RadioButtons
@@ -31,6 +32,7 @@ export default function CreateGame({ navigation, route }) {
 
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.game.isLoading);
+  const errorMessage = useSelector((state) => state.game.errorMessage);
 
   //Get current year
   useEffect(() => {
@@ -111,7 +113,8 @@ export default function CreateGame({ navigation, route }) {
 
     const response = await dispatch(createGame(game));
     const res = await response.payload;
-    if (res) {
+    console.log(res);
+    if (res.success === true) {
       navigation.navigate("Games");
     }
   };
@@ -301,6 +304,15 @@ export default function CreateGame({ navigation, route }) {
           )}
         </View>
         <BackButton click={() => navigation.goBack()} />
+        <View
+          style={{
+            height: "100%",
+            width: "100%",
+            justifyContent: "flex-end",
+          }}
+        >
+          {!!errorMessage && <ThrowMessage message={errorMessage} />}
+        </View>
       </LightContainer>
     </>
   );

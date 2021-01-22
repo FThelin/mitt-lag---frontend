@@ -3,7 +3,7 @@ import { getAuthHeader } from "../jwt";
 
 export const createTeam = createAsyncThunk(
   "teamSlice/createTeam",
-  async ({ name, city, sport }) => {
+  async ({ name, city, sport }, { rejectWithValue }) => {
     const token = await getAuthHeader();
     const response = await fetch("https://mittlag.herokuapp.com/api/teams", {
       method: "POST",
@@ -16,7 +16,9 @@ export const createTeam = createAsyncThunk(
     });
 
     const data = await response.json();
-
+    if (response.status === 400) {
+      return rejectWithValue(data);
+    }
     return data;
   }
 );
@@ -246,28 +248,28 @@ const teamSlice = createSlice({
   name: "teamSlice",
   initialState: {
     isLoading: false,
-    showCreateTeamErrorMessage: false,
     success: false,
     searchResults: [],
     activeTeam: null,
     setActiveTeam: true,
+    errorMessage: "",
   },
   reducers: {},
   extraReducers: {
     [createTeam.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.showCreateTeamErrorMessage = false;
       state.success = true;
+      state.errorMessage = "";
     },
     [createTeam.pending]: (state) => {
       state.isLoading = true;
-      state.showCreateTeamErrorMessage = false;
       state.success = false;
+      state.errorMessage = "";
     },
-    [createTeam.rejected]: (state) => {
+    [createTeam.rejected]: (state, action) => {
       state.isLoading = false;
-      state.showCreateTeamErrorMessage = true;
       state.success = false;
+      state.errorMessage = action.payload;
     },
     [findTeam.fulfilled]: (state, action) => {
       state.isLoading = false;
