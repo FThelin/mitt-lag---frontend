@@ -1,16 +1,16 @@
 import React from "react";
-import { View, StyleSheet, Image, Text } from "react-native";
+import { View, StyleSheet, Image, Text, SafeAreaView } from "react-native";
 
 export default function DarkContainer(props) {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Image
         style={props.bigLogo ? styles.bigLogo : styles.tinyLogo}
         source={require("../assets/logo.png")}
       />
       <Text style={styles.text}>{props.text}</Text>
       {props.children}
-    </View>
+    </SafeAreaView>
   );
 }
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Alert } from "react-native";
 import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
 import { setNavigationIndex } from "../../features/navigaton/navigationSlice";
@@ -34,8 +34,18 @@ export default function RegisterTeam({ navigation }) {
     const team = await response.payload;
     if (team) {
       await dispatch(getTeam(team._id));
-      //dispatch(setNavigationIndex(0));
-      navigation.navigate("ManageTeam");
+      Alert.alert(
+        "Skapa lag",
+        "Laget skapades. Nu kan du lägga till matcher.",
+        [
+          {
+            text: "OK",
+            onPress: () => {
+              navigation.navigate("ManageTeam");
+            },
+          },
+        ]
+      );
     }
   };
 

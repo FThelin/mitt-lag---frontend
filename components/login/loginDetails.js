@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Alert, StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
 import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
 import { TextInput, ActivityIndicator } from "react-native-paper";
@@ -9,11 +9,17 @@ import BackButton from "../buttons/backButton";
 import { loginUser } from "../../features/auth/authSlice";
 import ThrowMessage from "../throwMessage";
 
-export default function LoginDetails({ navigation }) {
+export default function LoginDetails({ navigation, route }) {
+  useEffect(() => {
+    if (route.params) {
+      setInputValues({ email: route.params.email });
+    }
+  }, []);
+
   //Input fields
   const [inputValues, setInputValues] = React.useState({
-    email: "f@t.se",
-    password: "123456",
+    email: "",
+    password: "",
   });
   const inputValue = (input, anchor) => {
     setInputValues({ ...inputValues, [anchor]: input });
@@ -42,16 +48,6 @@ export default function LoginDetails({ navigation }) {
     <>
       <DarkContainer bigLogo={true}>
         {isLoading && <ActivityIndicator size="small" color="#ffffff" />}
-        <Button
-          title="Alert"
-          onPress={() =>
-            Alert.alert(
-              "Skapa konto",
-              "Registreringen lyckades. Prova att logga in",
-              [{ text: "OK", onPress: () => navigation.navigate("Register") }]
-            )
-          }
-        />
       </DarkContainer>
       <LightContainer>
         <Text style={styles.logInText}>Logga in...</Text>
