@@ -79,14 +79,30 @@ export default function AddPlayerResult(props) {
 
           {isLeader ? (
             <View>
-              <Text style={styles.dialogText}>Spelare</Text>
-              <RNPickerSelect
-                placeholder={{}}
-                onValueChange={(value) =>
-                  setResultData({ ...resultData, userId: value })
-                }
-                items={playerList()}
-              />
+              <Text style={styles.dialogText}>Välj Spelare</Text>
+              <View
+                style={{
+                  height: 35,
+                  width: 150,
+                  borderColor: "black",
+                  borderWidth: 2,
+                  alignItems: "flex-start",
+                  flexDirection: "row",
+                  padding: 2,
+                  justifyContent: "space-between",
+                  backgroundColor: "#E7E7E7",
+                }}
+              >
+                <Text style={{ marginTop: 7 }}>
+                  <RNPickerSelect
+                    placeholder={{}}
+                    onValueChange={(value) =>
+                      setResultData({ ...resultData, userId: value })
+                    }
+                    items={playerList()}
+                  />
+                </Text>
+              </View>
             </View>
           ) : (
             <Text

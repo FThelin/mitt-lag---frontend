@@ -11,7 +11,7 @@ export default function ThrowMessage(props) {
     <Snackbar
       visible={visible}
       onDismiss={onDismiss}
-      style={{ backgroundColor: "#E57373" }}
+      style={{ backgroundColor: "#E57373", bottom: 0 }}
       action={{
         label: <Text style={{ color: "#FDFEFE" }}>OK</Text>,
         onPress: () => {
