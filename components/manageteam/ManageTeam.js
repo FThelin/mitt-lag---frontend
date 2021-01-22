@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Alert } from "react-native";
 import { Surface, Button } from "react-native-paper";
 import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
@@ -19,6 +19,44 @@ export default function ManageTeam({ navigation }) {
   const activeTeam = useSelector((state) => state.team.activeTeam);
   const isLeader = useSelector((state) => state.auth.isLeader);
   const loggedInUser = useSelector((state) => state.auth.loggedInUser);
+
+  const okDeleteUser = (userInput, leaderBoolean) => {
+    Alert.alert("Redigera lag", "Vill du ta bort användaren från laget?", [
+      {
+        text: "Avbryt",
+      },
+      {
+        text: "OK",
+        onPress: () => {
+          if (leaderBoolean) {
+            console.log(
+              "LEADER activeTeam._id, userInput._id",
+              activeTeam._id,
+              userInput._id
+            );
+            dispatch(
+              deleteLeaderFromTeam({
+                teamId: activeTeam._id,
+                userId: userInput._id,
+              })
+            );
+          } else {
+            console.log(
+              "Player activeTeam._id, userInput._id",
+              activeTeam._id,
+              userInput._id
+            );
+            dispatch(
+              deletePlayerFromTeam({
+                teamId: activeTeam._id,
+                userId: userInput._id,
+              })
+            );
+          }
+        },
+      },
+    ]);
+  };
 
   return (
     activeTeam && (
@@ -81,14 +119,7 @@ export default function ManageTeam({ navigation }) {
                           size={18}
                           name="delete"
                           color="grey"
-                          onPress={() =>
-                            dispatch(
-                              deleteLeaderFromTeam({
-                                teamId: activeTeam._id,
-                                userId: leader._id,
-                              })
-                            )
-                          }
+                          onPress={() => okDeleteUser(leader, true)}
                         ></Icon>
                       )}
                     </View>
@@ -122,14 +153,7 @@ export default function ManageTeam({ navigation }) {
                         size={18}
                         name="delete"
                         color="grey"
-                        onPress={() =>
-                          dispatch(
-                            deletePlayerFromTeam({
-                              teamId: activeTeam._id,
-                              userId: player._id,
-                            })
-                          )
-                        }
+                        onPress={() => okDeleteUser(player, false)}
                       ></Icon>
                     </View>
                   )}

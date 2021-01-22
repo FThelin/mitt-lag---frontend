@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Alert } from "react-native";
 import DarkContainer from "../darkContainer";
 import ThrowMessage from "../throwMessage";
 import LightContainer from "../lightContainer";
@@ -12,7 +12,6 @@ import {
   Portal,
 } from "react-native-paper";
 import OutlinedButton from "../buttons/outlinedButton";
-import FilledButton from "../buttons/filledButton";
 import BackButton from "../buttons/backButton";
 import { registerUser } from "../../features/auth/authSlice";
 
@@ -36,13 +35,6 @@ export default function LoginDetails({ navigation }) {
     return inputValues.password.length < 6;
   };
 
-  //Modal
-  const [visible, setVisible] = React.useState(false);
-  const showModal = () => setVisible(true);
-  const hideModal = () => {
-    navigation.navigate("Login");
-  };
-
   //Redux
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.auth.isLoading);
@@ -53,7 +45,18 @@ export default function LoginDetails({ navigation }) {
     const response = await dispatch(registerUser(inputValues));
     const data = await response.payload;
     if (data._id) {
-      showModal();
+      Alert.alert(
+        "Skapa konto",
+        "Registreringen lyckades. Nu kan du prova att logga in",
+        [
+          {
+            text: "OK",
+            onPress: () => {
+              navigation.navigate("LoginDetails", { email: inputValues.email });
+            },
+          },
+        ]
+      );
     }
   };
 
@@ -156,21 +159,7 @@ export default function LoginDetails({ navigation }) {
             <BackButton click={() => navigation.goBack()}> </BackButton>
           </View>
         </View>
-        <Portal>
-          <Modal
-            visible={visible}
-            onDismiss={hideModal}
-            contentContainerStyle={styles.modalStyle}
-          >
-            <Text style={{ fontFamily: "Kodchasan_600SemiBold" }}>
-              Användare skapad. Nu kan du logga in!
-            </Text>
-            <FilledButton
-              buttonText="SWEET!"
-              click={() => navigation.navigate("Login")}
-            />
-          </Modal>
-        </Portal>
+
         {!!errorMessage && <ThrowMessage message={errorMessage} />}
       </LightContainer>
     </>
