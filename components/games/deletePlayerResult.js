@@ -45,7 +45,7 @@ export default function DeletePlayerResult(props) {
               {playerResults.map((result) => (
                 <DataTable.Row key={result._id}>
                   <DataTable.Cell>
-                    <RadioButton.Item value={result._id} />
+                    <RadioButton mode={"android"} value={result._id} />
                   </DataTable.Cell>
                   <DataTable.Cell>
                     <Text style={styles.playerHeader}>{result.playerName}</Text>

@@ -4,9 +4,9 @@ import Homepage from "./homepage/homepage";
 import { useSelector, useDispatch } from "react-redux";
 import { setNavigationIndex } from "../features/navigaton/navigationSlice";
 import ManageTeamNavigation from "./manageteam/ManageTeamNavigation";
-import RegisterTeam from "./manageteam/registerTeam";
 import Scoreboard from "./scoreboard/scoreboard";
 import GamesNavigation from "./games/gamesNavigation";
+import MyLeagues from "./myLeagues";
 
 const Navigation = (props) => {
   const dispatch = useDispatch();
@@ -38,7 +38,7 @@ const Navigation = (props) => {
     manageteam: ManageTeamNavigation,
     games: GamesNavigation,
     scoreboard: Scoreboard,
-    leagues: RegisterTeam,
+    leagues: MyLeagues,
   });
 
   return (
