@@ -230,8 +230,6 @@ export default function Scoreboard() {
             </DataTable.Header>
             {scores.map((result, index) => (
               <DataTable.Row key={result.Player}>
-                {console.log("1", result.Player)}
-                {console.log("2", loggedInUser)}
                 <View style={styles.leftContainer}>
                   <DataTable.Cell style={styles.tableData2}>
                     <Text

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, Text, View, Button } from "react-native";
 import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
 import { TextInput, ActivityIndicator } from "react-native-paper";
@@ -42,6 +42,16 @@ export default function LoginDetails({ navigation }) {
     <>
       <DarkContainer bigLogo={true}>
         {isLoading && <ActivityIndicator size="small" color="#ffffff" />}
+        <Button
+          title="Alert"
+          onPress={() =>
+            Alert.alert(
+              "Skapa konto",
+              "Registreringen lyckades. Prova att logga in",
+              [{ text: "OK", onPress: () => navigation.navigate("Register") }]
+            )
+          }
+        />
       </DarkContainer>
       <LightContainer>
         <Text style={styles.logInText}>Logga in...</Text>

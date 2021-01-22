@@ -5,6 +5,7 @@ import { List, Button, ActivityIndicator, DataTable } from "react-native-paper";
 import { View, Text, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import AddPlayerResult from "./addPlayerResult";
+import DeletePlayerResult from "./deletePlayerResult";
 import { deletePlayerResult } from "../../features/playerResult/playerResultSlice";
 
 export default function PlayerResult(props) {
@@ -17,9 +18,13 @@ export default function PlayerResult(props) {
   const [visible, setVisible] = useState(false);
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
+  const [visibleDelete, setVisibleDelete] = useState(false);
+  const showDialogDelete = () => setVisibleDelete(true);
+  const hideDialogDelete = () => setVisibleDelete(false);
 
   //Redux
   const dispatch = useDispatch();
+  const isLeader = useSelector((state) => state.auth.isLeader);
   const isLoading = useSelector((state) => state.playerResult.isLoading);
   const loggedInUser = useSelector((state) => state.auth.loggedInUser);
   const updatePlayerResults = useSelector(
@@ -91,16 +96,17 @@ export default function PlayerResult(props) {
             </DataTable.Row>
           ))}
         </DataTable>
+
         {isLoading ? (
           <ActivityIndicator size="small" color="#1D182E" />
-        ) : !inEditMode ? (
+        ) : !inEditMode && !isLeader ? (
           <Button onPress={() => showDialog()}>
             <View style={styles.controls}>
               <Icon name="plus-circle-outline" size={20} color="#787878" />
               <Text style={styles.controlText}>Lägg till...</Text>
             </View>
           </Button>
-        ) : (
+        ) : !isLeader ? (
           <Button
             onPress={() =>
               dispatch(
@@ -116,6 +122,25 @@ export default function PlayerResult(props) {
               <Text style={styles.controlTextDelete}>Ta bort</Text>
             </View>
           </Button>
+        ) : (
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-evenly" }}
+          >
+            <Button onPress={() => showDialog()}>
+              <View style={styles.controls}>
+                <Icon name="plus-circle-outline" size={20} color="#787878" />
+                <Text style={styles.controlText}>Lägg till...</Text>
+              </View>
+            </Button>
+            {playerResults.length > 0 && (
+              <Button onPress={() => showDialogDelete()}>
+                <View style={styles.controls}>
+                  <Icon name="trash-can" size={20} color="#787878" />
+                  <Text style={styles.controlTextDelete}>Ta bort</Text>
+                </View>
+              </Button>
+            )}
+          </View>
         )}
       </List.Accordion>
       <AddPlayerResult
@@ -123,6 +148,16 @@ export default function PlayerResult(props) {
         hideDialog={hideDialog}
         playerResults={playerResults}
         setPlayerResults={setPlayerResults}
+        gameDate={gameDate}
+        opponent={opponent}
+        gameId={gameId.gameId}
+      />
+      <DeletePlayerResult
+        visible={visibleDelete}
+        hideDialog={hideDialogDelete}
+        playerResults={playerResults}
+        playerResultId={playerResultId}
+        setPlayerResultId={setPlayerResultId}
         gameDate={gameDate}
         opponent={opponent}
         gameId={gameId.gameId}

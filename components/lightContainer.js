@@ -5,7 +5,6 @@ import { ScrollView } from "react-native-gesture-handler";
 export default function LightContainer(props) {
   return (
     <View style={[styles.container, { justifyContent: "center", flex: 1 }]}>
-      {console.log(props)}
       <ScrollView
         style={styles.scroll}
         contentContainerStyle={[{ alignItems: "center" }, props.extraStyle]}
