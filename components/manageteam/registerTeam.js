@@ -22,9 +22,7 @@ export default function RegisterTeam({ navigation }) {
   };
 
   const dispatch = useDispatch();
-  const showCreateTeamErrorMessage = useSelector(
-    (state) => state.team.showCreateTeamErrorMessage
-  );
+  const errorMessage = useSelector((state) => state.team.errorMessage);
   const success = useSelector((state) => state.team.success);
   const isLoading = useSelector((state) => state.team.isLoading);
 
@@ -32,7 +30,8 @@ export default function RegisterTeam({ navigation }) {
   const newTeam = async () => {
     const response = await dispatch(createTeam(inputValues));
     const team = await response.payload;
-    if (team) {
+    console.log(team);
+    if (!typeof team === "string") {
       await dispatch(getTeam(team._id));
       Alert.alert(
         "Skapa lag",
@@ -118,10 +117,16 @@ export default function RegisterTeam({ navigation }) {
             />
           </View>
           <BackButton click={() => navigation.goBack()} />
+          <View
+            style={{
+              height: "100%",
+              width: "100%",
+              justifyContent: "flex-end",
+            }}
+          >
+            {!!errorMessage && <ThrowMessage message={errorMessage} />}
+          </View>
         </View>
-        {showCreateTeamErrorMessage && (
-          <ThrowMessage message="Alla fält måste va ifyllda" />
-        )}
       </LightContainer>
     </>
   );
@@ -131,7 +136,6 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     flex: 1,
-    justifyContent: "space-evenly",
   },
   text: {
     color: "#F18873",

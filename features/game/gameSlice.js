@@ -25,15 +25,10 @@ export const getGames = createAsyncThunk(
 
 export const createGame = createAsyncThunk(
   "gameSlice/createGame",
-  async ({
-    teamId,
-    homeGame,
-    goals,
-    opponentGoals,
-    opponent,
-    date,
-    season,
-  }) => {
+  async (
+    { teamId, homeGame, goals, opponentGoals, opponent, date, season },
+    { rejectWithValue }
+  ) => {
     const token = await getAuthHeader();
     const response = await fetch("https://mittlag.herokuapp.com/api/game", {
       method: "POST",
@@ -54,6 +49,9 @@ export const createGame = createAsyncThunk(
     });
 
     const data = await response.json();
+    if (response.status === 400) {
+      return rejectWithValue(data);
+    }
 
     return data;
   }
@@ -126,6 +124,7 @@ const gameSlice = createSlice({
     isLoading: false,
     games: [],
     updateGames: true,
+    errorMessage: "",
   },
   reducers: {},
   extraReducers: {
@@ -142,13 +141,16 @@ const gameSlice = createSlice({
     [createGame.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.updateGames = true;
+      state.errorMessage = "";
     },
     [createGame.pending]: (state) => {
       state.isLoading = true;
       state.updateGames = false;
+      state.errorMessage = "";
     },
-    [createGame.rejected]: (state) => {
+    [createGame.rejected]: (state, action) => {
       state.isLoading = false;
+      state.errorMessage = action.payload;
     },
     [updateGame.fulfilled]: (state, action) => {
       state.isLoading = false;

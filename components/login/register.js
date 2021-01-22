@@ -159,8 +159,15 @@ export default function LoginDetails({ navigation }) {
             <BackButton click={() => navigation.goBack()}> </BackButton>
           </View>
         </View>
-
-        {!!errorMessage && <ThrowMessage message={errorMessage} />}
+        <View
+          style={{
+            height: "100%",
+            width: "100%",
+            justifyContent: "flex-end",
+          }}
+        >
+          {!!errorMessage && <ThrowMessage message={errorMessage} />}
+        </View>
       </LightContainer>
     </>
   );
