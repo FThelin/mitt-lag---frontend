@@ -59,7 +59,7 @@ export default function LoginDetails({ navigation }) {
       <DarkContainer text="Registrera dig">
         {isLoading && <ActivityIndicator size="small" color="#ffffff" />}
       </DarkContainer>
-      <LightContainer extraStyle={{ justifyContent: "center" }}>
+      <LightContainer extraStyle={{ justifyContent: "center", flex: 1 }}>
         <View style={styles.container}>
           <View>
             <Text style={styles.text}>Förnamn</Text>
