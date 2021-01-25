@@ -7,8 +7,9 @@ För att senare tillsammans med andra användare kunna skapa en poängliga.
 
 - För att starta projektet lokalt
   Ladda ner [GitHubRepo](https://github.com/FThelin/mitt-lag---frontend) till din dator.
-  Kör ```bash
-  npm i expo-cli
+
+Kör ```bash
+npm i expo-cli
 
 ````
 För att starta ```bash
