@@ -4,13 +4,7 @@ import { StyleSheet, Text, View, Alert } from "react-native";
 import DarkContainer from "../darkContainer";
 import ThrowMessage from "../throwMessage";
 import LightContainer from "../lightContainer";
-import {
-  HelperText,
-  TextInput,
-  ActivityIndicator,
-  Modal,
-  Portal,
-} from "react-native-paper";
+import { HelperText, TextInput, ActivityIndicator } from "react-native-paper";
 import OutlinedButton from "../buttons/outlinedButton";
 import BackButton from "../buttons/backButton";
 import { registerUser } from "../../features/auth/authSlice";
@@ -65,7 +59,7 @@ export default function LoginDetails({ navigation }) {
       <DarkContainer text="Registrera dig">
         {isLoading && <ActivityIndicator size="small" color="#ffffff" />}
       </DarkContainer>
-      <LightContainer>
+      <LightContainer extraStyle={{ justifyContent: "center", flex: 1 }}>
         <View style={styles.container}>
           <View>
             <Text style={styles.text}>Förnamn</Text>
@@ -159,15 +153,8 @@ export default function LoginDetails({ navigation }) {
             <BackButton click={() => navigation.goBack()}> </BackButton>
           </View>
         </View>
-        <View
-          style={{
-            height: "100%",
-            width: "100%",
-            justifyContent: "flex-end",
-          }}
-        >
-          {!!errorMessage && <ThrowMessage message={errorMessage} />}
-        </View>
+
+        {!!errorMessage && <ThrowMessage message={errorMessage} />}
       </LightContainer>
     </>
   );

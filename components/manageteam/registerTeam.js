@@ -28,6 +28,7 @@ export default function RegisterTeam({ navigation }) {
   const newTeam = async () => {
     const response = await dispatch(createTeam(inputValues));
     const team = await response.payload;
+
     if (team.hasOwnProperty("_id")) {
       await dispatch(getTeam(team._id));
       Alert.alert(
@@ -113,9 +114,7 @@ export default function RegisterTeam({ navigation }) {
               click={() => newTeam()}
             />
           </View>
-          {console.log(!!errorMessage)}
           <BackButton click={() => navigation.goBack()} />
-
           {!!errorMessage && <ThrowMessage message={errorMessage} />}
         </View>
       </LightContainer>

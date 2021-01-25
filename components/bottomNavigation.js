@@ -1,5 +1,5 @@
-import * as React from "react";
-import { BottomNavigation, Text } from "react-native-paper";
+import React, { useState } from "react";
+import { BottomNavigation } from "react-native-paper";
 import Homepage from "./homepage/homepage";
 import { useSelector, useDispatch } from "react-redux";
 import { setNavigationIndex } from "../features/navigaton/navigationSlice";
@@ -8,12 +8,12 @@ import Scoreboard from "./scoreboard/scoreboard";
 import GamesNavigation from "./games/gamesNavigation";
 import MyLeagues from "./myLeagues";
 
-const Navigation = (props) => {
+const Navigation = () => {
   const dispatch = useDispatch();
   const navigationIndex = useSelector(
     (state) => state.navigation.navigationIndex
   );
-  const [routes] = React.useState([
+  const [routes] = useState([
     {
       key: "homepage",
       title: "Hem",

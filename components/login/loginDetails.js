@@ -17,16 +17,13 @@ export default function LoginDetails({ navigation, route }) {
   }, []);
 
   //Input fields
-  const [inputValues, setInputValues] = React.useState({
+  const [inputValues, setInputValues] = useState({
     email: "",
     password: "",
   });
   const inputValue = (input, anchor) => {
     setInputValues({ ...inputValues, [anchor]: input });
   };
-
-  //Login error message
-  const [errorMsg, setErrorMsg] = useState("");
 
   //Redux
   const dispatch = useDispatch();
@@ -39,8 +36,6 @@ export default function LoginDetails({ navigation, route }) {
     const user = await response.payload;
     if (user != "Användare eller lösenord matchar inte") {
       navigation.navigate("HomeScreen");
-    } else {
-      setErrorMsg(user);
     }
   };
 
@@ -49,7 +44,7 @@ export default function LoginDetails({ navigation, route }) {
       <DarkContainer bigLogo={true}>
         {isLoading && <ActivityIndicator size="small" color="#ffffff" />}
       </DarkContainer>
-      <LightContainer>
+      <LightContainer extraStyle={{ flex: 1 }}>
         <Text style={styles.logInText}>Logga in...</Text>
         <View style={styles.container}>
           <View>
@@ -98,16 +93,7 @@ export default function LoginDetails({ navigation, route }) {
             <BackButton click={() => navigation.goBack()}></BackButton>
           </View>
         </View>
-
-        <View
-          style={{
-            height: "100%",
-            width: "100%",
-            justifyContent: "flex-end",
-          }}
-        >
-          {!!errorMessage && <ThrowMessage message={errorMsg} />}
-        </View>
+        {!!errorMessage && <ThrowMessage message={errorMessage} />}
       </LightContainer>
     </>
   );

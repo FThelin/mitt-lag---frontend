@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Image, Text, SafeAreaView } from "react-native";
+import { StyleSheet, Image, Text, SafeAreaView } from "react-native";
 
 export default function DarkContainer(props) {
   return (

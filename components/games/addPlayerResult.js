@@ -16,8 +16,6 @@ export default function AddPlayerResult(props) {
     gameId,
   } = props;
 
-  const [player, setPlayer] = useState("");
-
   //Redux
   const loggedInUser = useSelector((state) => state.auth.loggedInUser);
   const isLeader = useSelector((state) => state.auth.isLeader);

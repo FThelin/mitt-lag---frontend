@@ -6,8 +6,6 @@ import FilledButton from "../buttons/filledButton";
 import OutlinedButton from "../buttons/outlinedButton";
 
 export default function Login({ navigation }) {
-  //const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-
   return (
     <>
       <DarkContainer bigLogo="true"></DarkContainer>
