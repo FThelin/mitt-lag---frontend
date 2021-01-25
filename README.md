@@ -7,7 +7,7 @@ För att senare tillsammans med andra användare kunna skapa en poängliga.
 
 - För att starta front-end projektet lokalt
   Ladda ner [GitHubRepo-Front-end](https://github.com/FThelin/mitt-lag---frontend) till din dator.
-  Se till att du har Node samt npm installerat
+  Se till att du har Node.js samt npm installerat
 
 Installera expo
 
@@ -21,17 +21,17 @@ Installera dependencies
   npm install
 ```
 
-Starta projektet
-
-```bash
-  expo start
-```
-
 ### Installation Back-end
 
 - För att använda back-end lokalt följ README i [GitHubRepo-Back-end](https://github.com/FThelin/mitt-lag---backend)
 
 ## Usage
+
+Starta projektet
+
+```bash
+  expo start
+```
 
 - Visa i mobil Iphone/Android skanna QR-kod och öppna i [ExpoApp](https://expo.io/tools)
 - Visa på dator öppna i simulator [Xcode](https://developer.apple.com/xcode/) eller [Android Studio](https://developer.android.com/studio)
