@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Snackbar } from "react-native-paper";
 import { Text } from "react-native";
 
 export default function ThrowMessage(props) {
-  const [visible, setVisible] = React.useState(true);
+  const [visible, setVisible] = useState(true);
 
   const onDismiss = () => setVisible(false);
 

@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import LightContainer from "../lightContainer";
@@ -7,8 +6,6 @@ import FilledButton from "../buttons/filledButton";
 import OutlinedButton from "../buttons/outlinedButton";
 
 export default function Login({ navigation }) {
-  //const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-
   return (
     <>
       <DarkContainer bigLogo="true"></DarkContainer>

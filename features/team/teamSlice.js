@@ -324,7 +324,6 @@ const teamSlice = createSlice({
     },
     [getUserTeams.fulfilled]: (state, action) => {
       state.isLoading = false;
-      // state.activeTeam = action.payload;
     },
     [getUserTeams.pending]: (state) => {
       state.isLoading = true;
