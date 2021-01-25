@@ -8,7 +8,7 @@ För att senare tillsammans med andra användare kunna skapa en poängliga.
 - För att starta front-end projektet lokalt
   Ladda ner [GitHubRepo-Front-end](https://github.com/FThelin/mitt-lag---frontend) till din dator.
 
-Instalera expo
+Installera expo
 
 ```bash
 npm install -g expo-cli
@@ -17,7 +17,7 @@ npm install -g expo-cli
 Starta projektet
 
 ```bash
-  npm start
+  expo start
 ```
 
 ### Installation Back-end
