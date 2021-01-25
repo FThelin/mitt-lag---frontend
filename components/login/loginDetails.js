@@ -49,7 +49,7 @@ export default function LoginDetails({ navigation, route }) {
       <DarkContainer bigLogo={true}>
         {isLoading && <ActivityIndicator size="small" color="#ffffff" />}
       </DarkContainer>
-      <LightContainer>
+      <LightContainer extraStyle={{ flex: 1 }}>
         <Text style={styles.logInText}>Logga in...</Text>
         <View style={styles.container}>
           <View>
@@ -98,16 +98,7 @@ export default function LoginDetails({ navigation, route }) {
             <BackButton click={() => navigation.goBack()}></BackButton>
           </View>
         </View>
-
-        <View
-          style={{
-            height: "100%",
-            width: "100%",
-            justifyContent: "flex-end",
-          }}
-        >
-          {!!errorMessage && <ThrowMessage message={errorMsg} />}
-        </View>
+        {!!errorMessage && <ThrowMessage message={errorMsg} />}
       </LightContainer>
     </>
   );

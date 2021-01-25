@@ -145,7 +145,7 @@ export default function CreateGame({ navigation, route }) {
       <DarkContainer
         text={edit ? "Uppdatera match" : "Lägg till match"}
       ></DarkContainer>
-      <LightContainer>
+      <LightContainer extraStyle={{ flex: 1 }}>
         <Text style={styles.teamText}>Mitt lag - Mål</Text>
         <View style={styles.myTeamContainer}>
           <Text style={styles.myTeamText}>{activeTeam.name}</Text>
@@ -303,15 +303,9 @@ export default function CreateGame({ navigation, route }) {
           )}
         </View>
         <BackButton click={() => navigation.goBack()} />
-        <View
-          style={{
-            height: "100%",
-            width: "100%",
-            justifyContent: "flex-end",
-          }}
-        >
-          {!!errorMessage && <ThrowMessage message={errorMessage} />}
-        </View>
+        {!!errorMessage && (
+          <ThrowMessage style={{ bottom: 0 }} message={errorMessage} />
+        )}
       </LightContainer>
     </>
   );
