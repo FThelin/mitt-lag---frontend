@@ -30,10 +30,7 @@ export default function RegisterTeam({ navigation }) {
   const newTeam = async () => {
     const response = await dispatch(createTeam(inputValues));
     const team = await response.payload;
-    console.log(team);
-    console.log(typeof team);
     if (team.hasOwnProperty("_id")) {
-      console.log("inne");
       await dispatch(getTeam(team._id));
       Alert.alert(
         "Skapa lag",
