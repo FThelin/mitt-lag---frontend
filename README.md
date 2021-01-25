@@ -1,4 +1,4 @@
-### SCORIFY
+# SCORIFY
 
 Detta är en app där man som användare kan skapa ett konto, skapa ett lag och lägga till matcher.
 För att senare tillsammans med andra användare kunna skapa en poängliga.
@@ -20,7 +20,7 @@ Starta projektet
   npm start
 ```
 
-# Installation Back-end
+### Installation Back-end
 
 - För att använda back-end lokalt följ README i [GitHubRepo-Back-end](https://github.com/FThelin/mitt-lag---backend)
 
