@@ -93,7 +93,6 @@ export default function Scoreboard() {
   // Find all games for selected season
   const getSeasonGames = () => {
     const sg = games.filter((game) => game.season === seasonValue);
-    //setSeasonGames(sg);
     calculateResults(sg);
   };
 
@@ -108,7 +107,7 @@ export default function Scoreboard() {
   };
 
   useEffect(() => {
-    if (seasonResults.length > 0) {
+    if (seasonResults) {
       let properties = ["goals", "assists", "penalties", "games", "score"];
 
       let map = seasonResults.reduce(function (map, e) {
