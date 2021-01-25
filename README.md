@@ -5,13 +5,13 @@ För att senare tillsammans med andra användare kunna skapa en poängliga.
 
 ## Installation
 
-- För att starta projektet lokalt
-  Ladda ner [GitHubRepo](https://github.com/FThelin/mitt-lag---frontend) till din dator.
+- För att starta front-end projektet lokalt
+  Ladda ner [GitHubRepo-Front-end](https://github.com/FThelin/mitt-lag---frontend) till din dator.
 
 Instalera expo
 
 ```bash
-npm i expo-cli
+npm install -g expo-cli
 ```
 
 Starta projektet
@@ -20,21 +20,16 @@ Starta projektet
   npm start
 ```
 
+- För att använda back-end lokalt följ README i [GitHubRepo-Back-end](https://github.com/FThelin/mitt-lag---backend)
+
 ## Usage
 
-```python
-import foobar
-
-foobar.pluralize('word') # returns 'words'
-foobar.pluralize('goose') # returns 'geese'
-foobar.singularize('phenomena') # returns 'phenomenon'
-```
+- Visa i mobil Iphone/Android skanna QR-kod och öppna i [ExpoApp](https://expo.io/tools)
+- Visa på dator öppna i simulator [Xcode](https://developer.apple.com/xcode/) eller [Android Studio](https://developer.android.com/studio)
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
+Vi som gjort appen är [Simon Beijer](https://github.com/simonbeijer) och [Fredrik Thelin](https://github.com/FThelin)
 
 ## License
 
