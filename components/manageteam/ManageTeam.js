@@ -29,11 +29,6 @@ export default function ManageTeam({ navigation }) {
         text: "OK",
         onPress: () => {
           if (leaderBoolean) {
-            console.log(
-              "LEADER activeTeam._id, userInput._id",
-              activeTeam._id,
-              userInput._id
-            );
             dispatch(
               deleteLeaderFromTeam({
                 teamId: activeTeam._id,
@@ -41,11 +36,6 @@ export default function ManageTeam({ navigation }) {
               })
             );
           } else {
-            console.log(
-              "Player activeTeam._id, userInput._id",
-              activeTeam._id,
-              userInput._id
-            );
             dispatch(
               deletePlayerFromTeam({
                 teamId: activeTeam._id,

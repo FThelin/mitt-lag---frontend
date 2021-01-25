@@ -30,7 +30,6 @@ export default function RegisterTeam({ navigation }) {
   const newTeam = async () => {
     const response = await dispatch(createTeam(inputValues));
     const team = await response.payload;
-    console.log(team);
     if (!typeof team === "string") {
       await dispatch(getTeam(team._id));
       Alert.alert(

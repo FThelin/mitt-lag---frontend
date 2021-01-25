@@ -113,7 +113,6 @@ export default function CreateGame({ navigation, route }) {
 
     const response = await dispatch(createGame(game));
     const res = await response.payload;
-    console.log(res);
     if (res.success === true) {
       navigation.navigate("Games");
     }
