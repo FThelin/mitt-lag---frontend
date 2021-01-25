@@ -20,6 +20,8 @@ Starta projektet
   npm start
 ```
 
+## Installation Back-end
+
 - För att använda back-end lokalt följ README i [GitHubRepo-Back-end](https://github.com/FThelin/mitt-lag---backend)
 
 ## Usage
