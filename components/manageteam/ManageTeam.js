@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Text, View, StyleSheet, Alert } from "react-native";
 import { Surface, Button } from "react-native-paper";
 import DarkContainer from "../darkContainer";
@@ -11,6 +11,7 @@ import {
   deletePlayerFromTeam,
   deleteLeaderFromTeam,
   changeTeamRole,
+  getTeam,
 } from "../../features/team/teamSlice";
 import LinkButton from "../buttons/linkButton";
 
@@ -19,6 +20,15 @@ export default function ManageTeam({ navigation }) {
   const activeTeam = useSelector((state) => state.team.activeTeam);
   const isLeader = useSelector((state) => state.auth.isLeader);
   const loggedInUser = useSelector((state) => state.auth.loggedInUser);
+  const navigationIndex = useSelector(
+    (state) => state.navigation.navigationIndex
+  );
+
+  useEffect(() => {
+    if (navigationIndex === 1) {
+      dispatch(getTeam(activeTeam._id));
+    }
+  }, [navigationIndex]);
 
   const okDeleteUser = (userInput, leaderBoolean) => {
     Alert.alert("Redigera lag", "Vill du ta bort användaren från laget?", [

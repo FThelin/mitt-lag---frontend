@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Alert } from "react-native";
 import DarkContainer from "../darkContainer";
 import LightContainer from "../lightContainer";
-import { setNavigationIndex } from "../../features/navigaton/navigationSlice";
 import { TextInput, ActivityIndicator } from "react-native-paper";
 import OutlinedButton from "../buttons/outlinedButton";
 import BackButton from "../buttons/backButton";
@@ -23,7 +22,6 @@ export default function RegisterTeam({ navigation }) {
 
   const dispatch = useDispatch();
   const errorMessage = useSelector((state) => state.team.errorMessage);
-  const success = useSelector((state) => state.team.success);
   const isLoading = useSelector((state) => state.team.isLoading);
 
   //Create Team
@@ -115,16 +113,10 @@ export default function RegisterTeam({ navigation }) {
               click={() => newTeam()}
             />
           </View>
+          {console.log(!!errorMessage)}
           <BackButton click={() => navigation.goBack()} />
-          <View
-            style={{
-              height: "100%",
-              width: "100%",
-              justifyContent: "flex-end",
-            }}
-          >
-            {!!errorMessage && <ThrowMessage message={errorMessage} />}
-          </View>
+
+          {!!errorMessage && <ThrowMessage message={errorMessage} />}
         </View>
       </LightContainer>
     </>

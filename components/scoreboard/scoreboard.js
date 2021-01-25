@@ -54,8 +54,10 @@ export default function Scoreboard() {
   const fetchAllGames = async () => {
     if (activeTeam) {
       const res = await dispatch(getPlayerResultsTeam(activeTeam._id));
-      if (res) {
+      if (res.payload.length > 0) {
         await getSeasons(res.payload);
+      } else {
+        setScores([]);
       }
     }
   };
