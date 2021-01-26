@@ -73,34 +73,17 @@ export default function AddPlayerResult(props) {
           {`Vs. ${opponent}`}
         </Dialog.Title>
         <View style={styles.gameData}>
-          <Text style={styles.date}>{gameDate}</Text>
-
           {isLeader ? (
             <View>
               <Text style={styles.dialogText}>Välj Spelare</Text>
-              <View
-                style={{
-                  height: 35,
-                  width: 150,
-                  borderColor: "black",
-                  borderWidth: 2,
-                  alignItems: "flex-start",
-                  flexDirection: "row",
-                  padding: 2,
-                  justifyContent: "space-between",
-                  backgroundColor: "#E7E7E7",
-                }}
-              >
-                <Text style={{ marginTop: 7 }}>
-                  <RNPickerSelect
-                    placeholder={{}}
-                    onValueChange={(value) =>
-                      setResultData({ ...resultData, userId: value })
-                    }
-                    items={playerList()}
-                  />
-                </Text>
-              </View>
+              <RNPickerSelect
+                style={pickerStyle}
+                placeholder={{}}
+                onValueChange={(value) =>
+                  setResultData({ ...resultData, userId: value })
+                }
+                items={playerList()}
+              />
             </View>
           ) : (
             <Text
@@ -110,37 +93,38 @@ export default function AddPlayerResult(props) {
         </View>
 
         <Dialog.Content>
-          <View style={styles.selectContainer}>
-            <View>
-              <Text style={styles.dialogText}>Mål</Text>
-              <RNPickerSelect
-                placeholder={{}}
-                onValueChange={(value) =>
-                  setResultData({ ...resultData, goals: value })
-                }
-                items={itemsList()}
-              />
-            </View>
-            <View>
-              <Text style={styles.dialogText}>Assists</Text>
-              <RNPickerSelect
-                placeholder={{}}
-                onValueChange={(value) =>
-                  setResultData({ ...resultData, assists: value })
-                }
-                items={itemsList()}
-              />
-            </View>
-            <View>
-              <Text style={styles.dialogText}>Utv/Min</Text>
-              <RNPickerSelect
-                placeholder={{}}
-                onValueChange={(value) =>
-                  setResultData({ ...resultData, penalties: value })
-                }
-                items={itemsList()}
-              />
-            </View>
+          <View>
+            <Text style={styles.dialogText}>Mål</Text>
+            <RNPickerSelect
+              style={pickerStyle}
+              placeholder={{}}
+              onValueChange={(value) =>
+                setResultData({ ...resultData, goals: value })
+              }
+              items={itemsList()}
+            />
+          </View>
+          <View>
+            <Text style={styles.dialogText}>Assists</Text>
+            <RNPickerSelect
+              style={pickerStyle}
+              placeholder={{}}
+              onValueChange={(value) =>
+                setResultData({ ...resultData, assists: value })
+              }
+              items={itemsList()}
+            />
+          </View>
+          <View>
+            <Text style={styles.dialogText}>Utv/Min</Text>
+            <RNPickerSelect
+              style={pickerStyle}
+              placeholder={{}}
+              onValueChange={(value) =>
+                setResultData({ ...resultData, penalties: value })
+              }
+              items={itemsList()}
+            />
           </View>
         </Dialog.Content>
         <Dialog.Actions>
@@ -159,6 +143,20 @@ export default function AddPlayerResult(props) {
     </Portal>
   );
 }
+
+const pickerStyle = {
+  inputIOS: {
+    color: "black",
+    paddingTop: 13,
+    paddingHorizontal: 10,
+    paddingBottom: 12,
+  },
+  inputAndroid: {
+    color: "black",
+  },
+  placeholderColor: "black",
+  underline: { color: "black", borderTopWidth: 0 },
+};
 
 const styles = StyleSheet.create({
   dialog: {
@@ -183,10 +181,5 @@ const styles = StyleSheet.create({
   },
   name: {
     fontFamily: "Kodchasan_500Medium",
-  },
-  selectContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
   },
 });
