@@ -5,7 +5,7 @@ För att senare tillsammans med andra användare kunna skapa en poängliga.
 
 ## Installation
 
-- För att starta back-end projektet lokalt
+- För att starta front-end projektet lokalt
   Ladda ner [GitHubRepo-Front-end](https://github.com/FThelin/mitt-lag---frontend) till din dator.
   Se till att du har Node.js samt npm installerat
 
