@@ -31,31 +31,37 @@ export default function ManageTeam({ navigation }) {
   }, [navigationIndex]);
 
   const okDeleteUser = (userInput, leaderBoolean) => {
-    Alert.alert("Redigera lag", "Vill du ta bort användaren från laget?", [
-      {
-        text: "Avbryt",
-      },
-      {
-        text: "OK",
-        onPress: () => {
-          if (leaderBoolean) {
-            dispatch(
-              deleteLeaderFromTeam({
-                teamId: activeTeam._id,
-                userId: userInput._id,
-              })
-            );
-          } else {
-            dispatch(
-              deletePlayerFromTeam({
-                teamId: activeTeam._id,
-                userId: userInput._id,
-              })
-            );
-          }
+    Alert.alert(
+      "Redigera lag",
+      `Vill du ta bort ${
+        userInput.firstname + " " + userInput.lastname
+      } från laget?`,
+      [
+        {
+          text: "Avbryt",
         },
-      },
-    ]);
+        {
+          text: "OK",
+          onPress: () => {
+            if (leaderBoolean) {
+              dispatch(
+                deleteLeaderFromTeam({
+                  teamId: activeTeam._id,
+                  userId: userInput._id,
+                })
+              );
+            } else {
+              dispatch(
+                deletePlayerFromTeam({
+                  teamId: activeTeam._id,
+                  userId: userInput._id,
+                })
+              );
+            }
+          },
+        },
+      ]
+    );
   };
 
   return (
@@ -74,7 +80,7 @@ export default function ManageTeam({ navigation }) {
               <Button onPress={() => navigation.navigate("RegisterTeam")}>
                 <IconMC
                   name="account-multiple-plus-outline"
-                  size={28}
+                  size={36}
                   color="#F18873"
                 />
               </Button>
@@ -82,7 +88,7 @@ export default function ManageTeam({ navigation }) {
             </View>
             <View>
               <Button onPress={() => navigation.navigate("FindTeam")}>
-                <IconMC name="arrow-decision" size={28} color="#F18873" />
+                <IconMC name="arrow-decision" size={36} color="#F18873" />
               </Button>
               <Text style={styles.topText}>GÅ MED</Text>
             </View>
@@ -90,7 +96,7 @@ export default function ManageTeam({ navigation }) {
           <View style={styles.mainContainer}>
             <View style={styles.textContainer}>
               <Text style={styles.orangeTextLeader}>
-                <Icon size={14} name="star" color="#EDE387"></Icon> Lagledare
+                <Icon size={22} name="star" color="#EDE387"></Icon> Lagledare
               </Text>
               {activeTeam.leaders.map((leader) => (
                 <View style={styles.leaderText} key={leader._id}>
@@ -101,7 +107,7 @@ export default function ManageTeam({ navigation }) {
                     <View style={styles.iconText}>
                       {leader._id == loggedInUser.id ? null : (
                         <Icon
-                          size={18}
+                          size={22}
                           name="star"
                           color="#EDE387"
                           onPress={() =>
@@ -116,7 +122,7 @@ export default function ManageTeam({ navigation }) {
                       )}
                       {leader._id == loggedInUser.id ? null : (
                         <Icon
-                          size={18}
+                          size={22}
                           name="delete"
                           color="grey"
                           onPress={() => okDeleteUser(leader, true)}
@@ -127,7 +133,7 @@ export default function ManageTeam({ navigation }) {
                 </View>
               ))}
               <Text style={styles.orangeTextPlayer}>
-                <Icon size={14} name="staro" color="#EDE387"></Icon> Spelare
+                <Icon size={22} name="staro" color="#EDE387"></Icon> Spelare
               </Text>
               {activeTeam.players.map((player) => (
                 <View style={styles.playerText} key={player._id}>
@@ -137,7 +143,7 @@ export default function ManageTeam({ navigation }) {
                   {isLeader && (
                     <View style={styles.iconText}>
                       <Icon
-                        size={18}
+                        size={22}
                         name="staro"
                         color="#EDE387"
                         onPress={() =>
@@ -150,7 +156,7 @@ export default function ManageTeam({ navigation }) {
                         }
                       ></Icon>
                       <Icon
-                        size={18}
+                        size={22}
                         name="delete"
                         color="grey"
                         onPress={() => okDeleteUser(player, false)}
@@ -184,7 +190,7 @@ const styles = StyleSheet.create({
   topText: {
     fontFamily: "Kodchasan_700Bold",
     color: "#CFCFCF",
-    fontSize: 12,
+    fontSize: 16,
   },
   topMainContainer: {
     width: "100%",
@@ -202,12 +208,14 @@ const styles = StyleSheet.create({
     color: "#F18873",
     fontFamily: "Kodchasan_700Bold",
     marginBottom: 4,
+    fontSize: 16,
   },
   orangeTextPlayer: {
     color: "#F18873",
     fontFamily: "Kodchasan_700Bold",
     marginTop: 24,
     marginBottom: 4,
+    fontSize: 16,
   },
   dataText: {
     color: "#DEDEDE",
@@ -247,6 +255,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "flex-end",
     marginTop: 3,
+    fontSize: 14,
   },
   playerText: {
     flexDirection: "row",
@@ -254,6 +263,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "flex-end",
     marginTop: 3,
+    fontSize: 14,
   },
   iconText: {
     flexDirection: "row",
