@@ -14,7 +14,7 @@ export default function ManageTeamNoTeam({ navigation }) {
           för ett nytt lag.
         </Text>
       </DarkContainer>
-      <LightContainer>
+      <LightContainer extraStyle={{ flex: 1, justifyContent: "center" }}>
         <View style={styles.container}>
           <View style={styles.childContainer}>
             <Button onPress={() => navigation.navigate("RegisterTeam")}>
@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
     width: "70%",
     alignItems: "center",
     justifyContent: "space-between",
-    flex: 1,
   },
   childContainer: {
     alignItems: "center",

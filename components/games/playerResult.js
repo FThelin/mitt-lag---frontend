@@ -117,27 +117,22 @@ export default function PlayerResult(props) {
               )
             }
           >
-            <View style={styles.controls}>
-              <Icon name="trash-can" size={20} color="#787878" />
-              <Text style={styles.controlTextDelete}>Ta bort</Text>
-            </View>
+            <Text style={styles.controlTextDelete}>Ta bort</Text>
           </Button>
         ) : (
           <View
-            style={{ flexDirection: "row", justifyContent: "space-evenly" }}
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+            }}
           >
             <Button onPress={() => showDialog()}>
-              <View style={styles.controls}>
-                <Icon name="plus-circle-outline" size={20} color="#787878" />
-                <Text style={styles.controlText}>Lägg till...</Text>
-              </View>
+              <Text style={styles.controlText}>Lägg till...</Text>
             </Button>
+
             {playerResults.length > 0 && (
               <Button onPress={() => showDialogDelete()}>
-                <View style={styles.controls}>
-                  <Icon name="trash-can" size={20} color="#787878" />
-                  <Text style={styles.controlTextDelete}>Ta bort</Text>
-                </View>
+                <Text style={styles.controlTextDelete}>Ta bort</Text>
               </Button>
             )}
           </View>
