@@ -39,6 +39,7 @@ export default function searchTeam({ navigation }) {
   const searchResults = useSelector((state) => state.team.searchResults);
   const isLoading = useSelector((state) => state.team.isLoading);
   const loggedInUser = useSelector((state) => state.auth.loggedInUser);
+  const activeTeam = useSelector((state) => state.team.activeTeam);
 
   //Text inputs
   const [inputValues, setInputValues] = useState({
@@ -103,50 +104,53 @@ export default function searchTeam({ navigation }) {
           <Text style={styles.resultText}>Resultat:</Text>
           <Divider style={styles.divider} />
           {isLoading && <ActivityIndicator size="small" color="#ffffff" />}
-          {searchResults.map((result) => (
-            <View key={result._id} style={styles.result}>
-              <View style={{ width: "70%" }}>
-                <Text
-                  style={{
-                    color: "#070707",
-                    fontFamily: "Kodchasan_700Bold",
-                    fontSize: 18,
-                  }}
-                >
-                  {result.name}
-                </Text>
-                <View style={{ flexDirection: "row" }}>
-                  <Text
-                    style={{
-                      color: "#4A4A4A",
-                      fontFamily: "Kodchasan_300Light",
+          {searchResults.map(
+            (result) =>
+              activeTeam._id != result._id && (
+                <View key={result._id} style={styles.result}>
+                  <View style={{ width: "70%" }}>
+                    <Text
+                      style={{
+                        color: "#070707",
+                        fontFamily: "Kodchasan_700Bold",
+                        fontSize: 18,
+                      }}
+                    >
+                      {result.name}
+                    </Text>
+                    <View style={{ flexDirection: "row" }}>
+                      <Text
+                        style={{
+                          color: "#4A4A4A",
+                          fontFamily: "Kodchasan_300Light",
+                        }}
+                      >
+                        {result.city + "    "}
+                      </Text>
+                      <Text
+                        style={{
+                          color: "#4A4A4A",
+                          fontFamily: "Kodchasan_300Light",
+                        }}
+                      >
+                        {result.sport}
+                      </Text>
+                    </View>
+                  </View>
+                  <Button
+                    labelStyle={{
+                      fontFamily: "Kodchasan_700Bold",
+                      color: "#070707",
                     }}
+                    style={styles.button}
+                    mode="contained"
+                    onPress={() => apply(result._id, result.name)}
                   >
-                    {result.city + "    "}
-                  </Text>
-                  <Text
-                    style={{
-                      color: "#4A4A4A",
-                      fontFamily: "Kodchasan_300Light",
-                    }}
-                  >
-                    {result.sport}
-                  </Text>
+                    Ansök
+                  </Button>
                 </View>
-              </View>
-              <Button
-                labelStyle={{
-                  fontFamily: "Kodchasan_700Bold",
-                  color: "#070707",
-                }}
-                style={styles.button}
-                mode="contained"
-                onPress={() => apply(result._id, result.name)}
-              >
-                Ansök
-              </Button>
-            </View>
-          ))}
+              )
+          )}
         </View>
         <Portal>
           <Modal
