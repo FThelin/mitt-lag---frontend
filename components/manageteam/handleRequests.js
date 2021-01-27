@@ -8,10 +8,12 @@ import BackButton from "../buttons/backButton";
 import { acceptRequest, deleteRequest } from "../../features/team/teamSlice";
 
 export default function HandleRequests({ navigation }) {
+  // Redux
+  const dispatch = useDispatch();
   const activeTeam = useSelector((state) => state.team.activeTeam);
   const isLoading = useSelector((state) => state.team.isLoading);
-  const dispatch = useDispatch();
 
+  // Trim date string
   const trimDate = (date) => {
     return date.slice(0, 10);
   };

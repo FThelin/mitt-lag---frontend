@@ -9,13 +9,15 @@ import LinkButton from "../buttons/linkButton";
 import { updateLoggedInUserActiveTeam } from "../../features/auth/authSlice";
 
 export default function ChangeActiveTeam({ navigation }) {
+  // Internal state
   const [teamArr, setTeamArr] = useState([]);
 
+  // Redux
   const loggedInUser = useSelector((state) => state.auth.loggedInUser);
   const activeTeam = useSelector((state) => state.team.activeTeam);
-
   const dispatch = useDispatch();
 
+  // Get user teams on mount
   useEffect(() => {
     getUserTeamsFunction();
   }, []);
@@ -25,6 +27,7 @@ export default function ChangeActiveTeam({ navigation }) {
     setTeamArr(res.payload);
   };
 
+  // Change active team API
   const changeTeam = async (data) => {
     await dispatch(changeActiveTeam(data));
     await dispatch(updateLoggedInUserActiveTeam(data.teamId));

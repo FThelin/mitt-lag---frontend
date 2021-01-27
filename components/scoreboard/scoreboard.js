@@ -20,10 +20,10 @@ export default function Scoreboard() {
   // Sorted and trimmed result list
   const [scores, setScores] = useState([]);
 
-  //RadioButton value for picked season
+  // RadioButton value for picked season
   const [seasonValue, setSeasonValue] = useState("");
 
-  //Redux
+  // Redux
   const loggedInUser = useSelector((state) => state.auth.loggedInUser);
   const navigationIndex = useSelector(
     (state) => state.navigation.navigationIndex
@@ -35,11 +35,11 @@ export default function Scoreboard() {
   );
   const dispatch = useDispatch();
 
-  //Dialog
+  // Dialog
   const [visible, setVisible] = useState(false);
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
-
+  // UseEffect getGames and season
   useEffect(() => {
     if (navigationIndex === 3) {
       fetchAllGames();
@@ -50,7 +50,7 @@ export default function Scoreboard() {
     getSeasonGames();
   }, [games, seasonValue, activeTeam]);
 
-  // Get all games for the active team
+  // Get all games for the active team API
   const fetchAllGames = async () => {
     if (activeTeam) {
       const res = await dispatch(getPlayerResultsTeam(activeTeam._id));
@@ -62,7 +62,7 @@ export default function Scoreboard() {
     }
   };
 
-  //Get all unique seasons
+  // Get all unique seasons
   const getSeasons = async (allGames) => {
     let seasonArr = [];
     for (const s of allGames) {
@@ -97,7 +97,7 @@ export default function Scoreboard() {
     const sg = games.filter((game) => game.season === seasonValue);
     calculateResults(sg);
   };
-
+  // Return scoreboard array
   const calculateResults = (games) => {
     let playerArr = [];
     for (const player of games) {
@@ -108,6 +108,7 @@ export default function Scoreboard() {
     setSeasonResults(playerArr);
   };
 
+  // Find unique players and add scores
   useEffect(() => {
     if (seasonResults) {
       let properties = ["goals", "assists", "penalties", "games", "score"];

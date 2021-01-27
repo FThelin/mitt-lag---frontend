@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { deletePlayerResult } from "../../features/playerResult/playerResultSlice";
 
 export default function DeletePlayerResult(props) {
+  // Props
   const {
     visible,
     hideDialog,
@@ -21,7 +22,7 @@ export default function DeletePlayerResult(props) {
     opponent,
     gameId,
   } = props;
-
+  // Redux
   const dispatch = useDispatch();
 
   return (

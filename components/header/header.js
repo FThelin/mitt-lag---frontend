@@ -7,11 +7,11 @@ import OutlinedButton from "../buttons/outlinedButton";
 import { logoutUser } from "../../features/auth/authSlice";
 
 export default function Header() {
-  //Redux
+  // Redux
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.auth.isLoading);
 
-  //Logout
+  // Logout API
   const logOut = async () => {
     const response = await dispatch(logoutUser());
     const user = await response.payload;

@@ -18,45 +18,47 @@ import BackButton from "../buttons/backButton";
 import { setNavigationIndex } from "../../features/navigaton/navigationSlice";
 
 export default function searchTeam({ navigation }) {
-  //Internal state
+  // Internal state
   const [chosenTeam, setChosenTeam] = useState({
     id: "",
     name: "",
   });
 
+  // Show request modal
   const apply = (id, name) => {
     showModal();
     setChosenTeam({ id, name });
   };
 
-  //Modal
+  // Modal
   const [visible, setVisible] = useState(false);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
 
-  //Redux
+  // Redux
   const dispatch = useDispatch();
   const searchResults = useSelector((state) => state.team.searchResults);
   const isLoading = useSelector((state) => state.team.isLoading);
   const loggedInUser = useSelector((state) => state.auth.loggedInUser);
 
-  //Text inputs
+  // Text inputs
   const [inputValues, setInputValues] = useState({
     query: "",
     message: "Hej, jag vill gärna gå med i erat lag",
   });
 
+  // Input values
   const inputValue = (input, anchor) => {
     setInputValues({ ...inputValues, [anchor]: input });
   };
 
-  //Replace blank space in search query
+  // Replace blank space in search query
   const replaceSpace = () => {
     const replaced = inputValues.query.replace(/\s/g, "&");
     return replaced;
   };
 
-  //Send request
+  // Send request
   const sendRequest = async () => {
     const response = await dispatch(
       createRequest({

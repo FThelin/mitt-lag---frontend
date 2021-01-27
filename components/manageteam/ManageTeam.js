@@ -16,6 +16,7 @@ import {
 import LinkButton from "../buttons/linkButton";
 
 export default function ManageTeam({ navigation }) {
+  // Redux
   const dispatch = useDispatch();
   const activeTeam = useSelector((state) => state.team.activeTeam);
   const isLeader = useSelector((state) => state.auth.isLeader);
@@ -24,12 +25,14 @@ export default function ManageTeam({ navigation }) {
     (state) => state.navigation.navigationIndex
   );
 
+  // Get active team data on tab select
   useEffect(() => {
     if (navigationIndex === 1) {
       dispatch(getTeam(activeTeam._id));
     }
   }, [navigationIndex]);
 
+  // Show "are you sure" message when deleting player
   const okDeleteUser = (userInput, leaderBoolean) => {
     Alert.alert(
       "Redigera lag",

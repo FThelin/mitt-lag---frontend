@@ -15,24 +15,26 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import PlayerResult from "./playerResult";
 
 export default function Games({ navigation }) {
+  // State for season and seasonGames
   const [seasons, setSeasons] = useState([]);
   const [seasonGames, setSeasonGames] = useState([]);
 
-  //Redux
+  // Redux
+  const dispatch = useDispatch();
   const isLeader = useSelector((state) => state.auth.isLeader);
   const activeTeam = useSelector((state) => state.team.activeTeam);
   const games = useSelector((state) => state.game.games);
   const updateGames = useSelector((state) => state.game.updateGames);
-  const dispatch = useDispatch();
 
-  //Dialog
+  // Dialog state
   const [visible, setVisible] = useState(false);
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
 
-  //RadioButtons
+  // RadioButtons state
   const [seasonValue, setSeasonValue] = useState("");
 
+  // UseEffects for state and fetchAllGames
   useEffect(() => {
     setSeasonValue("");
     fetchAllGames();
@@ -42,6 +44,7 @@ export default function Games({ navigation }) {
     getSeasonGames();
   }, [games, seasonValue, activeTeam]);
 
+  // Get games API
   const fetchAllGames = async () => {
     if (activeTeam) {
       const res = await dispatch(getGames(activeTeam._id));
@@ -51,6 +54,7 @@ export default function Games({ navigation }) {
     }
   };
 
+  // Set state season
   const getSeasons = async (allGames) => {
     let seasonArr = [];
     for (const s of allGames) {
@@ -61,6 +65,7 @@ export default function Games({ navigation }) {
     setDefaultSeasonFunction(filteredArr);
   };
 
+  // Set default season year
   const setDefaultSeasonFunction = async (filteredArr) => {
     if (filteredArr.length != 0) {
       let currentSeason = 0;
@@ -79,11 +84,13 @@ export default function Games({ navigation }) {
     }
   };
 
+  // Get seasons game API
   const getSeasonGames = () => {
     const sg = games.filter((game) => game.season === seasonValue);
     setSeasonGames(sg);
   };
 
+  // Alert delete player
   const okTeamDelete = (game) => {
     Alert.alert("Ta bort match", "Vill du ta bort matchen", [
       {

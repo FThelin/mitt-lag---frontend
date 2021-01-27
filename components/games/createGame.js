@@ -11,12 +11,16 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import ThrowMessage from "../throwMessage";
 
 export default function CreateGame({ navigation, route }) {
-  //RadioButtons
+  // RadioButtons
   const [homeValue, setHomeValue] = useState(true);
   const edit = route.params.edit;
-
+  // Redux
+  const dispatch = useDispatch();
   const activeTeam = useSelector((state) => state.team.activeTeam);
+  const isLoading = useSelector((state) => state.game.isLoading);
+  const errorMessage = useSelector((state) => state.game.errorMessage);
 
+  // State for inputs
   const [inputValues, setInputValues] = useState({
     opponent: "",
     date: "",
@@ -25,16 +29,12 @@ export default function CreateGame({ navigation, route }) {
     goals: 0,
     opponentGoals: 0,
   });
-
+  // Set state for input
   const inputValue = (input, anchor) => {
     setInputValues({ ...inputValues, [anchor]: input });
   };
 
-  const dispatch = useDispatch();
-  const isLoading = useSelector((state) => state.game.isLoading);
-  const errorMessage = useSelector((state) => state.game.errorMessage);
-
-  //Get current year
+  // Get current year
   useEffect(() => {
     const today = new Date();
     const currentYear = today.getFullYear();
@@ -54,7 +54,7 @@ export default function CreateGame({ navigation, route }) {
       });
     }
   }, []);
-
+  // UseEffect on update to get route params
   useEffect(() => {
     const {
       date,
@@ -80,6 +80,7 @@ export default function CreateGame({ navigation, route }) {
     }
   }, []);
 
+  // Add and subtract year to season
   const incrementSeason = () => {
     setInputValues({
       ...inputValues,
@@ -95,7 +96,7 @@ export default function CreateGame({ navigation, route }) {
     });
   };
 
-  //Create Game
+  // Create Game API
   const newGame = async () => {
     const s1 = inputValues.seasonStart.toString();
     const s2 = inputValues.seasonEnd.toString();
@@ -117,7 +118,8 @@ export default function CreateGame({ navigation, route }) {
       navigation.navigate("Games");
     }
   };
-  //Update Game
+
+  // Update Game API
   const updateGameFunction = async () => {
     const s1 = inputValues.seasonStart.toString();
     const s2 = inputValues.seasonEnd.toString();

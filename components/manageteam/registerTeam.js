@@ -10,6 +10,7 @@ import { createTeam, getTeam } from "../../features/team/teamSlice";
 import ThrowMessage from "../throwMessage";
 
 export default function RegisterTeam({ navigation }) {
+  // Input values
   const [inputValues, setInputValues] = useState({
     name: "",
     city: "",
@@ -20,6 +21,7 @@ export default function RegisterTeam({ navigation }) {
     setInputValues({ ...inputValues, [anchor]: input });
   };
 
+  // Redux
   const dispatch = useDispatch();
   const errorMessage = useSelector((state) => state.team.errorMessage);
   const isLoading = useSelector((state) => state.team.isLoading);

@@ -10,13 +10,14 @@ import { loginUser } from "../../features/auth/authSlice";
 import ThrowMessage from "../throwMessage";
 
 export default function LoginDetails({ navigation, route }) {
+  // Auto fill user email if coming from register
   useEffect(() => {
     if (route.params) {
       setInputValues({ email: route.params.email });
     }
   }, []);
 
-  //Input fields
+  // Input fields
   const [inputValues, setInputValues] = useState({
     email: "",
     password: "",
@@ -25,12 +26,12 @@ export default function LoginDetails({ navigation, route }) {
     setInputValues({ ...inputValues, [anchor]: input });
   };
 
-  //Redux
+  // Redux
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.auth.isLoading);
   const errorMessage = useSelector((state) => state.auth.errorMessage);
 
-  //Login
+  // Login API
   const logIn = async () => {
     const response = await dispatch(loginUser(inputValues));
     const user = await response.payload;

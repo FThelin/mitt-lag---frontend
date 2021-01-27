@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addPlayerResult } from "../../features/playerResult/playerResultSlice";
 
 export default function AddPlayerResult(props) {
+  // Props
   const {
     visible,
     hideDialog,
@@ -16,12 +17,13 @@ export default function AddPlayerResult(props) {
     gameId,
   } = props;
 
-  //Redux
+  // Redux
+  const dispatch = useDispatch();
   const loggedInUser = useSelector((state) => state.auth.loggedInUser);
   const isLeader = useSelector((state) => state.auth.isLeader);
   const activeTeam = useSelector((state) => state.team.activeTeam);
-  const dispatch = useDispatch();
 
+  // State resultData
   const [resultData, setResultData] = useState({
     gameId,
     userId: loggedInUser.id,
@@ -30,6 +32,7 @@ export default function AddPlayerResult(props) {
     penalties: 0,
   });
 
+  // Returns array of num list 1-20
   const itemsList = () => {
     let items = [];
 
@@ -43,6 +46,7 @@ export default function AddPlayerResult(props) {
     return items;
   };
 
+  // Returns array with name of members of team
   const playerList = () => {
     let items = [];
     let members = activeTeam.leaders.concat(activeTeam.players);
@@ -57,7 +61,7 @@ export default function AddPlayerResult(props) {
     return items;
   };
 
-  //Add player result
+  // Add player result
   const createPlayerResult = async (data) => {
     const res = await dispatch(addPlayerResult(data));
     if (res) {

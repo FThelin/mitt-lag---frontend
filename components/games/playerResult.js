@@ -9,12 +9,14 @@ import DeletePlayerResult from "./deletePlayerResult";
 import { deletePlayerResult } from "../../features/playerResult/playerResultSlice";
 
 export default function PlayerResult(props) {
+  // Props
   const { gameId, opponent, gameDate } = props;
+  // State playerResult/Id edit
   const [playerResults, setPlayerResults] = useState([]);
   const [playerResultId, setPlayerResultId] = useState("");
   const [inEditMode, setInEditMode] = useState(false);
 
-  //Dialog
+  // Dialog state
   const [visible, setVisible] = useState(false);
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
@@ -22,7 +24,7 @@ export default function PlayerResult(props) {
   const showDialogDelete = () => setVisibleDelete(true);
   const hideDialogDelete = () => setVisibleDelete(false);
 
-  //Redux
+  // Redux states
   const dispatch = useDispatch();
   const isLeader = useSelector((state) => state.auth.isLeader);
   const isLoading = useSelector((state) => state.playerResult.isLoading);
@@ -31,19 +33,19 @@ export default function PlayerResult(props) {
     (state) => state.playerResult.updatePlayerResults
   );
 
-  //Fetch player results
+  // Fetch player results API
   const fetchResults = async () => {
     const res = await dispatch(getPlayerResults(gameId));
     if (res) {
       setPlayerResults(res.payload);
     }
   };
-
+  // UseEffect results
   useEffect(() => {
     fetchResults();
   }, [updatePlayerResults]);
 
-  //In Add or Edit mode
+  // In Add or Edit mode
   useEffect(() => {
     const player = playerResults.find(
       (result) => result.playerId === loggedInUser.id

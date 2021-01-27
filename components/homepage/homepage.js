@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setNavigationIndex } from "../../features/navigaton/navigationSlice";
 
 export default function Homepage() {
+  // Redux
   const dispatch = useDispatch();
   const loggedInUser = useSelector((state) => state.auth.loggedInUser);
   const isLeader = useSelector((state) => state.auth.isLeader);

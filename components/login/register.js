@@ -10,7 +10,7 @@ import BackButton from "../buttons/backButton";
 import { registerUser } from "../../features/auth/authSlice";
 
 export default function LoginDetails({ navigation }) {
-  //Input fields
+  // Input fields
   const [inputValues, setInputValues] = useState({
     firstname: "",
     lastname: "",
@@ -29,12 +29,12 @@ export default function LoginDetails({ navigation }) {
     return inputValues.password.length < 6;
   };
 
-  //Redux
+  // Redux
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.auth.isLoading);
   const errorMessage = useSelector((state) => state.auth.errorMessage);
 
-  //Register
+  // Register API and alert
   const register = async () => {
     const response = await dispatch(registerUser(inputValues));
     const data = await response.payload;

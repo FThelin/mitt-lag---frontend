@@ -13,12 +13,14 @@ import { setLeader } from "../features/auth/authSlice";
 const Stack = createStackNavigator();
 
 export default function Landingpage() {
+  //Redux
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const loggedInUser = useSelector((state) => state.auth.loggedInUser);
   const setActiveTeam = useSelector((state) => state.team.setActiveTeam);
   const activeTeam = useSelector((state) => state.team.activeTeam);
 
+  // Get active team data if user has one
   useEffect(() => {
     if (loggedInUser.hasOwnProperty("activeTeam")) {
       if (setActiveTeam) {
@@ -27,6 +29,7 @@ export default function Landingpage() {
     }
   }, [loggedInUser, setActiveTeam]);
 
+  // Check if user is leader for active team
   useEffect(() => {
     if (activeTeam) {
       for (const leader of activeTeam.leaders) {
