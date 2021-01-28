@@ -1,25 +1,29 @@
 import React from "react";
-import { StyleSheet, Image, Text, SafeAreaView } from "react-native";
+import { StyleSheet, Image, Text, SafeAreaView, View } from "react-native";
 
 export default function DarkContainer(props) {
   return (
     <SafeAreaView style={styles.container}>
-      <Image
-        style={props.bigLogo ? styles.bigLogo : styles.tinyLogo}
-        source={require("../assets/logo.png")}
-      />
-      <Text style={styles.text}>{props.text}</Text>
-      {props.children}
+      <View style={styles.innerContainer}>
+        <Image
+          style={props.bigLogo ? styles.bigLogo : styles.tinyLogo}
+          source={require("../assets/logo.png")}
+        />
+        <Text style={styles.text}>{props.text}</Text>
+        {props.children}
+      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
     backgroundColor: "#1D182E",
+  },
+  innerContainer: {
     alignItems: "center",
     justifyContent: "center",
+    padding: 10,
   },
   tinyLogo: {
     height: 80,

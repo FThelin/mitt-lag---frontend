@@ -27,7 +27,7 @@ const Navigation = () => {
     {
       key: "games",
       title: "Matcher",
-      icon: "emoticon-angry",
+      icon: "gamepad-variant-outline",
     },
     { key: "scoreboard", title: "Poängliga", icon: "format-list-numbered" },
     { key: "leagues", title: "Mina ligor", icon: "medal" },

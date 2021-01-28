@@ -59,7 +59,7 @@ export default function LoginDetails({ navigation }) {
       <DarkContainer text="Registrera dig">
         {isLoading && <ActivityIndicator size="small" color="#ffffff" />}
       </DarkContainer>
-      <LightContainer extraStyle={{ justifyContent: "center", flex: 1 }}>
+      <LightContainer extraStyle={{ flex: 1 }}>
         <View style={styles.container}>
           <View>
             <Text style={styles.text}>Förnamn</Text>
@@ -152,9 +152,9 @@ export default function LoginDetails({ navigation }) {
             <OutlinedButton buttonText="SKAPA KONTO" click={() => register()} />
             <BackButton click={() => navigation.goBack()}> </BackButton>
           </View>
-        </View>
 
-        {!!errorMessage && <ThrowMessage message={errorMessage} />}
+          {!!errorMessage && <ThrowMessage message={errorMessage} />}
+        </View>
       </LightContainer>
     </>
   );
@@ -162,6 +162,7 @@ export default function LoginDetails({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 12,
     width: "100%",
     height: 400,
     justifyContent: "space-between",

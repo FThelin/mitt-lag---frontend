@@ -56,7 +56,7 @@ export default function Homepage() {
                 click={() => dispatch(setNavigationIndex(1))}
               />
               <CircleIcon
-                icon="emoticon-angry"
+                icon="gamepad-variant-outline"
                 buttonText="Matcher"
                 click={() => dispatch(setNavigationIndex(2))}
               />
