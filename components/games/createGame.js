@@ -102,6 +102,15 @@ export default function CreateGame({ navigation, route }) {
     const s2 = inputValues.seasonEnd.toString();
     const season = s1 + "-" + s2;
 
+    if (inputValues.goals.length === 0) {
+      setInputValues({ ...inputValues, goals: (inputValues.goals = 0) });
+    }
+    if (inputValues.opponentGoals.length === 0) {
+      setInputValues({
+        ...inputValues,
+        opponentGoals: (inputValues.opponentGoals = 0),
+      });
+    }
     const game = {
       date: inputValues.date,
       opponent: inputValues.opponent,
@@ -148,10 +157,11 @@ export default function CreateGame({ navigation, route }) {
         text={edit ? "Uppdatera match" : "Lägg till match"}
       ></DarkContainer>
       <LightContainer extraStyle={{ flex: 1 }}>
-        <Text style={styles.teamText}>Mitt lag - Mål</Text>
+        <Text style={styles.teamText}>Mitt lag</Text>
         <View style={styles.myTeamContainer}>
           <Text style={styles.myTeamText}>{activeTeam.name}</Text>
           <TextInput
+            label={"Mål"}
             keyboardType="numeric"
             theme={{
               colors: {
@@ -167,7 +177,7 @@ export default function CreateGame({ navigation, route }) {
             onChangeText={(e) => inputValue(e, "goals")}
           />
         </View>
-        <Text style={styles.teamText}>Motståndarlag - Mål</Text>
+        <Text style={styles.teamText}>Motståndarlag</Text>
         <View style={styles.myTeamContainer}>
           <TextInput
             theme={{
@@ -184,6 +194,7 @@ export default function CreateGame({ navigation, route }) {
             onChangeText={(e) => inputValue(e, "opponent")}
           />
           <TextInput
+            label={"Mål"}
             keyboardType="numeric"
             theme={{
               colors: {
